@@ -35,7 +35,7 @@ const answer = computed(() => answerSummary(props.question));
     >
         <div class="summary-head">
             <span class="summary-title" :class="{ empty: !title }">
-                <b>{{ index }}.</b> {{ title || $t("question_editor.outline.empty") }}
+                <b>{{ index }}.</b>{{ title || $t("question_editor.outline.empty") }}
             </span>
             <span class="summary-tag">{{ t(`create_QS.type.${question.type}`) }}</span>
             <span class="summary-tag">
@@ -55,70 +55,88 @@ const answer = computed(() => answerSummary(props.question));
 
 <style scoped>
 .question-summary {
-    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 20px;
     cursor: pointer;
-    color: var(--c-text);
-    background-color: var(--c-surface);
-    border: 1px solid var(--c-border);
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    color: var(--ed-text);
+    background-color: var(--ed-card);
+    border: 1px solid var(--ed-border);
+    border-radius: 16px;
     transition:
         border-color 0.15s ease,
         box-shadow 0.15s ease;
 }
 .question-summary:hover {
-    border-color: var(--main-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    border-color: var(--ed-primary);
+    box-shadow: var(--ed-shadow);
 }
 .question-summary:focus-visible {
     outline: 2px solid var(--c-focus-ring);
     outline-offset: 2px;
 }
 .question-summary.invalid {
-    border-color: var(--c-danger);
+    border-color: var(--ed-danger);
 }
 .summary-head {
     display: flex;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
 }
 .summary-title {
     flex: 1;
     min-width: 0;
-    font-size: 15px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
     word-break: break-word;
+}
+.summary-title b {
+    margin-right: 6px;
+    font-weight: 700;
+    color: var(--ed-muted);
 }
 .summary-title.empty {
     font-style: italic;
-    color: var(--c-text-muted);
+    font-weight: 400;
+    color: var(--ed-muted);
 }
 .summary-tag {
     flex: none;
-    padding: 1px 8px;
+    padding: 3px 8px;
     font-size: 12px;
-    color: var(--c-text-muted);
-    background-color: var(--c-surface-raised);
-    border: 1px solid var(--c-border);
+    font-weight: 500;
+    line-height: 17px;
+    color: var(--ed-muted);
+    background-color: var(--ed-surface);
+    border: 1px solid var(--ed-border);
     border-radius: 6px;
     white-space: nowrap;
 }
 .summary-answer,
 .summary-issues {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 6px;
-    margin-top: 6px;
     font-size: 13px;
+    font-weight: 500;
+    line-height: 19px;
     word-break: break-word;
 }
 .summary-answer {
-    color: var(--c-success-text);
+    color: var(--ed-success);
 }
 .summary-issues {
-    color: var(--c-danger-text);
+    color: var(--ed-danger);
+}
+.summary-answer i,
+.summary-issues i {
+    flex: none;
+    font-size: 16px;
 }
 </style>

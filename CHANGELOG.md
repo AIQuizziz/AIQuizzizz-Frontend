@@ -6,6 +6,16 @@ Mọi thay đổi đáng chú ý của dự án được ghi lại trong file n�
 
 ## [Unreleased] - 2026-10-02
 
+### Changed — Trang tạo / sửa bộ câu hỏi giống y bản vẽ phương án 11
+- **Thanh tiêu đề** (`QuestionEditorTopBar`, dính khi cuộn): nút quay lại, tên trang + dòng phụ, công tắc **Câu hỏi | Xem trước**, nút **Lưu bộ câu hỏi**.
+- **Thẻ thông tin bộ** (`QuestionSetInfoCard`, dùng chung cho tạo / sửa, thay hai bản mã thẻ trùng lặp): dải màu đầu thẻ, tiêu đề lớn gạch chân, mô tả, thẻ dạng viên thuốc + nút **Thêm thẻ** (gợi ý thẻ có sẵn khi gõ).
+- **Thẻ câu hỏi đang mở** (`EditorQuestionCard`): ô nội dung nền xám gạch chân tím có số câu, nút ảnh / video (mở khung chọn media), ô chọn loại; thân thẻ theo loại: Trắc nghiệm (ô tích vuông, hàng đúng viền xanh), Nối (VẾ TRÁI / VẾ PHẢI, nút liên kết đổi chỗ hai vế), Sắp xếp (số thứ tự, **kéo thả** đổi thứ tự đúng), Trả lời ngắn (đáp án + cách viết hoa / thường được chấp nhận); kéo thả được cả đáp án trắc nghiệm và cặp nối. Chân thẻ: Giải thích (mở / đóng ô giải thích), Điểm, **Nhân bản** (chèn ngay sau, không sao chép ảnh / video), Xoá, menu ⋮ (chế độ Rich text / Markdown). Thanh định dạng Rich text chỉ hiện khi đang gõ.
+- **Mục lục, thẻ thu gọn, thanh công cụ** chỉnh đúng cỡ chữ / bo góc / màu của bản vẽ; thanh công cụ có đủ 5 nút: thêm câu, nhập, tạo bằng AI, thêm ảnh / video cho câu đang mở, thu gọn tất cả.
+- **Xem trước** (`QuestionPreviewCard`): xem như học viên, không lộ đáp án đúng, các mục được xáo trộn.
+- Bảng màu `--ed-*` (`.editor-page`, có giao diện tối) khớp biến màu của Figma. Thẻ ghi nhớ ngôn ngữ vẫn dùng component cũ (bản vẽ không có dạng này).
+- Chưa có (cần backend): nhiều đáp án chấp nhận cho câu Trả lời ngắn và hai công tắc phân biệt hoa thường / bỏ khoảng trắng thừa.
+- `services/QuestionEditorService.ts` + vitest (4 ca), i18n `question_editor.*`.
+
 ### Changed — Trang tạo / sửa bộ câu hỏi: bố cục "phương án 11" (một cột + mục lục câu hỏi bên trái)
 - **Mục lục câu hỏi** cố định bên trái (`QuestionOutline`): số thứ tự, nội dung một dòng, loại · điểm; câu đang soạn tô tím, câu lỗi viền đỏ kèm lý do + huy hiệu "N lỗi" (bấm để nhảy tới câu lỗi đầu tiên); kéo thả để đổi thứ tự; nút thêm câu. Câu còn trống hoàn toàn chưa tính là lỗi.
 - **Cột soạn ở giữa** (`QuestionEditorLayout`): thẻ thông tin bộ + danh sách câu hỏi, mỗi lúc chỉ mở **một** câu, các câu khác thu gọn (`QuestionSummaryCard`: nội dung, loại, điểm, đáp án đúng hoặc lỗi) -> trang nhẹ hơn nhiều với bộ vài trăm câu (755 phần tử DOM với 25 câu). Bấm câu trong mục lục / thẻ thu gọn: mở câu đó và cuộn tới.

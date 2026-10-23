@@ -5,9 +5,7 @@ import {
     validateQuestions,
 } from "@/services/QuestionValidator";
 import ApiQuestionSet from "@/api/ApiQuestionSet";
-import ApiTag from "@/api/ApiTag";
 import type { RequestQuestion } from "@/models/request/question";
-import type Tag from "@/models/response/tag/tag";
 
 import { ref, reactive, onMounted, onUnmounted, nextTick, watch } from "vue";
 import { useI18n } from "vue-i18n";
@@ -17,10 +15,11 @@ import { fillEmptySetInfo, type ImportedSetInfo } from "@/services/QuestionJsonS
 
 import { useRouter, onBeforeRouteLeave } from "vue-router";
 
-import Input from "@/shared/components/Common/Input.vue";
-import TextArea from "@/shared/components/Common/TextArea.vue";
 
 import QuestionEditorLayout from "@/shared/components/Questions/QuestionEditorLayout.vue";
+import QuestionEditorTopBar from "@/shared/components/Questions/QuestionEditorTopBar.vue";
+import QuestionSetInfoCard from "@/shared/components/Questions/QuestionSetInfoCard.vue";
+import { duplicateQuestion } from "@/services/QuestionEditorService";
 
 interface FormState {
     name: string;
@@ -87,79 +86,6 @@ const rules = {
 };
 
 
-//#region tag
-//tag
-const tagContent = ref("");
-const addTag = () => {
-    if (formState.tags.length >= 5) {
-        message.warning(t("message.maximum_tag", { tag: 5 }));
-        return;
-    }
-
-    if (formState.tags.includes(tagContent.value.trim())) {
-        message.warning(t("message.duplicate_tag"));
-        return;
-    }
-    if (tagContent.value && tagContent.value.trim().length <= 50) {
-        formState.tags.push(tagContent.value);
-        tagContent.value = "";
-    } else {
-        message.warning(t("message.invalid_tag_content"));
-    }
-};
-
-const removeTag = (index: number) => {
-    formState.tags.splice(index, 1);
-};
-
-const appendTagContent = (name: string) => {
-    tagContent.value = name;
-    addTag();
-};
-
-const tag_search_data = ref<Tag[]>([]);
-
-/* use this for tracking whether mouse is in search components */
-const searchResultRef = ref<HTMLElement | null>(null);
-
-/* use this for temporary when mouse leave */
-const lastSearchResult = ref<Tag[]>([]);
-function handleMouseClickOutside(event: MouseEvent) {
-    if (!searchTagPageParams.name || !searchResultRef.value?.contains(event.target as Node)) {
-        tag_search_data.value = [];
-    } else {
-        tag_search_data.value = [...lastSearchResult.value];
-    }
-}
-
-const searchTagPageParams = reactive({
-    name: tagContent.value,
-    pageSize: 10,
-});
-
-watch(
-    () => tagContent.value,
-    () => {
-        searchTagPageParams.name = tagContent.value;
-        getSearchTagData();
-    },
-);
-
-const getSearchTagData = async () => {
-    if (tagContent.value.trim().length >= 50) {
-        return;
-    }
-    const result = await ApiTag.GetAllByLimit(searchTagPageParams);
-    if (result.data.success) {
-        tag_search_data.value = result.data.data;
-        lastSearchResult.value = result.data.data;
-        if (tagContent.value.trim().length === 0) {
-            tag_search_data.value = [];
-        }
-    }
-};
-
-//#endregion
 
 //#region logic edit question
 import ChangeQuestionType from "@/services/ChangeQuestionType";
@@ -194,6 +120,20 @@ const onAddQuestion = async () => {
     formState.questions = [...formState.questions, createQuestionTemplate(formState.questions)];
 
     editorRef.value?.focusQuestion(formState.questions[formState.questions.length - 1].id);
+};
+
+// "Câu hỏi" (soạn) | "Xem trước" (như học viên)
+const viewMode = ref<"edit" | "preview">("edit");
+
+const onDuplicateQuestion = (index: number) => {
+    if (formState.questions.length >= 500) {
+        message.warning(t("message.limit_question", { number: 500 }));
+        return;
+    }
+    const copy = duplicateQuestion(formState.questions[index]);
+    formState.questions = [...formState.questions.slice(0, index + 1), copy, ...formState.questions.slice(index + 1)];
+    message.success(t("question_editor.card.duplicated"));
+    editorRef.value?.focusQuestion(copy.id);
 };
 
 const onRemoveQuestion = (index: number) => {
@@ -373,7 +313,6 @@ const emit = defineEmits(["updateSidebar"]);
 
 onMounted(() => {
     emit("updateSidebar", "library");
-    document.addEventListener("click", handleMouseClickOutside);
     formState.questions.push(createQuestionTemplate(formState.questions));
     // intervalId.value = setInterval(saveDraft, 60_000); //save each 60s
     window.addEventListener("beforeunload", handleBeforeUnload);
@@ -385,27 +324,13 @@ onUnmounted(() => {
 </script>
 <template>
     <div class="page-container editor-page">
-        <div class="title-container">
-            <a-row class="w-100 d-flex align-items-center">
-                <a-col :span="1">
-                    <RouterLink :to="{ name: 'User_Library' }">
-                        <i class="bx bx-chevron-left navigator-back-button"></i>
-                    </RouterLink>
-                </a-col>
-                <a-col class="main-title" :span="18">
-                    <span> {{ $t("create_QS.title") }}</span> <br />
-                    <span>
-                        {{ $t("create_QS.sub_title") }}
-                    </span>
-                </a-col>
-                <a-col :span="5" class="title-actions">
-                    <a-button type="primary" class="main-color-btn" size="large" @click="onFinish">
-                        <i class="bx bx-save"></i>
-                        {{ $t("create_QS.buttons.create") }}
-                    </a-button>
-                </a-col>
-            </a-row>
-        </div>
+        <QuestionEditorTopBar
+            v-model:mode="viewMode"
+            :title="$t('create_QS.title')"
+            :subtitle="$t('create_QS.sub_title')"
+            :save-label="$t('question_editor.topbar.save')"
+            @save="onFinish"
+        />
         <div class="content">
             <a-form layout="vertical" v-model="formState" :rules="rules" ref="formRef">
                 <QuestionEditorLayout
@@ -413,103 +338,19 @@ onUnmounted(() => {
                     v-model:questions="formState.questions"
                     :allow-flashcard="true"
                     @add="onAddQuestion"
+                    :mode="viewMode"
                     @remove="onRemoveQuestion"
+                    @duplicate="onDuplicateQuestion"
                     @change-type="onHandleChangeQuestionType"
                     @import="onOpenImportModal"
                     @generate="openGenerateAIModal"
                 >
                     <template #header>
-                        <div class="content-item quiz-details">
-                            <div class="content-item-title">
-                                <div>
-                                    <span>{{ $t("create_QS.quiz.question_detail_title") }}</span>
-                                    <span>{{ $t("create_QS.quiz.question_detail_sub_title") }}</span>
-                                </div>
-                            </div>
-                            <Input
-                                class="question-input-item"
-                                v-model="formState.name"
-                                :isRequired="true"
-                                :placeholder="t('create_QS.other.title_placeholder')"
-                                :label="t('create_QS.quiz.title')"
-                                :max-length="100"
-                            />
-                            <div class="qd-row">
-                                <TextArea
-                                    class="question-input-item qd-description"
-                                    v-model="formState.description"
-                                    :placeholder="t('create_QS.other.description_placeholder')"
-                                    :max-length="250"
-                                    :label="t('create_QS.quiz.description')"
-                                />
-                                <div class="form-item qd-tags">
-                                    <label>{{ $t("create_QS.quiz.tag") }}</label>
-                                    <div class="tag-container">
-                                        <div
-                                            class="tag-item"
-                                            v-for="(tag, index) in formState.tags"
-                                            :key="index"
-                                        >
-                                            {{ tag }}
-                                            <i class="bx bx-x" @click="removeTag(index)"></i>
-                                        </div>
-                                    </div>
-                                    <div class="tag-inputter">
-                                        <!-- <Input
-                                            v-model="tagContent"
-                                            :placeholder="t('create_QS.other.tag_content_placeholder')"
-                                            :max-length="50"
-                                        >
-                                            <template #icon>
-                                                <i class="bx bx-purchase-tag-alt"></i>
-                                            </template>
-                                        </Input> -->
-                                        <div class="search-bar" ref="searchResultRef">
-                                            <Input
-                                                @input="getSearchTagData"
-                                                v-model="tagContent"
-                                                :placeholder="t('create_QS.other.tag_content_placeholder')"
-                                                :max-length="50"
-                                            >
-                                                <template #icon>
-                                                    <i class="bx bx-purchase-tag-alt"></i>
-                                                </template>
-                                            </Input>
-                                            <div
-                                                v-if="tag_search_data.length > 0"
-                                                :class="['search-result-container']"
-                                            >
-                                                <div class="search-result">
-                                                    <div
-                                                        class="search-result-tag"
-                                                        v-for="tag in tag_search_data"
-                                                    >
-                                                        <div class="result-tag">
-                                                            {{ tag.name }}
-                                                            <div class="result-tag-qs-count">
-                                                                {{ tag.questionSetCount }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="result-item-action">
-                                                            <a-button
-                                                                type="primary"
-                                                                class="main-color-btn"
-                                                                size="small"
-                                                                @click="appendTagContent(tag.name)"
-                                                            >
-                                                                <i class="bx bx-plus"></i>
-                                                            </a-button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <i class="bx bx-plus tag-inputter-button" @click="addTag"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <QuestionSetInfoCard
+                            v-model:name="formState.name"
+                            v-model:description="formState.description"
+                            v-model:tags="formState.tags"
+                        />
                     </template>
                 </QuestionEditorLayout>
             </a-form>

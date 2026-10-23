@@ -387,7 +387,53 @@
         },
         "toolbar": {
             "add": "Add question (Ctrl + Enter)",
-            "label": "Question editing tools"
+            "label": "Question editing tools",
+            "media": "Add image / video to the open question",
+            "collapse": "Collapse all questions"
+        },
+        "topbar": {
+            "questions": "Questions",
+            "preview": "Preview",
+            "back": "Back to library",
+            "save": "Save question set"
+        },
+        "info": {
+            "title_placeholder": "Question set title",
+            "description_placeholder": "Add a description for this question set",
+            "add_tag": "Add tag",
+            "tag_placeholder": "Type a tag and press Enter",
+            "remove_tag": "Remove tag {tag}"
+        },
+        "card": {
+            "add_answer": "Add answer",
+            "add_pair": "Add pair",
+            "add_item": "Add item",
+            "explain": "Explanation",
+            "score": "Points",
+            "duplicate": "Duplicate question",
+            "delete": "Delete question",
+            "more": "More options",
+            "media": "Image / video",
+            "content_mode": "Content mode",
+            "hint_choice": "Tick the box to mark correct answers · several answers can be correct",
+            "hint_matching": "Each row is a correct pair · learners see the right side shuffled",
+            "hint_ordering": "Enter in the CORRECT order · learners see the items shuffled",
+            "left": "Left side",
+            "right": "Right side",
+            "swap": "Swap both sides",
+            "mark_correct": "Mark as correct answer",
+            "remove": "Remove",
+            "accepted_answer": "Accepted answer",
+            "accepted_variants": "Upper / lower case spellings are also accepted",
+            "no_correct": "Select at least one correct answer",
+            "need_two": "At least 2 items are needed",
+            "duplicated": "Question duplicated (image / video is not copied)"
+        },
+        "preview": {
+            "note": "This is a learner-style preview: correct answers are hidden and items are shuffled.",
+            "empty": "(No content yet)",
+            "short_placeholder": "Learners type their answer here",
+            "drop_here": "Drag items to put them in order"
         }
     },
     "update_QS": {

@@ -387,7 +387,53 @@
         },
         "toolbar": {
             "add": "Thêm câu hỏi (Ctrl + Enter)",
-            "label": "Công cụ soạn câu hỏi"
+            "label": "Công cụ soạn câu hỏi",
+            "media": "Thêm ảnh / video cho câu đang mở",
+            "collapse": "Thu gọn tất cả câu hỏi"
+        },
+        "topbar": {
+            "questions": "Câu hỏi",
+            "preview": "Xem trước",
+            "back": "Quay lại thư viện",
+            "save": "Lưu bộ câu hỏi"
+        },
+        "info": {
+            "title_placeholder": "Tiêu đề bộ câu hỏi",
+            "description_placeholder": "Thêm mô tả cho bộ câu hỏi",
+            "add_tag": "Thêm thẻ",
+            "tag_placeholder": "Nhập thẻ rồi nhấn Enter",
+            "remove_tag": "Bỏ thẻ {tag}"
+        },
+        "card": {
+            "add_answer": "Thêm đáp án",
+            "add_pair": "Thêm cặp",
+            "add_item": "Thêm mục",
+            "explain": "Giải thích",
+            "score": "Điểm",
+            "duplicate": "Nhân bản câu hỏi",
+            "delete": "Xoá câu hỏi",
+            "more": "Tuỳ chọn khác",
+            "media": "Ảnh / video",
+            "content_mode": "Chế độ nội dung",
+            "hint_choice": "Tích ô vuông để đánh dấu đáp án đúng · có thể chọn nhiều đáp án",
+            "hint_matching": "Mỗi dòng là một cặp đúng · học viên sẽ thấy vế phải bị xáo trộn",
+            "hint_ordering": "Nhập theo thứ tự ĐÚNG · học viên sẽ thấy các mục bị xáo trộn",
+            "left": "Vế trái",
+            "right": "Vế phải",
+            "swap": "Đổi chỗ hai vế",
+            "mark_correct": "Đánh dấu đáp án đúng",
+            "remove": "Xoá",
+            "accepted_answer": "Đáp án được chấp nhận",
+            "accepted_variants": "Cách viết hoa / thường cũng được chấp nhận",
+            "no_correct": "Cần chọn ít nhất một đáp án đúng",
+            "need_two": "Cần ít nhất 2 mục",
+            "duplicated": "Đã nhân bản câu hỏi (ảnh / video không được sao chép)"
+        },
+        "preview": {
+            "note": "Đây là bản xem trước như học viên: không hiện đáp án đúng, các mục được xáo trộn.",
+            "empty": "(Chưa có nội dung)",
+            "short_placeholder": "Học viên nhập câu trả lời ở đây",
+            "drop_here": "Kéo thả các mục để sắp xếp"
         }
     },
     "update_QS": {

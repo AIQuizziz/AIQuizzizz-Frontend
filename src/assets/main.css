@@ -2646,26 +2646,53 @@ ant-select-tree */
     pointer-events: none;
 }
 
-/* Trang tạo / sửa bộ câu hỏi (QuestionEditorLayout): thẻ thông tin bộ nằm trong cột soạn nên không cần lề của .content-item */
-.editor-main > .content-item.quiz-details {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 18px;
-}
-.title-container .title-actions {
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 30px;
-}
-.title-container .title-actions .ant-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-
-/* .page-container có overflow-y: scroll nên trở thành "khung cuộn" của mọi phần tử sticky bên trong dù nó không tự cuộn
-   (trang cuộn ở <html>) -> mục lục / thanh công cụ của editor không dính. overflow: clip vẫn cắt tràn ngang mà không tạo khung cuộn. */
+/* ===== Trang tạo / sửa bộ câu hỏi (phương án 11) =====
+   .page-container có overflow-y: scroll nên trở thành "khung cuộn" của mọi phần tử sticky bên trong dù nó không tự cuộn
+   (trang cuộn ở <html>) -> thanh tiêu đề / mục lục / thanh công cụ không dính. overflow: clip vẫn cắt tràn ngang mà không tạo khung cuộn. */
 .page-container.editor-page {
+    width: 100%;
+    margin-left: 0;
+    min-height: 100vh;
     overflow: clip;
+    background: var(--ed-page);
+    color: var(--ed-text);
+}
+/* Bảng màu của trình soạn: khớp bản vẽ Figma (phương án 11), có bản cho giao diện tối. Màu nhấn theo accent của app */
+.theme-light .editor-page {
+    --ed-page: #eceef3;
+    --ed-card: #ffffff;
+    --ed-surface: #f8f8fa;
+    --ed-input: #ffffff;
+    --ed-border: #e4e4e7;
+    --ed-border-strong: #b4b4bd;
+    --ed-text: #27272a;
+    --ed-muted: #52525b;
+    --ed-grip: #a1a1aa;
+    --ed-primary-soft: color-mix(in srgb, var(--main-color) 14%, #ffffff);
+    --ed-danger: #c81e3a;
+    --ed-danger-soft: #fde8ec;
+    --ed-success: #15803d;
+    --ed-success-soft: #e7f6ec;
+    --ed-shadow: 0 4px 14px rgba(24, 24, 27, 0.08);
+}
+.theme-dark .editor-page {
+    --ed-page: var(--c-page);
+    --ed-card: var(--c-surface);
+    --ed-surface: var(--c-surface-raised);
+    --ed-input: var(--c-surface);
+    --ed-border: var(--c-border);
+    --ed-border-strong: var(--c-border-strong);
+    --ed-text: var(--c-text);
+    --ed-muted: var(--c-text-muted);
+    --ed-grip: #71717a;
+    --ed-primary-soft: color-mix(in srgb, var(--main-color) 26%, var(--c-surface));
+    --ed-danger: var(--c-danger-text);
+    --ed-danger-soft: color-mix(in srgb, var(--c-danger) 20%, var(--c-surface));
+    --ed-success: var(--c-success-text);
+    --ed-success-soft: color-mix(in srgb, var(--c-success) 16%, var(--c-surface));
+    --ed-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+.editor-page {
+    --ed-primary: var(--main-color);
+    --ed-primary-text: var(--c-primary-text);
 }
