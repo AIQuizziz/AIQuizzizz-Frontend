@@ -81,7 +81,7 @@ const filled = (values: (string | null | undefined)[] | null | undefined) =>
 }
 
 .flashcard-meaning + .flashcard-meaning {
-    border-top: 1px solid var(--form-item-border-color);
+    border-top: 1px solid var(--content-item-border-color);
 }
 
 .flashcard-meaning-head {
@@ -97,17 +97,17 @@ const filled = (values: (string | null | undefined)[] | null | undefined) =>
     justify-content: center;
     min-width: 22px;
     height: 22px;
-    border-radius: 50%;
-    background-color: var(--main-color);
-    color: var(--text-color-contrast);
+    border-radius: var(--ui-r-xs);
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    color: var(--c-primary-text);
     font-size: 12px;
     font-weight: 600;
 }
 
 .flashcard-pos {
     padding: 0 8px;
-    border: 1px solid var(--form-item-border-color);
-    border-radius: 100px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: 999px;
     font-size: 12px;
     font-style: italic;
     color: var(--text-color-grey);
@@ -151,8 +151,8 @@ const filled = (values: (string | null | undefined)[] | null | undefined) =>
 
 .flashcard-synonym {
     padding: 0 8px;
-    border: 1px solid var(--form-item-border-color);
-    border-radius: 100px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: 999px;
 }
 
 .flashcard-empty {

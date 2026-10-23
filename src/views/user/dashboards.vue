@@ -320,40 +320,51 @@ onMounted(async () => {
     </div>
 </template>
 <style scoped>
+.content-item {
+    padding: 20px;
+}
+
+.content-item-title {
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+.content-item-title span:nth-child(2) {
+    font-size: 14px;
+}
 .content-item-title a {
     font-size: 14px;
-    color: var(--text-color);
+    font-weight: 600;
+    color: var(--c-primary-text);
     text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .content-item-title i {
-    font-size: 28px;
-    transition: all 0.2s ease-in-out;
-    transform: translateY(1px);
+    font-size: 20px;
+    transition: transform 0.2s ease-in-out;
 }
 
 .content-item-title a:hover i {
-    /* 1px for that Y above */
-    transform: translate(5px, 1px);
+    transform: translateX(4px);
 }
 
 .quiz-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 16px;
-    padding: 10px 0;
+    padding: 0;
     color: var(--text-color);
 }
 
 .quiz-item {
-    background-color: var(--content-item-children-background-color);
+    background-color: var(--content-item-background-color);
     margin: 0;
     box-sizing: border-box;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 10px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-xl);
+    padding: 16px;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -362,14 +373,14 @@ onMounted(async () => {
     height: 200px;
     max-height: 200px;
     cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.1s ease-in-out;
+    box-shadow: none;
+    transition: border-color 0.15s ease-in-out;
 }
 
 .quiz-item:hover {
     border: 1px solid var(--main-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: none;
+    box-shadow: none;
 }
 
 .quiz-item i {
@@ -379,15 +390,24 @@ onMounted(async () => {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin: 5px 0px;
+    gap: 8px;
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+}
+.quiz-item-title i {
+    flex: none;
+    color: var(--c-text-muted);
 }
 
 .quiz-item-info {
-    font-size: 14px;
+    font-size: 13px;
     margin-bottom: 15px;
-    color: var(--text-color-sub-white);
+    color: var(--c-text-muted);
 }
 .quiz-item-info i {
+    margin-right: 4px;
     font-size: 14px;
 }
 
@@ -400,34 +420,38 @@ onMounted(async () => {
     align-items: start;
     flex-direction: column;
     justify-content: end;
+    color: var(--c-text-muted);
 }
 
 ::v-deep(.ant-progress-text) {
-    color: var(--text-color) !important;
+    color: var(--c-text-muted) !important;
+    font-size: 12px;
 }
 ::v-deep(.ant-progress-inner) {
     background-color: var(--content-item-border-color);
 }
 
 .add-button {
-    display: flex;
+    justify-content: center;
     align-items: center;
-    border: 1px dashed var(--border-color);
+    gap: 10px;
+    background-color: transparent;
+    border: 1px dashed var(--form-item-border-color);
     cursor: pointer;
 }
 .add-button:hover {
-    border: 1px dashed var(--main-sub-color);
+    border: 1px dashed var(--main-color);
 }
 
 .add-button-icon {
     display: flex;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
     aspect-ratio: 1/1;
-    font-size: 25px !important;
+    font-size: 22px !important;
     border-radius: 50%;
     background: var(--main-color-theme);
     color: var(--c-primary-text);
@@ -436,15 +460,19 @@ onMounted(async () => {
 .add-button-context {
     color: var(--text-color);
     display: flex;
-    flex: 1;
+    flex: none;
     flex-direction: column;
     align-items: center;
     text-align: center;
     justify-content: center;
-    font-size: 16px;
+    gap: 2px;
+    font-size: 14px;
+    font-weight: 600;
 }
 .add-button-context span:nth-child(2) {
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--c-text-muted);
 }
 
 .search-bar {
@@ -464,77 +492,82 @@ onMounted(async () => {
 }
 .search-result::-webkit-scrollbar-thumb {
     background-color: var(--form-item-border-color);
+    border-radius: 999px;
 }
 
 .search-result {
     background-color: var(--form-item-background-color);
-    border: 1px solid var(--form-item-border-color);
+    border: 1px solid var(--content-item-border-color);
     position: absolute;
-    top: 0px;
+    top: 4px;
     z-index: 10;
     width: 100%;
     margin: 0px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-radius: var(--ui-r-lg);
     overflow-y: scroll;
-    box-shadow: 1px 0px 10px 1px var(--border-color);
+    box-shadow: var(--ui-shadow-pop);
     height: 300px;
     padding: 10px;
 }
 
 .search-result-item {
-    margin: 5px 0px;
+    margin: 0 0 8px;
     padding: 10px;
     color: var(--text-color);
-    border: 1px solid var(--form-item-border-color);
-    border-radius: 8px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: border-color 0.15s ease-in-out;
 }
 
 .search-result-item:hover {
     border-color: var(--main-color);
-    background-color: var(--content-item-children-background-color);
-    box-shadow: 0 2px 5px 3px rgba(0, 0, 0, 0.1);
+    background-color: var(--c-surface-subtle);
 }
 
 .result-item-title {
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .result-item-description {
     display: flex;
-    color: var(--text-color-grey);
-    font-size: 14px;
-    margin-top: 5px;
+    align-items: center;
+    color: var(--c-text-muted);
+    font-size: 13px;
+    margin-top: 6px;
 }
 
 ::v-deep(.ant-input-affix-wrapper) {
-    height: 50px;
+    height: 40px;
 }
 
 .result-item-noq {
-    font-size: 14px;
-    color: var(--text-color-contrast);
-    padding: 0px 10px;
-    background-color: var(--main-color);
-    border-radius: 50px;
-    width: 110px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--c-primary-text);
+    padding: 2px 10px;
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border-radius: 999px;
+    width: fit-content;
     display: flex;
     align-items: center;
     margin-right: 10px;
 }
 
 .p-quiz-item-title {
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
     color: var(--text-color);
-    transition: all 0.2s ease-in-out;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .p-quiz-item-description {
-    font-size: 14px;
-    color: var(--text-color-grey);
+    font-size: 13px;
+    color: var(--c-text-muted);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -545,32 +578,39 @@ onMounted(async () => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
+    gap: 8px;
+    margin-top: 12px;
     width: 100%;
+}
+.p-quiz-item-question-rate {
+    font-size: 12px;
+    color: var(--c-text-muted);
 }
 
 .p-quiz-item-question-count {
     font-size: 12px;
     font-weight: 500;
-    padding: 0px 15px;
-    background-color: var(--main-color);
-    color: var(--text-color-contrast);
+    padding: 2px 10px;
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    color: var(--c-primary-text);
     display: flex;
     align-items: center;
     height: fit-content;
-    border-radius: 20px;
+    border-radius: 999px;
 }
 .p-quiz-item-credit {
     flex: 1;
     display: flex;
     align-items: end;
+    font-size: 13px;
+    color: var(--c-text-muted);
 }
 .p-quiz-item-credit span {
     display: flex;
     align-items: center;
 }
 .p-quiz-item-credit i {
-    font-size: 20px;
-    margin-right: 10px;
+    font-size: 16px;
+    margin-right: 6px;
 }
 </style>

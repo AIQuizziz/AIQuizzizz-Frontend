@@ -46,18 +46,18 @@ onBeforeUnmount(() => audio?.pause());
     width: 32px;
     height: 32px;
     padding: 0;
-    border: 1px solid var(--main-color);
+    border: 1px solid var(--content-item-border-color);
     border-radius: 50%;
-    background: transparent;
-    color: var(--main-color);
+    background: var(--c-surface-raised);
+    color: var(--c-primary-text);
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.15s ease;
 }
 
 .flashcard-audio-btn:hover,
 .flashcard-audio-btn:focus-visible {
-    background-color: var(--main-color);
-    color: var(--text-color-contrast);
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border-color: var(--main-color);
 }
 
 .flashcard-audio-btn i {

@@ -6,6 +6,12 @@ Mọi thay đổi đáng chú ý của dự án được ghi lại trong file n�
 
 ## [Unreleased] - 2026-10-02
 
+### Changed — Áp dụng ngôn ngữ thiết kế mới cho toàn bộ trang
+- **Đặc tả** `docs/UI-DESIGN-LANGUAGE.md` (rút từ bản vẽ phương án 11): thẻ trắng nền xám nhạt, viền 1px, gần như không bóng, một màu nhấn, thang bo góc 6 / 8 / 10 / 12 / 16 / tròn, nút và ô nhập cao 40, trạng thái chọn / lỗi / đúng thống nhất.
+- **Lớp nền tảng** `assets/ui-refresh.css` (nạp sau `theme-overrides.css`): biến `--ui-r-*`, `--ui-shadow-*`; nút, ô nhập, select, ô tích, hộp thoại, dropdown, popover, tooltip, bảng, phân trang, tab; sidebar (nền thẻ, viền phải, mục menu bo 10, hover nhấn nhạt); thanh tab phân đoạn, hàng chọn được (`.quiz-item`, `.answer-option`), `.ui-pill` (badge trạng thái). Bảng màu sáng đổi: nền trang `#eceef3`, thẻ `#fff`, viền `#e4e4e7`, thêm `--c-surface-subtle` (giao diện tối giữ nguyên).
+- **Từng nhóm trang** (chỉ CSS / class trình bày, không đổi logic): trang chủ người dùng, thư viện, tìm kiếm, thư mục, lịch; chi tiết bộ câu hỏi, học, luyện tập, thẻ ghi nhớ; lớp học (thành viên, bài kiểm tra, bộ câu hỏi, kết quả) và bài kiểm tra (tạo / sửa, làm bài, xem lại); cài đặt (tab phân đoạn, hồ sơ, bảo mật, giao diện, gói đăng ký, giao dịch); admin (bảng tài khoản, gói, cài đặt hệ thống, sidebar); trang công khai (giới thiệu, đăng nhập / đăng ký / quên mật khẩu dạng thẻ form bo 16, 404, không có quyền, hướng dẫn); các hộp thoại (nhập Excel / JSON, tạo bằng AI, chia sẻ, chọn câu hỏi / thư mục, cài đặt bài kiểm tra) và component chung (Input, TextArea, chọn media).
+- Thay đổi hình ảnh đáng chú ý: thư mục là lưới thẻ ngang với icon màu nhấn (không còn icon vàng); khu vực nguy hiểm dùng nền đỏ nhạt + viền đỏ mảnh; tag trạng thái dùng token thay mã màu thô; trang 404 / không có quyền là thẻ giữa trang.
+
 ### Changed — Trang tạo / sửa bộ câu hỏi giống y bản vẽ phương án 11
 - **Thanh tiêu đề** (`QuestionEditorTopBar`, dính khi cuộn): nút quay lại, tên trang + dòng phụ, công tắc **Câu hỏi | Xem trước**, nút **Lưu bộ câu hỏi**.
 - **Thẻ thông tin bộ** (`QuestionSetInfoCard`, dùng chung cho tạo / sửa, thay hai bản mã thẻ trùng lặp): dải màu đầu thẻ, tiêu đề lớn gạch chân, mô tả, thẻ dạng viên thuốc + nút **Thêm thẻ** (gợi ý thẻ có sẵn khi gõ).

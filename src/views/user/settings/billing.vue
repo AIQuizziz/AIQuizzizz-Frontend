@@ -387,23 +387,31 @@ onMounted(() => {
 </template>
 
 <style scoped>
+/* badge trạng thái: tag tròn, nền nhạt theo màu trạng thái */
 .status-pill {
     display: inline-block;
-    padding: 4px 12px;
-    border-radius: 9999px;
-    font-size: 14px;
+    padding: 2px 12px;
+    border-radius: 999px;
+    font-size: 12px;
     font-weight: 500;
+    background-color: var(--c-surface-subtle);
+    color: var(--c-text-muted);
+    border: 1px solid var(--c-border);
 }
 
 .status-paid {
-    background-color: rgba(0, 128, 0, 0.7);
-    color: var(--text-color);
-    border: 1px solid rgba(0, 255, 0, 1);
+    background-color: color-mix(in srgb, var(--c-success) 14%, var(--c-surface));
+    color: var(--c-success-text);
+    border: 1px solid color-mix(in srgb, var(--c-success) 45%, var(--c-surface));
 }
 .status-topup {
-    background-color: rgba(255, 215, 0, 0.7);
-    color: var(--text-color);
-    border: 1px solid rgba(255, 215, 0, 1);
+    background-color: color-mix(in srgb, var(--c-warning) 14%, var(--c-surface));
+    color: var(--c-warning-text);
+    border: 1px solid color-mix(in srgb, var(--c-warning) 45%, var(--c-surface));
+}
+/* vạch ngăn giữa các tiêu đề cột: mờ hơn, theo token */
+:deep(.ant-table-thead > tr > th::before) {
+    background-color: var(--c-border) !important;
 }
 .noti-content {
     width: calc(100% - 20px);
@@ -413,7 +421,7 @@ onMounted(() => {
     background-color: var(--main-color);
     border: 1px solid var(--main-sub-color);
     color: var(--text-color);
-    border-radius: 8px;
+    border-radius: var(--ui-r-md);
     overflow-y: hidden;
     z-index: 2;
 }

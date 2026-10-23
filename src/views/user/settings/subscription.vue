@@ -217,24 +217,25 @@ onMounted(async () => {
     gap: 4px 8px;
     margin-top: 12px;
     padding: 10px 14px;
-    border: 1px solid var(--form-item-border-color);
-    border-radius: 8px;
+    border: 1px solid var(--c-border);
+    border-radius: var(--ui-r-md);
+    background-color: var(--c-surface-subtle);
     min-width: 0;
 }
 .current-plan-name {
-    color: var(--main-color);
+    color: var(--c-primary-text);
     font-size: 18px;
 }
 .current-plan-meta {
-    opacity: 0.8;
+    color: var(--c-text-muted);
 }
 
 .plan-container {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
-    padding: 10px;
+    gap: 16px;
+    padding: 12px 0 0;
     box-sizing: border-box;
 }
 
@@ -243,34 +244,39 @@ onMounted(async () => {
     min-height: 340px;
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    border: 2px solid var(--form-item-border-color);
-    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid var(--c-border);
+    border-radius: var(--ui-r-xl);
+    background-color: var(--c-surface);
     cursor: pointer;
+    transition: border-color 0.15s ease;
 }
 .plan-item:hover {
-    background-color: var(--content-item-border-color);
+    border-color: var(--main-color);
 }
 
 .popular-item {
     position: relative;
-    border-color: var(--main-color);
 }
 
+/* gói đang dùng: viền nhấn + nền nhấn nhạt */
 .current-item {
-    border-color: var(--correct-answer-color);
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 1px var(--main-color);
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
 }
 
 .popular-badge {
     position: absolute;
     top: -12px;
-    right: 20px;
+    right: 16px;
 
     background-color: var(--main-color);
-    color: var(--text-color-contrast);
-    font-size: 14px;
-    padding: 0px 15px;
-    border-radius: 10px;
+    color: var(--c-on-primary);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 12px;
+    border-radius: 999px;
 }
 
 .plan-name {
@@ -288,9 +294,10 @@ onMounted(async () => {
 .plan-duration {
     font-size: 14px;
     font-weight: 400;
+    color: var(--c-text-muted);
 }
 .plan-valid-until {
-    color: var(--correct-answer-color);
+    color: var(--c-success-text);
 }
 
 .plan-advance-container {
@@ -298,10 +305,10 @@ onMounted(async () => {
     margin-bottom: 10px;
 }
 .plan-advance i.feature-on {
-    color: var(--correct-answer-color);
+    color: var(--c-success-text);
 }
 .plan-advance i.feature-off {
-    color: var(--incorrect-answer-color);
+    color: var(--c-danger-text);
 }
 .main-color-btn {
     display: flex;

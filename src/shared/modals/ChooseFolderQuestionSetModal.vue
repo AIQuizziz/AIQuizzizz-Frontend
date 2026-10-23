@@ -231,6 +231,43 @@ defineExpose({
     </a-modal>
 </template>
 <style scoped>
+.modal-title-container .main-title span:nth-child(1) {
+    font-size: 20px;
+    font-weight: 700;
+}
+.content-item {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--c-surface-subtle);
+}
+.content-item .title-container {
+    margin: 0 0 12px;
+}
+.content-item .title-container .main-title span:nth-child(1) {
+    font-size: 18px;
+    font-weight: 700;
+}
+.content-item .title-container .main-title span:nth-child(3) {
+    font-size: 14px;
+    font-weight: 400;
+}
+.quiz-item {
+    margin: 0 0 10px;
+    background-color: var(--c-surface);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+}
+.quiz-item:hover {
+    border-color: var(--main-color);
+    transform: none;
+    box-shadow: none;
+}
+.quiz-item-title {
+    font-size: 16px;
+}
+
 .quiz-item-icon {
     display: flex;
     width: 35px;
@@ -244,5 +281,10 @@ defineExpose({
     background: var(--main-color-theme);
     color: var(--c-primary-text);
     margin-right: 12px;
+}
+@media (max-width: 767.98px) {
+    .content-item {
+        padding: 14px;
+    }
 }
 </style>

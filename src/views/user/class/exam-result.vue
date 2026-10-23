@@ -522,18 +522,57 @@ onMounted(async () => {
     />
 </template>
 <style scoped>
+.content-item {
+    padding: 20px;
+}
+
+.content-item-title {
+    font-size: 20px;
+}
+
+.test-info-container {
+    margin: 12px 0px;
+    padding: 4px 16px;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-lg);
+}
+
+.test-info-container .ant-row {
+    margin-bottom: 0 !important;
+}
+
 .test-info-item {
-    border-bottom: 1px solid #e8e8e8;
-    padding-bottom: 5px;
-    padding-top: 10px;
+    border-bottom: 1px solid var(--content-item-border-color);
+    padding-bottom: 8px;
+    padding-top: 8px;
+    font-size: 14px;
+}
+
+.test-info-container .ant-row:last-child .test-info-item {
+    border-bottom: 0;
 }
 
 .test-info-item span:nth-child(1) {
     font-weight: 500;
+    color: var(--c-text-muted);
+}
+
+.test-info-item span:nth-child(2) {
+    font-weight: 600;
 }
 
 .student-name:hover {
     cursor: pointer;
     color: var(--c-primary-text);
+}
+
+:deep(.ant-table-thead > tr > th) {
+    background-color: var(--c-surface-subtle) !important;
+    color: var(--c-text-muted) !important;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 </style>

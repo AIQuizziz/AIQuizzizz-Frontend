@@ -550,14 +550,67 @@ const reloadQuestionMedia = async () => {
 <style scoped>
 .content-item {
     width: auto;
+    padding: 20px;
+}
+
+.content-item-title {
+    font-size: 20px;
+}
+
+.test-info-item {
+    padding: 8px 0px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--content-item-border-color);
+}
+
+.test-info-item span:nth-child(1) {
+    font-weight: 500;
+    color: var(--c-text-muted);
+}
+
+.test-info-item span:nth-child(2) {
+    font-weight: 600;
+}
+
+.test-info-item .ant-tag {
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.preview-question-item {
+    padding: 16px;
+    margin: 12px 0px;
+    background-color: var(--c-surface-subtle);
+    border-color: var(--content-item-border-color);
+    border-radius: var(--ui-r-xl);
+}
+
+.question-index {
+    border: 0;
+    border-radius: var(--ui-r-xs);
+    font-weight: 600;
+}
+
+.question-item-toogle-btn i {
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    border-color: var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+}
+
+.question-item-toogle-btn i:hover {
+    border-color: var(--main-color);
+    color: var(--c-primary-text);
 }
 
 .question-item-answer {
-    margin: 5px 0px;
+    margin: 12px 0px;
     border-top: 1px solid;
     border-bottom: 1px solid;
-    border-color: var(--form-item-border-color);
-    padding: 10px 0px;
+    border-color: var(--content-item-border-color);
+    padding: 12px 0px;
 }
 
 .question-data {
@@ -568,26 +621,54 @@ const reloadQuestionMedia = async () => {
     margin-right: 50px;
 }
 
-.preview-question-item {
+.question-data-option > div:first-child {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-text-muted);
 }
-.preview-question-item .question-item-result {
-    font-size: 20px;
+
+.question-data-option ul {
+    margin: 6px 0px 0px;
+    padding: 0;
+    list-style: none;
+}
+
+.question-data-option li,
+.ordering-answer-item .ordering-answer-item,
+.short-text-answer {
+    padding: 8px 12px;
+    margin: 6px 0px 0px;
+    background-color: var(--c-surface);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+}
+
+.question-data-option li.result-correct,
+.ordering-answer-item .ordering-answer-item.result-correct,
+.pair-answer .pair-answer-item {
+    color: var(--c-success-text);
+    background-color: color-mix(in srgb, var(--c-success) 14%, var(--c-surface));
+    border-color: var(--c-success);
+}
+
+.question-data-option li.result-incorrect,
+.ordering-answer-item .ordering-answer-item.result-incorrect,
+.pair-answer-incorrect .pair-answer-item {
+    color: var(--c-danger-text);
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+    border-color: var(--c-danger);
 }
 
 .pair-answer .pair-answer-item {
-    border-color: var(--correct-answer-color);
+    border-radius: var(--ui-r-md);
 }
 
 .pair-answer i {
-    color: var(--correct-answer-color);
-}
-
-.pair-answer-incorrect .pair-answer-item {
-    border-color: var(--incorrect-answer-color);
+    color: var(--c-success-text);
 }
 
 .pair-answer-incorrect i {
-    color: var(--incorrect-answer-color);
+    color: var(--c-danger-text);
 }
 
 @media (max-width: 767.98px) {
@@ -607,10 +688,12 @@ const reloadQuestionMedia = async () => {
 
 /* đáp án đang bị ẩn: hiển thị trung tính, không tô xanh/đỏ */
 .pair-answer-neutral .pair-answer-item {
+    color: var(--c-text);
+    background-color: var(--c-surface);
     border-color: var(--content-item-border-color);
 }
 
 .pair-answer-neutral i {
-    color: var(--text-color-grey);
+    color: var(--c-text-muted);
 }
 </style>

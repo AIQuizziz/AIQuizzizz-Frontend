@@ -158,6 +158,7 @@ import Header from "@/shared/components/Header.vue";
                                 <span>
                                     {{ $t("homepage.categories.currentAffairs.description") }}
                                 </span>
+                                <br />
                                 <RouterLink :to="{ name: 'User_QuestionSet_Search' }">
                                     {{ $t("homepage.categories.categories_link") }}
                                     <i class="bx bx-right-arrow-alt"></i>
@@ -285,6 +286,10 @@ import Header from "@/shared/components/Header.vue";
     overflow-x: hidden;
     position: relative;
 }
+/* hai khối thẻ (thể loại, tính năng): nền xám nhạt để thẻ trắng nổi lên */
+.background-responsive {
+    background-color: var(--background-color);
+}
 
 .pattern {
     position: absolute;
@@ -352,7 +357,7 @@ import Header from "@/shared/components/Header.vue";
 }
 
 .home-content-item:first-child {
-    border-radius: 20px;
+    border-radius: 999px;
     background: var(--main-color);
     color: var(--text-color-contrast);
     display: inline-flex;
@@ -362,7 +367,7 @@ import Header from "@/shared/components/Header.vue";
     gap: 12px;
 }
 .home-content-item:nth-child(2) {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: inherit;
     font-size: 60px;
     font-style: normal;
     font-weight: 700;
@@ -380,16 +385,18 @@ import Header from "@/shared/components/Header.vue";
 }
 .home-content-item:nth-child(4) a {
     display: inline-flex;
-    padding: 10px 30px;
+    height: 44px;
+    padding: 0 24px;
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: var(--ui-r-md);
     background-color: var(--content-item-background-color);
     border: 1px solid var(--main-color);
-    margin: 0 10px;
+    margin: 0 8px;
     color: var(--c-primary-text);
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     transition: all 0.2s ease-in-out;
 }
 
@@ -424,12 +431,16 @@ import Header from "@/shared/components/Header.vue";
 .category-item {
     display: flex;
     width: calc(100vw / 3 - 50px);
-    padding: 10px;
-    margin: 10px;
-    border-radius: 8px;
-    border: 4px solid var(--content-item-background-color);
+    padding: 16px;
+    margin: 8px;
+    border-radius: var(--ui-r-xl);
+    border: 1px solid var(--content-item-border-color);
     background: var(--content-item-background-color);
-    box-shadow: 1px 5px 10px 0.5px var(--content-item-border-color);
+    transition: border-color 0.15s ease;
+}
+.category-item:hover,
+.feature-item:hover {
+    border-color: var(--main-color);
 }
 
 .category-item-icon {
@@ -445,9 +456,6 @@ import Header from "@/shared/components/Header.vue";
     margin: 8px;
 }
 
-.category-item:nth-child(1) {
-    border-top-color: var(--category-1st-color);
-}
 .category-item:nth-child(1) i {
     background-color: var(--category-1st-color);
 }
@@ -455,9 +463,6 @@ import Header from "@/shared/components/Header.vue";
     color: var(--category-1st-color);
 }
 
-.category-item:nth-child(2) {
-    border-top-color: var(--category-2st-color);
-}
 .category-item:nth-child(2) i {
     background-color: var(--category-2st-color);
 }
@@ -465,9 +470,6 @@ import Header from "@/shared/components/Header.vue";
     color: var(--category-2st-color);
 }
 
-.category-item:nth-child(3) {
-    border-top-color: var(--category-3st-color);
-}
 .category-item:nth-child(3) i {
     background-color: var(--category-3st-color);
 }
@@ -475,9 +477,6 @@ import Header from "@/shared/components/Header.vue";
     color: var(--category-3st-color);
 }
 
-.category-item:nth-child(4) {
-    border-top-color: var(--category-4st-color);
-}
 .category-item:nth-child(4) i {
     background-color: var(--category-4st-color);
 }
@@ -485,9 +484,6 @@ import Header from "@/shared/components/Header.vue";
     color: var(--category-4st-color);
 }
 
-.category-item:nth-child(5) {
-    border-top-color: var(--category-5st-color);
-}
 .category-item:nth-child(5) i {
     background-color: var(--category-5st-color);
 }
@@ -495,9 +491,6 @@ import Header from "@/shared/components/Header.vue";
     color: var(--category-5st-color);
 }
 
-.category-item:nth-child(6) {
-    border-top-color: var(--category-6st-color);
-}
 .category-item:nth-child(6) i {
     background-color: var(--category-6st-color);
 }
@@ -525,6 +518,7 @@ import Header from "@/shared/components/Header.vue";
     line-height: normal;
 }
 .category-item-content a {
+    height: auto !important;
     padding: 0 !important;
     background-color: transparent !important;
     margin: 0 !important;
@@ -552,15 +546,16 @@ import Header from "@/shared/components/Header.vue";
 .feature-item {
     display: flex;
     width: calc(100vw / 3 - 50px);
-    padding: 10px;
-    margin: 10px;
-    border-radius: 8px;
+    padding: 16px;
+    margin: 8px;
+    border-radius: var(--ui-r-xl);
     flex-direction: column;
     justify-content: start;
     align-items: start;
 
-    border: 2px solid var(--main-color);
-    background: var(--form-item-background-color);
+    border: 1px solid var(--content-item-border-color);
+    background: var(--content-item-background-color);
+    transition: border-color 0.15s ease;
 }
 
 .feature-item-icon {
@@ -577,33 +572,33 @@ import Header from "@/shared/components/Header.vue";
 }
 
 .feature-item:nth-child(1) i {
-    background: #261544;
-    color: #a78bfa;
-}
-.feature-item:nth-child(4) i {
-    background-color: #183826;
-    color: #4ade80;
+    background-color: color-mix(in srgb, var(--category-1st-color) 16%, var(--c-surface));
+    color: var(--category-1st-color);
 }
 .feature-item:nth-child(2) i {
-    background-color: #432521;
-    color: #f87171;
+    background-color: color-mix(in srgb, var(--category-2st-color) 16%, var(--c-surface));
+    color: var(--category-2st-color);
 }
 .feature-item:nth-child(3) i {
-    background-color: #1d2b44;
-    color: #60a5fa;
+    background-color: color-mix(in srgb, var(--category-3st-color) 16%, var(--c-surface));
+    color: var(--category-3st-color);
+}
+.feature-item:nth-child(4) i {
+    background-color: color-mix(in srgb, var(--category-4st-color) 16%, var(--c-surface));
+    color: var(--category-4st-color);
 }
 .feature-item:nth-child(5) i {
-    background-color: #45321a;
-    color: #fb923c;
+    background-color: color-mix(in srgb, var(--category-5st-color) 16%, var(--c-surface));
+    color: var(--category-5st-color);
 }
 .feature-item:nth-child(6) i {
-    background-color: #332244;
-    color: #c084fc;
+    background-color: color-mix(in srgb, var(--category-6st-color) 16%, var(--c-surface));
+    color: var(--category-6st-color);
 }
 
 .banner {
     width: calc(100% - 65px);
-    border-radius: 20px;
+    border-radius: var(--ui-r-xl);
     background: linear-gradient(97deg, #5813c1 -5.8%, #c45037 99.69%);
     padding: 30px;
     display: flex;
@@ -632,15 +627,17 @@ import Header from "@/shared/components/Header.vue";
 
 .banner-item a {
     display: inline-flex;
-    padding: 10px 30px;
+    height: 44px;
+    padding: 0 24px;
     justify-content: center;
     align-items: center;
     margin-right: 15px;
     background-color: var(--background-color-contrast);
-    border-radius: 10px;
+    border-radius: var(--ui-r-md);
     color: var(--c-page);
     text-decoration: none;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .banner-item a:nth-child(2) {
@@ -657,7 +654,7 @@ import Header from "@/shared/components/Header.vue";
     height: 220px;
     background-size: cover;
     background-position: center;
-    border-radius: 20px;
+    border-radius: var(--ui-r-lg);
     padding: 0 350px;
 }
 

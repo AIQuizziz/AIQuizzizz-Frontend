@@ -932,6 +932,12 @@ button:focus-visible {
     .ed-pair-head {
         display: none;
     }
+    .ed-foot {
+        flex-wrap: wrap;
+    }
+    .ed-explain-btn {
+        white-space: nowrap;
+    }
 }
 </style>
 

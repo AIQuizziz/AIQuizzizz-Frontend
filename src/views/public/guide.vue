@@ -375,7 +375,7 @@ const giveFeedback = (value: "yes" | "no") => {
     position: relative;
     z-index: 1;
     min-height: 100vh;
-    background-color: var(--c-surface-raised);
+    background-color: var(--c-page);
     color: var(--c-text);
 }
 
@@ -390,7 +390,7 @@ const giveFeedback = (value: "yes" | "no") => {
     height: var(--guide-header-h);
     padding: 0 24px;
     border-bottom: 1px solid var(--c-border);
-    background-color: var(--c-surface-raised);
+    background-color: var(--c-surface);
 }
 .guide-logo {
     font-size: 22px;
@@ -430,13 +430,13 @@ const giveFeedback = (value: "yes" | "no") => {
     align-items: center;
     gap: 6px;
     min-height: 40px;
-    padding: 0 14px;
+    padding: 0 16px;
     border: 0;
-    border-radius: 8px;
+    border-radius: var(--ui-r-md);
     background-color: var(--c-primary);
     color: var(--c-on-primary);
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
@@ -456,7 +456,7 @@ const giveFeedback = (value: "yes" | "no") => {
     height: 40px;
     flex-shrink: 0;
     border: 1px solid var(--c-border);
-    border-radius: 8px;
+    border-radius: var(--ui-r-md);
     background: transparent;
     color: var(--c-text);
     cursor: pointer;
@@ -515,17 +515,20 @@ const giveFeedback = (value: "yes" | "no") => {
 .guide-body {
     display: flex;
     align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
 }
 .guide-sidebar {
     position: sticky;
-    top: var(--guide-header-h);
+    top: calc(var(--guide-header-h) + 16px);
     display: flex;
     flex-direction: column;
-    flex: 0 0 300px;
-    height: calc(100vh - var(--guide-header-h));
-    padding: 20px 18px 16px;
+    flex: 0 0 280px;
+    height: calc(100vh - var(--guide-header-h) - 32px);
+    padding: 16px;
     overflow-y: auto;
-    border-right: 1px solid var(--c-border);
+    border: 1px solid var(--c-border);
+    border-radius: var(--ui-r-xl);
     background-color: var(--c-surface);
 }
 .guide-sidebar nav {
@@ -547,20 +550,24 @@ const giveFeedback = (value: "yes" | "no") => {
 .guide-main {
     display: flex;
     align-items: flex-start;
-    gap: 56px;
+    gap: 16px;
     flex: 1;
     min-width: 0;
-    padding: 36px 40px 64px 56px;
 }
 .guide-article-wrap {
-    flex: 0 1 760px;
+    flex: 0 1 840px;
     min-width: 0;
+    padding: 32px 40px 36px;
+    border: 1px solid var(--c-border);
+    border-radius: var(--ui-r-xl);
+    background-color: var(--c-surface);
 }
 .guide-rail {
     position: sticky;
-    top: calc(var(--guide-header-h) + 36px);
+    top: calc(var(--guide-header-h) + 16px);
     flex: 0 0 200px;
-    max-height: calc(100vh - var(--guide-header-h) - 72px);
+    max-height: calc(100vh - var(--guide-header-h) - 32px);
+    padding: 4px 0;
     overflow-y: auto;
 }
 .guide-rail ul {
@@ -662,11 +669,11 @@ const giveFeedback = (value: "yes" | "no") => {
     min-height: 32px;
     padding: 0 14px;
     border: 1px solid var(--c-border-strong);
-    border-radius: 6px;
+    border-radius: 999px;
     background: transparent;
     color: var(--c-text);
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
 }
 .guide-chip:hover {
@@ -689,7 +696,7 @@ const giveFeedback = (value: "yes" | "no") => {
     gap: 4px;
     padding: 14px 16px;
     border: 1px solid var(--c-border);
-    border-radius: 8px;
+    border-radius: var(--ui-r-lg);
     text-decoration: none;
 }
 .guide-pager-card.next {
@@ -723,16 +730,13 @@ const giveFeedback = (value: "yes" | "no") => {
     .guide-rail {
         display: none;
     }
-    .guide-main {
-        padding: 32px 32px 56px;
-    }
 }
 @media (max-width: 991.98px) {
     .guide-header-search {
         width: 240px;
     }
     .guide-sidebar {
-        flex-basis: 260px;
+        flex-basis: 248px;
     }
 }
 @media (max-width: 767.98px) {
@@ -761,8 +765,11 @@ const giveFeedback = (value: "yes" | "no") => {
     .guide-app-btn {
         padding: 0 12px;
     }
-    .guide-main {
-        padding: 20px 16px 48px;
+    .guide-body {
+        padding: 12px;
+    }
+    .guide-article-wrap {
+        padding: 20px 16px 24px;
     }
     .guide-title {
         font-size: 26px;
@@ -834,14 +841,44 @@ const giveFeedback = (value: "yes" | "no") => {
     height: auto;
     margin: 1em 0;
     border: 1px solid var(--c-border);
-    border-radius: 8px;
+    border-radius: var(--ui-r-lg);
+}
+/* khối code, bảng, ghi chú: bo 12 (rich-content.css dùng chung bo 8) */
+.guide-article.rich-content .rc-code,
+.guide-article.rich-content .rc-table-wrap {
+    border-radius: var(--ui-r-lg);
+}
+.guide-article.rich-content .rc-table-wrap {
+    border: 1px solid var(--c-border);
+}
+.guide-article.rich-content table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.guide-article.rich-content th,
+.guide-article.rich-content td {
+    border-width: 0 1px 1px 0;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+.guide-article.rich-content tr > :last-child {
+    border-right-width: 0;
+}
+.guide-article.rich-content tr:last-child > * {
+    border-bottom-width: 0;
+}
+.guide-article.rich-content .rc-copy {
+    border-radius: var(--ui-r-sm);
+}
+.guide-article.rich-content :not(pre) > code {
+    border-radius: var(--ui-r-xs);
 }
 .guide-article.rich-content blockquote.guide-callout {
     margin: 1.2em 0;
     padding: 12px 16px;
     border-left: 3px solid var(--guide-callout-accent);
-    border-radius: 8px;
-    background-color: color-mix(in srgb, var(--guide-callout-accent) 9%, transparent);
+    border-radius: var(--ui-r-lg);
+    background-color: color-mix(in srgb, var(--guide-callout-accent) 9%, var(--c-surface));
     color: var(--c-text);
 }
 .guide-article.rich-content blockquote.guide-callout > :last-child {

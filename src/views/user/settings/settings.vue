@@ -90,22 +90,37 @@ onMounted(() => {
     </div>
 </template>
 <style scoped>
+::v-deep(.ant-tabs-nav::before) {
+    border-bottom: none;
+}
+
 ::v-deep(.ant-tabs-nav-list) {
+    padding: 4px;
+    gap: 4px;
     background-color: var(--content-item-background-color);
     border: 1px solid var(--content-item-border-color);
-    color: var(--text-color-grey);
-    border-radius: 8px;
+    color: var(--c-text-muted);
+    border-radius: var(--ui-r-md);
     margin-left: 10px;
 }
 
 ::v-deep(.ant-tabs-tab) {
     width: 100px;
     margin: 0px !important;
-    border-radius: 8px !important;
+    border-radius: var(--ui-r-sm) !important;
     display: flex;
     align-items: center;
     justify-content: center;
     border-color: transparent !important;
+    background: transparent !important;
+}
+
+::v-deep(.ant-tabs-tab:not(.ant-tabs-tab-active):hover) {
+    background-color: var(--c-surface-subtle) !important;
+}
+
+::v-deep(.ant-tabs-tab:not(.ant-tabs-tab-active):hover .ant-tabs-tab-btn) {
+    color: var(--c-text) !important;
 }
 
 ::v-deep(.ant-tabs-tab-active) {
@@ -114,14 +129,7 @@ onMounted(() => {
 }
 
 ::v-deep(.ant-tabs-tab-active .ant-tabs-tab-btn) {
-    color: var(--text-color-contrast) !important;
-}
-
-::v-deep(.ant-tabs-tab:hover .ant-tabs-tab-btn) {
-    color: var(--text-color-contrast) !important;
-}
-
-::v-deep(.ant-tabs-tab:hover) {
-    background-color: var(--main-color) !important;
+    color: var(--c-on-primary) !important;
+    font-weight: 600;
 }
 </style>

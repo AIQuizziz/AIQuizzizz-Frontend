@@ -312,25 +312,37 @@ onMounted(() => {
 }
 
 .picker-label {
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .picker-label-hint {
-    font-size: 12px;
-    opacity: 0.7;
+    font-weight: 400;
+    color: var(--c-text-muted);
 }
 
 .picker-dropzone,
 .picker-progress,
 .picker-current {
-    padding: 10px 12px;
-    border-radius: 6px;
-    border: 1px dashed var(--form-item-border-color);
-    background-color: var(--form-item-background-color);
+    padding: 12px 16px;
+    border-radius: var(--ui-r-lg);
+    border: 1px solid var(--content-item-border-color);
+    background-color: var(--c-surface-subtle);
 }
 
+.picker-dropzone {
+    border-style: dashed;
+    border-color: var(--c-border-strong);
+    transition:
+        background-color 0.15s,
+        border-color 0.15s;
+}
+
+.picker-dropzone:hover,
 .picker-dropzone.dragging {
     border-color: var(--main-color);
+    background-color: color-mix(in srgb, var(--main-color) 10%, var(--c-surface));
 }
 
 .picker-buttons {
@@ -345,7 +357,7 @@ onMounted(() => {
 .picker-progress-text,
 .picker-hint {
     font-size: 12px;
-    opacity: 0.8;
+    color: var(--c-text-muted);
 }
 
 .picker-limits {

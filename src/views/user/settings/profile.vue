@@ -354,24 +354,25 @@ onMounted(() => {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
+    gap: 4px;
 }
 
+/* nút phụ: chữ + icon, không viền */
 .avatar-btn {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     height: 32px;
-    padding: 0 14px;
-    border-radius: 999px;
-    border: 1px solid transparent;
+    padding: 0 12px;
+    border-radius: var(--ui-r-sm);
+    border: none;
+    background: transparent;
     font-size: 13px;
     font-weight: 600;
     line-height: 1;
     cursor: pointer;
     transition:
         background-color 0.15s ease,
-        border-color 0.15s ease,
         color 0.15s ease;
 }
 
@@ -385,27 +386,23 @@ onMounted(() => {
 }
 
 .avatar-btn:focus-visible {
-    outline: 3px solid var(--c-focus-ring);
+    outline: 2px solid var(--c-focus-ring);
     outline-offset: 2px;
 }
 
 .avatar-btn-primary {
-    background: var(--main-color);
-    color: var(--c-on-primary);
+    color: var(--c-primary-text);
 }
 
 .avatar-btn-primary:not(:disabled):hover {
-    background: var(--main-sub-color);
+    background: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
 }
 
 .avatar-btn-danger {
-    background: transparent;
-    border-color: var(--c-border-strong);
     color: var(--c-danger-text);
 }
 
 .avatar-btn-danger:not(:disabled):hover {
-    border-color: var(--c-danger);
-    background: color-mix(in srgb, var(--c-danger) 10%, transparent);
+    background: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
 }
 </style>

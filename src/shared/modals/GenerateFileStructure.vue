@@ -389,11 +389,24 @@ defineExpose({ openModal, closeModal, clearData, loadStructure });
 </template>
 
 <style scoped>
+.modal-title-container .main-title span:nth-child(1) {
+    font-size: 20px;
+    font-weight: 700;
+}
+.modal-title-container .main-title span:nth-child(3) {
+    font-size: 14px;
+    font-weight: 400;
+}
+
 .modal-content-item {
     height: 500px;
     max-height: 500px;
     overflow-y: auto;
     position: relative;
+    padding: 20px;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-xl);
 }
 
 .content-wrapper {

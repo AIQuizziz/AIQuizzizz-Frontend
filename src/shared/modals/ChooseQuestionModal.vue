@@ -458,8 +458,102 @@ const handleModalImport = () => {
     </a-modal>
 </template>
 <style scoped>
+.modal-title-container {
+    margin-bottom: 16px;
+}
+.modal-title-container .main-title span:nth-child(1) {
+    font-size: 20px;
+    font-weight: 700;
+}
+.modal-title-container .main-title span:nth-child(3) {
+    font-size: 14px;
+    font-weight: 400;
+}
+.modal-content-item {
+    gap: 16px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+}
+.content-item-section {
+    padding: 20px;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-xl);
+}
+.section-content {
+    padding: 0;
+    border: none;
+    border-radius: var(--ui-r-lg);
+}
+.preview-section .section-content {
+    padding: 0 12px 4px;
+    background-color: var(--c-surface);
+    border: 1px solid var(--content-item-border-color);
+    box-shadow: none;
+}
+.section-content-header {
+    padding: 12px 0;
+    background-color: var(--c-surface);
+}
+.header-item {
+    height: 40px;
+    margin-right: 10px;
+    padding: 0 12px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: var(--c-surface);
+    border: 1px solid var(--c-border-strong);
+    border-radius: var(--ui-r-md);
+}
+.header-item.check-all {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+    color: var(--text-color-contrast);
+}
+
+/* hàng câu hỏi xem trước */
+.preview-question-item {
+    margin: 0 0 10px;
+    padding: 10px;
+    background-color: var(--c-surface);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+    transition:
+        background-color 0.15s,
+        border-color 0.15s;
+}
+.preview-question-item:hover {
+    border-color: var(--main-color);
+}
+.preview-question-item:has(.ant-checkbox-wrapper-checked) {
+    background-color: color-mix(in srgb, var(--main-color) 8%, var(--c-surface));
+    border-color: var(--main-color);
+}
+.question-item-toogle-btn i {
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    border: 1px solid var(--c-border-strong);
+    border-radius: var(--ui-r-sm);
+}
+.pair-answer-item {
+    padding: 6px 10px;
+    background-color: var(--c-surface-subtle);
+    border-color: var(--content-item-border-color);
+    border-radius: var(--ui-r-sm);
+}
+
 /* unique no remove */
 ::v-deep(.ant-select-selection-item) {
     background-color: var(--form-item-border-color) !important;
+}
+:deep(.ant-select-multiple .ant-select-selection-item) {
+    border-radius: var(--ui-r-xs);
+}
+@media (max-width: 767.98px) {
+    .content-item-section {
+        padding: 14px;
+    }
 }
 </style>

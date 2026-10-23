@@ -1488,7 +1488,6 @@ onMounted(async () => {
                                     !hasPreviousQuestion ? 'main-color-btn-disabled' : '',
                                 ]"
                                 type="primary"
-                                size="large"
                                 @click="onPreviousQuestion"
                             >
                                 <i class="bx bx-chevron-left"></i>
@@ -1521,7 +1520,6 @@ onMounted(async () => {
                                         !hasNextQuestion ? 'main-color-btn-disabled' : '',
                                     ]"
                                     type="primary"
-                                    size="large"
                                     @click="onNextQuestion"
                                 >
                                     {{ $t("learn_QS.buttons.next_question") }}
@@ -1544,7 +1542,6 @@ onMounted(async () => {
                     <a-button
                         :class="['main-color-btn close-modal-btn']"
                         type="primary"
-                        size="large"
                         @click="toggleExplainModal"
                     >
                         <i class="bx bx-chevrons-down"></i>
@@ -1555,7 +1552,6 @@ onMounted(async () => {
                             !hasNextQuestion ? 'main-color-btn-disabled' : '',
                         ]"
                         type="primary"
-                        size="large"
                         @click="onNextQuestion"
                     >
                         {{ $t("learn_QS.buttons.next_question") }}
@@ -1682,7 +1678,8 @@ onMounted(async () => {
 
 .content-item {
     width: 70%;
-    margin: 10px auto;
+    margin: 16px auto;
+    padding: 24px;
 }
 
 .content-item.question-navigators {
@@ -1690,13 +1687,152 @@ onMounted(async () => {
     top: 75px;
     width: 200px;
     height: fit-content;
-    margin: 10px 0px 0px 10px;
+    margin: 16px 0px 0px 16px;
+    padding: 16px;
+}
+
+.question-navigator-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--c-text-muted);
+}
+.question-navigator-container {
+    gap: 6px;
+    margin: 12px 0px;
+}
+.question-navigation-item-outer {
+    width: calc(25% - 5px);
+    margin: 0px;
+    padding: 2px;
+    border: 1px solid var(--form-item-border-color);
+    border-radius: var(--ui-r-sm);
+    font-size: 13px;
+    font-weight: 600;
+}
+.question-navigation-item-outer.current-question {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 1px var(--main-color);
+}
+.question-navigator-item {
+    padding: 4px 0px;
+    border-radius: var(--ui-r-xs);
+}
+
+.question-info-index {
+    margin-bottom: 12px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border-color: transparent;
+    border-radius: var(--ui-r-xs);
+    color: var(--c-primary-text);
+}
+
+.section {
+    padding: 0px;
+}
+.learn-question {
+    margin-bottom: 24px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+.answer-section-ins {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-text-muted);
+}
+.learn-question-result {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.answer-option-container {
+    margin-top: 12px;
+    border-top: 0;
+    border-radius: 0;
+}
+.answer-option-container.multiplechoice {
+    padding-top: 0px;
+    gap: 12px;
+}
+.answer-option {
+    min-height: 56px;
+    padding: 8px 14px;
+    background-color: var(--c-surface);
+    border: 1px solid var(--form-item-border-color);
+    border-radius: var(--ui-r-md);
+    font-size: 15px;
+}
+.answer-option:hover {
+    background-color: var(--c-surface-subtle);
+    border-color: var(--main-color);
+}
+.answer-option.ant-checkbox-wrapper-checked {
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border-color: var(--main-color);
+}
+.answer-option-content {
+    margin-left: 10px;
+    padding: 4px 0px;
+    font-size: 1em;
+}
+.answer-option.answer-correct,
+.answer-option.answer-correct:hover {
+    background-color: color-mix(in srgb, var(--c-success) 14%, var(--c-surface));
+    border-color: var(--c-success);
+}
+.answer-option.answer-incorrect,
+.answer-option.answer-incorrect:hover {
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+    border-color: var(--c-danger);
+}
+.answer-icon {
+    font-size: 22px;
+}
+.answer-correct .answer-icon {
+    color: var(--c-success-text);
+}
+.answer-incorrect .answer-icon {
+    color: var(--c-danger-text);
+}
+.sortable-chosen .answer-option {
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border: 1px solid var(--main-color);
+}
+.answer-option-container.ordering > div {
+    width: min(520px, 100%);
+}
+.answer-option-order {
+    font-size: 16px;
+}
+.answer-option-order i {
+    font-size: 22px;
 }
 
 .answer-short-text {
     display: flex;
     flex-direction: column;
     align-items: start;
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: var(--ui-r-md);
+}
+.answer-short-text.answer-correct {
+    background-color: color-mix(in srgb, var(--c-success) 14%, var(--c-surface));
+    border-color: var(--c-success);
+}
+.answer-short-text.answer-incorrect {
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+    border-color: var(--c-danger);
+}
+.short-text-correct-answer span {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--c-success-text);
 }
 
 .completed-question.correct {
@@ -1709,6 +1845,27 @@ onMounted(async () => {
 }
 .learn-question-footer {
     padding: 0px;
+    margin-top: 16px;
+}
+.main-color-btn-ghost {
+    height: 40px;
+    padding: 0px 14px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.main-color-btn-ghost:hover {
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface)) !important;
+    border-color: transparent;
+}
+
+.explain-modal-up {
+    padding: 20px 32px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-xl) var(--ui-r-xl) 0 0;
+    box-shadow: var(--ui-shadow-pop);
+}
+.close-modal-btn {
+    top: -20px;
 }
 
 #result_chart_container {
@@ -1744,8 +1901,8 @@ onMounted(async () => {
 }
 .result-text span {
     padding: 0px 20px;
-    border: 2px solid transparent;
-    border-radius: 500px;
+    border: 1px solid transparent;
+    border-radius: 999px;
 }
 .result-text.correct {
     color: var(--correct-answer-color);
@@ -1770,13 +1927,22 @@ onMounted(async () => {
     border-color: var(--incorrect-answer-color);
 }
 .test-setting-btn {
-    font-size: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+    color: var(--c-text);
+    background-color: var(--c-surface-raised);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
 .test-setting-btn:hover {
-    font-size: 35px;
-    transform: rotate(180deg);
+    color: var(--c-primary-text);
+    border-color: var(--main-color);
 }
 
 .result-section-title {
@@ -1807,37 +1973,39 @@ onMounted(async () => {
     height: 80px;
     max-height: 80px;
     max-width: 400px;
-    border: 1px solid var(--main-color);
-    border-radius: 8px;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.15s ease;
 }
 .result-button:hover {
-    background-color: var(--main-color);
-    color: var(--text-color-contrast);
-}
-.result-button:hover .result-button-title,
-.result-button:hover .result-button-content {
-    color: var(--text-color-contrast);
+    border-color: var(--main-color);
 }
 
 .result-button i {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
     margin: 10px;
-    font-size: 30px;
-    transition: all 0.2s ease-in-out;
+    font-size: 26px;
+    color: var(--c-primary-text);
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border-radius: var(--ui-r-sm);
 }
 
 .result-button-title {
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
     color: var(--c-primary-text);
-    transition: all 0.2s ease-in-out;
 }
 
 .result-button-content {
-    font-size: 15px;
-    color: var(--text-color);
-    transition: all 0.2s ease-in-out;
+    font-size: 14px;
+    color: var(--c-text-muted);
 }
 
 .setting-form {
@@ -1863,5 +2031,38 @@ onMounted(async () => {
     width: 100%;
     height: 100%;
     z-index: 100;
+}
+
+@media (max-width: 767.98px) {
+    .result-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .result-section-title {
+        text-align: start;
+    }
+
+    .result-section-statistic {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .result-section-buttons {
+        align-items: stretch;
+    }
+
+    .result-button {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        margin: 0px;
+    }
+
+    .result-button + .result-button {
+        margin-top: 12px;
+    }
 }
 </style>

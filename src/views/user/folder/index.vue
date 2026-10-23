@@ -339,16 +339,28 @@ onMounted(async () => {
     width: auto;
 }
 
+.content-item {
+    padding: 20px;
+}
+
+.content-item-title {
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+.content-item-title span:nth-child(2) {
+    font-size: 14px;
+}
+
 .content-item-button {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
     background-color: var(--main-color);
     border: none;
-    border-radius: 5px;
-    padding: 8px 10px;
-    font-size: 16px;
-    color: var(--text-color);
+    padding: 0 16px;
+    font-size: 14px;
     transition: all 0.2s ease-in-out;
     height: 40px;
     text-decoration: none;
@@ -359,14 +371,73 @@ onMounted(async () => {
 }
 
 .content-item-button i {
-    font-size: 24px;
-    margin-left: 10px;
-    transform: translateY(1px);
+    font-size: 18px;
+    margin-left: 0;
+    transform: none;
 }
 
 .filter-container {
     display: flex;
     justify-content: end;
     align-items: center;
+}
+
+.folder-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-auto-rows: min-content;
+    gap: 12px;
+    align-content: start;
+}
+
+.folder-container > .ant-skeleton,
+.folder-container > .w-100 {
+    grid-column: 1 / -1;
+}
+
+.folder {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    min-width: 0;
+    margin: 0;
+    padding: 12px 14px;
+    background-color: var(--content-item-background-color);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+    transition: border-color 0.15s ease-in-out;
+}
+.folder:hover {
+    background-color: var(--content-item-background-color);
+    border-color: var(--main-color);
+}
+
+.folder-icon {
+    flex: none;
+    width: 44px;
+    height: 32px;
+    border-radius: var(--ui-r-xs);
+}
+.folder-top {
+    height: 25%;
+    border-radius: var(--ui-r-xs);
+    background-color: color-mix(in srgb, var(--main-color) 70%, var(--c-surface));
+}
+.folder-body {
+    height: 88%;
+    border-radius: var(--ui-r-xs);
+    background: var(--main-color);
+}
+
+.folder-name {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    margin-top: 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
 }
 </style>

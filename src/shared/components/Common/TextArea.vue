@@ -52,7 +52,10 @@ const checkInvalid = () => {
 
 <template>
     <a-form-item :label="label" :name="name" class="input-item">
-        <a-tooltip :title="checkInvalid().isInvalid ? checkInvalid().message : null" :color="'red'">
+        <a-tooltip
+            :title="checkInvalid().isInvalid ? checkInvalid().message : null"
+            color="var(--c-solid-danger)"
+        >
             <a-textarea
                 :readonly="readonly"
                 @input="onUpdate"
@@ -72,30 +75,29 @@ const checkInvalid = () => {
 .input-item {
     display: flex;
     justify-content: center;
-    border-radius: 5px;
-    overflow: hidden;
     margin-bottom: 0px;
-    color: var(--text-color);
+    color: var(--c-text);
     width: 100%;
 }
 
 .input {
     height: 35px;
-    padding: 5px 10px;
+    padding: 8px 12px;
+    font-size: 14px;
     background-color: var(--form-item-background-color);
     border: 1px solid var(--form-item-border-color);
+    border-radius: var(--ui-r-sm);
     min-height: 60px;
     max-height: 160px;
-    color: var(--text-color);
+    color: var(--c-text);
 }
 
 .input.is-invalid {
-    border: 1px solid red !important;
+    border: 1px solid var(--c-danger) !important;
 }
 
 .input::placeholder {
-    color: var(--text-color-grey);
-    opacity: 0.6;
+    color: var(--c-placeholder);
 }
 
 .input:focus-within {
@@ -104,18 +106,18 @@ const checkInvalid = () => {
 /*---*/
 
 ::v-deep(.input textarea) {
-    color: var(--text-color);
+    color: var(--c-text);
     background-color: var(--content-item-children-background-color);
 }
 
 ::v-deep(.ant-form-item-label > label) {
-    color: var(--text-color);
-    font-weight: 500;
-    font-size: 14px;
+    color: var(--c-text);
+    font-weight: 600;
+    font-size: 13px;
 }
 
 ::v-deep(.input i) {
-    color: var(--text-color-grey);
+    color: var(--c-text-muted);
     transform: translateY(1px);
     margin-right: 8px;
 }

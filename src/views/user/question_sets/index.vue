@@ -305,19 +305,28 @@ onMounted(async () => {
 <style scoped>
 .content-item {
     width: 100%;
+    padding: 20px;
     overflow-y: hidden;
+}
+
+.content-item-title {
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+.content-item-title span:nth-child(2) {
+    font-size: 14px;
 }
 
 .content-item-button {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
     background-color: var(--main-color);
     border: none;
-    border-radius: 5px;
-    padding: 8px 10px;
-    font-size: 16px;
-    color: var(--text-color);
+    padding: 0 16px;
+    font-size: 14px;
     transition: all 0.2s ease-in-out;
     height: 40px;
     text-decoration: none;
@@ -328,9 +337,9 @@ onMounted(async () => {
 }
 
 .content-item-button i {
-    font-size: 24px;
-    margin-left: 10px;
-    transform: translateY(1px);
+    font-size: 18px;
+    margin-left: 0;
+    transform: none;
 }
 
 .quiz-container {
@@ -341,20 +350,23 @@ onMounted(async () => {
 }
 
 .quiz-item {
-    background-color: var(--content-item-children-background-color);
-    margin: 10px 0px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 10px;
+    background-color: var(--content-item-background-color);
+    margin: 0 0 10px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+    padding: 12px 14px;
     display: flex;
     align-items: center;
     width: 100%;
     box-sizing: border-box;
     cursor: pointer;
+    transition: border-color 0.15s ease-in-out;
 }
 
 .quiz-item:hover {
     border: 1px solid var(--main-color);
+    transform: none;
+    box-shadow: none;
 }
 
 .quiz-item i {
@@ -363,13 +375,13 @@ onMounted(async () => {
 
 .quiz-item-icon {
     display: flex;
-    width: 35px;
-    height: 35px;
+    width: 36px;
+    height: 36px;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
     aspect-ratio: 1/1;
-    font-size: 16px;
+    font-size: 18px;
     border-radius: 50%;
     background: var(--main-color-theme);
     color: var(--c-primary-text);
@@ -377,19 +389,20 @@ onMounted(async () => {
 }
 
 .quiz-item-title {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
 }
 
 .quiz-item-info {
-    font-size: 14px;
-    color: var(--text-color-sub-white);
+    font-size: 13px;
+    color: var(--c-text-muted);
     display: flex;
     align-items: center;
     justify-content: start;
-    margin: 3px 0px;
+    margin: 4px 0px;
 }
 .quiz-item-info i {
+    margin-right: 4px;
     font-size: 14px;
 }
 
@@ -400,11 +413,12 @@ onMounted(async () => {
     margin-left: 10px;
 }
 .quiz-item-credit {
-    color: var(--text-color-sub-white);
+    color: var(--c-text-muted);
     font-size: 12px;
     font-weight: 400;
     display: flex;
     align-items: center;
+    gap: 8px;
 }
 
 .quiz-item-actions {
@@ -426,25 +440,40 @@ onMounted(async () => {
 }
 
 ::v-deep(.ant-progress-text) {
-    color: var(--text-color) !important;
+    color: var(--c-text-muted) !important;
+    font-size: 12px;
 }
 ::v-deep(.ant-progress-inner) {
     background-color: var(--content-item-border-color);
 }
+/* nhãn hiển thị: nền nhạt + chữ đậm theo trạng thái thay cho nền đặc */
 ::v-deep(.ant-tag) {
-    font-size: 14px !important;
+    margin: 0;
+    padding: 1px 8px;
+    font-size: 12px !important;
     font-weight: 500 !important;
+    line-height: 18px;
+    border-radius: var(--ui-r-xs);
+}
+::v-deep(.ant-tag-has-color[style*="rgb(34, 197, 94)"]) {
+    color: var(--c-success-text) !important;
+    background-color: color-mix(in srgb, var(--c-success) 14%, var(--c-surface)) !important;
+    border-color: color-mix(in srgb, var(--c-success) 40%, var(--c-surface)) !important;
+}
+::v-deep(.ant-tag-has-color[style*="rgb(197, 34, 37)"]) {
+    color: var(--c-danger-text) !important;
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface)) !important;
+    border-color: color-mix(in srgb, var(--c-danger) 40%, var(--c-surface)) !important;
 }
 
 .ant-dropdown-link {
     padding: 6px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
+    border-radius: var(--ui-r-md);
+    border: 1px solid var(--content-item-border-color);
 }
 
 .drop-down-container {
     background: var(--content-item-background-color) !important;
     border: 1px solid var(--main-color);
 }
-
 </style>

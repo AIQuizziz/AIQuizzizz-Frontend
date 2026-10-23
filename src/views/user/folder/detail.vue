@@ -483,24 +483,86 @@ onMounted(async () => {
     />
 </template>
 <style scoped>
+.content-item {
+    padding: 20px;
+}
+
+.quiz-item {
+    margin: 0 0 10px;
+    padding: 12px 14px;
+    background-color: var(--content-item-background-color);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+    cursor: default;
+    transition: border-color 0.15s ease-in-out;
+}
+.quiz-item:hover {
+    border: 1px solid var(--main-color);
+    transform: none;
+    box-shadow: none;
+}
 .quiz-item-icon {
     display: flex;
-    width: 35px;
-    height: 35px;
+    width: 36px;
+    height: 36px;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
     aspect-ratio: 1/1;
-    font-size: 16px;
+    font-size: 18px;
     border-radius: 50%;
     background: var(--main-color-theme);
     color: var(--c-primary-text);
     margin-right: 12px;
 }
+.quiz-item-title {
+    font-size: 15px;
+}
+.quiz-item-created-by {
+    font-size: 13px;
+    color: var(--c-text-muted);
+}
+.quiz-info-detail {
+    margin-top: 4px;
+    padding-top: 0;
+    font-size: 13px;
+    color: var(--c-text-muted);
+}
+.quiz-info-detail i {
+    margin-right: 4px;
+}
 
+.exam-item-actions {
+    gap: 8px;
+}
+.exam-item-actions .me-3 {
+    margin-right: 0 !important;
+}
+.exam-item-actions .bx-trash-alt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    border-radius: var(--ui-r-md);
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+}
+.exam-item-actions .bx-trash-alt:hover {
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+}
+
+.text-danger {
+    color: var(--c-danger-text) !important;
+}
+.text-secondary {
+    color: var(--c-text-muted) !important;
+}
 .danger-zone {
-    background-color: #ef44441a;
-    border-radius: 8px;
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+    border: 1px solid color-mix(in srgb, var(--c-danger) 30%, var(--c-surface));
+    border-radius: var(--ui-r-md);
 }
 .title-container {
     width: auto;
@@ -510,11 +572,21 @@ onMounted(async () => {
     margin-right: 36px;
 }
 
+.content-item-title {
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+.content-item-title span:nth-child(2) {
+    font-size: 14px;
+}
 .content-item-title i {
     cursor: pointer;
+    color: var(--c-text-muted);
+    font-size: 20px;
     transition: all 0.2s ease-in-out;
 }
 .content-item-title i:hover {
-    opacity: 0.8;
+    color: var(--c-primary-text);
 }
 </style>

@@ -1115,7 +1115,6 @@ onMounted(async () => {
                                     currentQuestionIsSubmitted ? 'main-color-btn-disabled' : '',
                                 ]"
                                 type="primary"
-                                size="large"
                                 @click="onSubmitAnswer"
                             >
                                 {{ $t("learn_QS.buttons.submit") }}
@@ -1137,7 +1136,6 @@ onMounted(async () => {
                 <a-button
                     :class="['main-color-btn close-modal-btn']"
                     type="primary"
-                    size="large"
                     @click="toggleExplainModal"
                 >
                     <i class="bx bx-chevrons-down"></i>
@@ -1148,7 +1146,6 @@ onMounted(async () => {
                         currentSession.length <= 0 ? 'main-color-btn-disabled' : '',
                     ]"
                     type="primary"
-                    size="large"
                     @click="onNextQuestion"
                 >
                     {{ $t("learn_QS.buttons.next_question") }}
@@ -1397,7 +1394,7 @@ onMounted(async () => {
             </div>
             <a-progress
                 :show-info="false"
-                stroke-color="#7C3AED"
+                stroke-color="var(--main-color)"
                 :percent="completionPercentage"
             />
             <div class="progress-info">
@@ -1655,19 +1652,20 @@ onMounted(async () => {
 }
 .content-item {
     width: 70%;
-    margin: 10px auto;
+    margin: 16px auto;
+    padding: 24px;
 }
 ::v-deep(.answer-correct textarea) {
-    border-color: #2ecc71;
+    border-color: var(--c-success);
 }
 
 ::v-deep(.answer-incorrect textarea) {
-    border-color: #e74c3c;
+    border-color: var(--c-danger);
 }
 
 ::v-deep(.ant-progress-bg) {
     background-color: var(--main-color) !important;
-    height: 15px !important;
+    height: 8px !important;
 }
 
 ::v-deep(.ant-progress-text) {
@@ -1679,29 +1677,205 @@ onMounted(async () => {
 ::v-deep(.ant-progress-inner) {
     background-color: var(--content-item-border-color);
 }
+
+.progress-info {
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: var(--c-text-muted);
+}
 .relearn-ins {
-    padding: 0px 10px;
-    background-color: var(--skipped-answer-color);
-    color: #fff;
+    padding: 4px 12px;
+    background-color: color-mix(in srgb, var(--c-warning) 16%, var(--c-surface));
+    color: var(--c-warning-text);
     width: fit-content;
-    border-radius: 100px;
-    font-size: 14px;
+    border-radius: 999px;
+    font-size: 12px;
     font-weight: 500;
-    margin: 10px 0px;
+    margin: 0px 0px 12px;
+}
+
+.section {
+    padding: 0px;
+}
+.learn-question {
+    margin-bottom: 24px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+.answer-section-ins {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-text-muted);
+}
+.learn-question-result {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.answer-option-container {
+    margin-top: 12px;
+    border-top: 0;
+    border-radius: 0;
+}
+.answer-option-container.multiplechoice {
+    padding-top: 0px;
+    gap: 12px;
+}
+.answer-option {
+    min-height: 56px;
+    padding: 8px 14px;
+    background-color: var(--c-surface);
+    border: 1px solid var(--form-item-border-color);
+    border-radius: var(--ui-r-md);
+    font-size: 15px;
+}
+.answer-option:hover {
+    background-color: var(--c-surface-subtle);
+    border-color: var(--main-color);
+}
+.answer-option.ant-checkbox-wrapper-checked {
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border-color: var(--main-color);
+}
+.answer-option-content {
+    margin-left: 10px;
+    padding: 4px 0px;
+    font-size: 1em;
+}
+.answer-option.answer-correct,
+.answer-option.answer-correct:hover {
+    background-color: color-mix(in srgb, var(--c-success) 14%, var(--c-surface));
+    border-color: var(--c-success);
+}
+.answer-option.answer-incorrect,
+.answer-option.answer-incorrect:hover {
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+    border-color: var(--c-danger);
+}
+.answer-icon {
+    font-size: 22px;
+}
+.answer-correct .answer-icon {
+    color: var(--c-success-text);
+}
+.answer-incorrect .answer-icon {
+    color: var(--c-danger-text);
+}
+.sortable-chosen .answer-option {
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border: 1px solid var(--main-color);
+}
+.answer-option-container.ordering > div {
+    width: min(520px, 100%);
+}
+.answer-option-order {
+    font-size: 16px;
+}
+.answer-option-order i {
+    font-size: 22px;
 }
 
 .answer-short-text {
     display: flex;
     flex-direction: column;
     align-items: start;
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: var(--ui-r-md);
+}
+.answer-short-text.answer-correct {
+    background-color: color-mix(in srgb, var(--c-success) 14%, var(--c-surface));
+    border-color: var(--c-success);
+}
+.answer-short-text.answer-incorrect {
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+    border-color: var(--c-danger);
 }
 .short-text-correct-answer {
     margin-top: 10px;
 }
 .short-text-correct-answer span {
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--correct-answer-color);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--c-success-text);
+}
+
+.learn-question-footer {
+    padding: 0px;
+    margin-top: 16px;
+}
+.main-color-btn-ghost {
+    height: 40px;
+    padding: 0px 14px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.main-color-btn-ghost:hover {
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface)) !important;
+    border-color: transparent;
+}
+
+.explain-modal-up {
+    padding: 20px 32px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-xl) var(--ui-r-xl) 0 0;
+    box-shadow: var(--ui-shadow-pop);
+}
+.close-modal-btn {
+    top: -20px;
+}
+
+.preview-question-title {
+    font-weight: 600;
+}
+.preview-question-item {
+    margin: 8px 0px;
+    padding: 12px 14px;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+}
+.question-item-content {
+    flex: 1;
+}
+.question-item-toogle-btn {
+    flex: none;
+}
+.question-item-toogle-btn i {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    align-items: center;
+    color: var(--c-text-muted);
+    background-color: var(--c-surface-raised);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+}
+.question-item-toogle-btn i:hover {
+    color: var(--c-primary-text);
+    border-color: var(--main-color);
+}
+.multiple-choice-answer ul {
+    padding-left: 18px;
+}
+.pair-answer-item,
+.short-text-answer {
+    background-color: var(--c-surface-raised);
+    border-radius: var(--ui-r-sm);
+}
+
+.question-item-answer {
+    margin-top: 8px;
+}
+.comment-form {
+    border-radius: 0px;
+}
+.comment-item:hover {
+    border-radius: var(--ui-r-md);
+}
+.child-comment-container {
+    border-left: 2px solid var(--content-item-border-color);
 }
 
 .animation-container {
@@ -1719,12 +1893,10 @@ onMounted(async () => {
 }
 
 .modal-complete {
-    border-radius: 10px;
-    border: 1px solid var(--form-item-border-color);
-    background: var(--form-item-background-color);
-    box-shadow:
-        0 4px 6px -4px rgba(0, 0, 0, 0.1),
-        0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-radius: var(--ui-r-xl);
+    border: 1px solid var(--content-item-border-color);
+    background: var(--c-surface);
+    box-shadow: var(--ui-shadow-pop);
 
     height: 80%;
     width: 80%;
@@ -1759,9 +1931,11 @@ onMounted(async () => {
 }
 
 .modal-complete-buttons-container {
-    width: 40%;
+    width: 80%;
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
 }
 .ghost-btn {
     background-color: transparent;

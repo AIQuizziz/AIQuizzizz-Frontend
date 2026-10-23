@@ -128,6 +128,15 @@
 .ant-input-number-input {
     height: 38px;
 }
+/* ô nhập bên trong khung có icon / hậu tố: khung đã cao 40, ô bên trong tự co theo khung */
+.ant-input-affix-wrapper > input.ant-input,
+.ant-input-number-input-wrap .ant-input-number-input {
+    min-height: 0;
+    height: auto;
+}
+.ant-input-number-input-wrap .ant-input-number-input {
+    height: 38px;
+}
 .ant-input-textarea-show-count::after {
     font-size: 12px;
 }
@@ -229,4 +238,163 @@
 }
 .sign-out-btn {
     border-radius: var(--ui-r-sm);
+}
+
+/* ------------------------------ sidebar: nền thẻ + viền phải, mục menu bo 10, hover nhấn nhạt ------------------------------ */
+.sidebar-container {
+    background-color: var(--content-item-background-color);
+    border-right: 1px solid var(--content-item-border-color);
+}
+.sidebar-listItem {
+    margin: 4px 0;
+}
+.sidebar-listItem a {
+    padding: 13px 16px;
+    border-radius: var(--ui-r-md);
+}
+.sidebar-listItem:not(.active):hover {
+    background-color: color-mix(in srgb, var(--main-color) 12%, var(--content-item-background-color));
+}
+.sidebar-listItem:not(.active):hover a,
+.sidebar-listItem:not(.active):hover i,
+.sidebar-listItem:not(.active):hover span {
+    color: var(--c-primary-text) !important;
+}
+.sidebar-listItem.active {
+    font-weight: 600;
+}
+.sidebar-viewButton {
+    box-shadow: var(--ui-shadow-pop);
+}
+
+/* ------------------------------ chi tiết dùng chung ------------------------------ */
+/* vạch ngăn giữa các tiêu đề cột bảng: mờ theo token (mặc định của Ant quá đậm ở giao diện tối) */
+.ant-table-wrapper .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+    background-color: var(--c-border) !important;
+}
+/* đường kẻ có chữ ("Quản lý") trong sidebar người dùng và admin */
+.sidebar-container .ant-divider {
+    border-color: var(--c-border) !important;
+}
+.sidebar-container .ant-divider::before,
+.sidebar-container .ant-divider::after {
+    border-color: var(--c-border) !important;
+}
+/* badge trạng thái dạng viên thuốc: .ui-pill + .is-success | .is-danger | .is-warning | .is-primary (nền nhạt 14%, chữ -text) */
+.ui-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    color: var(--c-text-muted);
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--c-border);
+    border-radius: 999px;
+    white-space: nowrap;
+}
+.ui-pill.is-success {
+    color: var(--c-success-text);
+    background-color: color-mix(in srgb, var(--c-success) 14%, var(--c-surface));
+    border-color: color-mix(in srgb, var(--c-success) 40%, var(--c-surface));
+}
+.ui-pill.is-danger {
+    color: var(--c-danger-text);
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+    border-color: color-mix(in srgb, var(--c-danger) 40%, var(--c-surface));
+}
+.ui-pill.is-warning {
+    color: var(--c-warning-text);
+    background-color: color-mix(in srgb, var(--c-warning) 14%, var(--c-surface));
+    border-color: color-mix(in srgb, var(--c-warning) 40%, var(--c-surface));
+}
+.ui-pill.is-primary {
+    color: var(--c-primary-text);
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border-color: color-mix(in srgb, var(--main-color) 40%, var(--c-surface));
+}
+
+/* ------------------------------ lớp dùng chung của main.css, đưa về thang bo góc / viền mới ------------------------------ */
+.ant-btn,
+.ant-btn-primary,
+.ant-btn-default {
+    box-shadow: none;
+}
+.main-title span:nth-child(1) {
+    font-weight: 700;
+}
+.main-color-btn.link {
+    height: 40px;
+    padding: 0 16px;
+    border-radius: var(--ui-r-md);
+    font-size: 14px !important;
+    font-weight: 600;
+}
+
+/* thanh tab dạng phân đoạn (lớp học, hộp thoại, luyện tập) */
+.navigator-container {
+    border-radius: var(--ui-r-md);
+    background-color: var(--c-surface-subtle);
+}
+.navigator-item {
+    border-radius: var(--ui-r-sm);
+    font-weight: 500;
+}
+.navigator-item:hover:not(.navigator-active) {
+    background-color: color-mix(in srgb, var(--main-color) 12%, var(--c-surface-subtle));
+    color: var(--c-primary-text) !important;
+}
+
+/* hàng chọn được: bộ câu hỏi, thư mục, đáp án */
+.quiz-item {
+    background-color: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--ui-r-md);
+}
+.quiz-item:hover {
+    border-color: var(--main-color);
+    transform: none;
+    box-shadow: none;
+}
+.folder {
+    border-radius: var(--ui-r-md);
+}
+.answer-option {
+    border-width: 1px;
+    border-radius: var(--ui-r-md);
+}
+.answer-option:hover {
+    background-color: color-mix(in srgb, var(--main-color) 10%, var(--c-surface));
+}
+.question-index {
+    border-radius: var(--ui-r-sm);
+}
+.preview-question-item,
+.pair-answer-item,
+.question-list {
+    border-radius: var(--ui-r-md);
+}
+
+/* nút thêm / nhập ở các trang soạn: viền mảnh 1px */
+.add-question-btn {
+    border-width: 1px;
+    border-radius: var(--ui-r-md);
+}
+.add-question-btn:hover {
+    border-width: 1px;
+    background-color: color-mix(in srgb, var(--main-color) 12%, var(--c-surface));
+}
+.import-button:nth-child(2),
+.import-button:nth-child(3) {
+    border-width: 1px;
+}
+
+/* select nhiều lựa chọn */
+.ant-select-multiple .ant-select-selector {
+    min-height: 40px;
+}
+.ant-select-multiple .ant-select-selection-item {
+    border-radius: var(--ui-r-xs);
 }

@@ -838,13 +838,38 @@ onMounted(async () => {
     </a-modal>
 </template>
 <style scoped>
+.content-item {
+    padding: 20px;
+}
+
+.ant-btn {
+    box-shadow: none;
+}
+
+.content-item-title {
+    font-size: 20px;
+}
+
+.navigator-container {
+    border-radius: var(--ui-r-md);
+    background-color: var(--c-surface-subtle);
+}
+
 .navigator-item {
     font-size: 14px !important;
+    font-weight: 500;
+    border-radius: var(--ui-r-xs);
+}
+
+.navigator-item:hover:not(.navigator-active) {
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    color: var(--c-primary-text) !important;
 }
 
 .danger-zone {
-    background-color: #ef44441a;
-    border-radius: 8px;
+    background-color: color-mix(in srgb, var(--c-danger) 10%, var(--c-surface));
+    border: 1px solid color-mix(in srgb, var(--c-danger) 40%, var(--c-surface));
+    border-radius: var(--ui-r-lg);
 }
 
 .pagination-container {
@@ -863,7 +888,7 @@ onMounted(async () => {
     padding: 8px;
     background-color: var(--form-item-background-color);
     border: 1px solid var(--form-item-border-color);
-    border-radius: 6px;
+    border-radius: var(--ui-r-sm);
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
@@ -924,5 +949,14 @@ onMounted(async () => {
 
 .student-avatar {
     margin-right: 10px;
+}
+
+:deep(.ant-table-thead > tr > th) {
+    background-color: var(--c-surface-subtle) !important;
+    color: var(--c-text-muted) !important;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 </style>

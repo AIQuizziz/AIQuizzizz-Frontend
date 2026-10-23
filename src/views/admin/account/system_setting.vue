@@ -193,7 +193,7 @@ const getSystemSettingsData = async () => {
                             </a-form-item>
                         </a-col>
                     </a-row>
-                    <div v-if="!canEdit" class="mb-2">
+                    <div v-if="!canEdit" class="read-only-note mb-2">
                         {{ t("admin.system_settings.read_only") }}
                     </div>
                     <div class="w-100 d-flex justify-content-end">
@@ -215,8 +215,17 @@ const getSystemSettingsData = async () => {
 </template>
 
 <style scoped>
+.content-item {
+    padding: 20px;
+}
+
 .update_input_name {
     width: 100%;
     align-items: center;
+}
+
+.read-only-note {
+    color: var(--c-text-muted);
+    font-size: 14px;
 }
 </style>

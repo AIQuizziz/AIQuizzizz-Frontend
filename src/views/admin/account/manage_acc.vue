@@ -371,6 +371,11 @@ const getUsersData = async () => {
                                 <span>{{ record.fullName }}</span>
                             </div>
                         </template>
+                        <template v-if="column.key === 'role'">
+                            <span :class="['role-badge', `role-${String(record.role).toLowerCase()}`]">{{
+                                record.role
+                            }}</span>
+                        </template>
                         <template v-if="column.key === 'ban'">
                             <div class="action-cell">
                                 <template v-if="user_info.roles.includes('Administrator')">
@@ -381,8 +386,7 @@ const getUsersData = async () => {
                                         </template>
                                         <i
                                             v-if="record.role === 'Moderator'"
-                                            class="bx bx-id-card"
-                                            style="color: #ff002e; font-size: 25px"
+                                            class="bx bx-id-card role-action role-action-demote"
                                             @click="onDemoteToUser(record)"
                                         ></i>
                                     </a-tooltip>
@@ -394,8 +398,7 @@ const getUsersData = async () => {
                                         </template>
                                         <i
                                             v-if="record.role === 'User'"
-                                            class="bx bx-id-card"
-                                            style="color: #5813c1; font-size: 25px"
+                                            class="bx bx-id-card role-action role-action-promote"
                                             @click="onPromoteToModerator(record)"
                                         ></i>
                                     </a-tooltip>
@@ -467,8 +470,8 @@ const getUsersData = async () => {
 .custom-input {
     width: 100%;
     min-width: 0;
-    height: 35px;
-    border-radius: 8px;
+    height: 40px;
+    border-radius: var(--ui-r-sm);
 }
 .custom-input :deep(input) {
     min-width: 0;
@@ -478,25 +481,82 @@ const getUsersData = async () => {
     margin-right: 6px;
 }
 .account-table {
-    width: calc(100% - 70px);
+    width: calc(100% - 60px);
     margin: 8px;
 }
 .action-cell {
     display: flex;
     justify-content: center;
-    align-content: center;
+    align-items: center;
+    gap: 8px;
 }
+
+/* nút icon vuông 36px, không viền; hover nền nhạt */
+.role-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+    border-radius: var(--ui-r-md);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+.role-action-demote {
+    color: var(--c-danger-text);
+}
+.role-action-demote:hover {
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+}
+.role-action-promote {
+    color: var(--c-primary-text);
+}
+.role-action-promote:hover {
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+}
+
+/* badge vai trò: 6px; Administrator dùng màu nhấn, Moderator màu cảnh báo, User trung tính */
+.role-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border: 1px solid var(--c-border);
+    border-radius: var(--ui-r-xs);
+    background-color: var(--c-surface-subtle);
+    color: var(--c-text-muted);
+    font-size: 12px;
+    font-weight: 500;
+}
+.role-administrator {
+    border-color: color-mix(in srgb, var(--main-color) 45%, var(--c-surface));
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    color: var(--c-primary-text);
+}
+.role-moderator {
+    border-color: color-mix(in srgb, var(--c-warning) 45%, var(--c-surface));
+    background-color: color-mix(in srgb, var(--c-warning) 14%, var(--c-surface));
+    color: var(--c-warning-text);
+}
+
 .account-table :deep(.ant-table) {
     background-color: var(--content-item-background-color);
-    border-radius: 8px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-lg);
     overflow: hidden;
 }
 
 .account-table :deep(.ant-table-thead > tr > th) {
-    background-color: var(--border-color);
-    color: var(--text-color);
+    background-color: var(--c-surface-subtle);
+    color: var(--c-text-muted);
+    font-size: 11px;
     font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     padding: 12px 16px;
+}
+
+.account-table :deep(.ant-table-thead > tr > th::before) {
+    background-color: var(--c-border) !important;
 }
 
 ::v-deep(.ant-empty-description) {

@@ -154,7 +154,6 @@ onMounted(() => {
                         v-for="theme in themes"
                         :class="[
                             'theme-item',
-                            theme.class,
                             theme_active === theme.class ? 'active' : '',
                         ]"
                         @click="toggleTheme(theme.class)"
@@ -182,9 +181,12 @@ onMounted(() => {
             <div class="appearance-section">
                 <div>{{ $t("settings.appearance.color.title") }}</div>
                 <div class="color-container">
-                    <div class="color-item" v-for="color in accent_color">
+                    <div
+                        :class="['color-item', color_active == color.class ? 'active' : '']"
+                        v-for="color in accent_color"
+                        @click="toggleColor(color.class)"
+                    >
                         <div
-                            @click="toggleColor(color.class)"
                             :class="[
                                 'color-item-sample',
                                 color_active == color.class ? 'active' : '',
@@ -221,24 +223,31 @@ onMounted(() => {
 <style scoped>
 .appearance-section {
     margin-top: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid;
-    border-color: var(--border-color-contrast);
-    font-size: 18px;
-    font-weight: 500;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--c-border);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.appearance-section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
 .theme-container {
     display: flex;
-    padding: 10px 0px;
+    gap: 12px;
+    padding: 12px 0px 0px;
 }
 
+/* thẻ chọn được: viền mảnh; đang chọn viền nhấn + nền nhấn nhạt */
 .theme-item {
     flex: 1;
-    margin-right: 10px;
-    padding: 15px;
-    border: 1px solid #a1a1a1;
-    border-radius: 5px;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid var(--c-border);
+    border-radius: var(--ui-r-md);
+    background-color: var(--c-surface);
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
@@ -249,14 +258,16 @@ onMounted(() => {
 
 .theme-item.active {
     border-color: var(--main-color);
+    box-shadow: 0 0 0 1px var(--main-color);
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
 }
 
 .theme-item-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 18px;
-    font-weight: normal;
+    font-size: 15px;
+    font-weight: 500;
     margin-bottom: 10px;
 }
 
@@ -276,10 +287,11 @@ onMounted(() => {
     align-items: center;
 }
 
+/* ảnh minh hoạ giao diện: màu cố định, không theo giao diện hiện tại */
 .theme-illustration {
     background-color: #09090b;
-    border: 1px solid var(--main-color);
-    border-radius: 5px;
+    border: 1px solid var(--c-border-strong);
+    border-radius: var(--ui-r-sm);
     padding: 10px;
     padding-bottom: 20px;
 }
@@ -287,7 +299,7 @@ onMounted(() => {
 .theme-content-item {
     height: 8px;
     width: 100px;
-    border-radius: 10px;
+    border-radius: 999px;
     background-color: #3a3a3c;
     margin: 8px 0px;
 }
@@ -310,19 +322,37 @@ onMounted(() => {
 }
 
 .color-container {
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+    gap: 12px;
+    padding-top: 12px;
 }
 
 .color-item {
-    font-size: 16px;
-    font-weight: normal;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid var(--c-border);
+    border-radius: var(--ui-r-md);
+    background-color: var(--c-surface);
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 4px;
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.color-item:hover {
+    border-color: var(--main-color);
+}
+
+.color-item.active {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 1px var(--main-color);
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
 }
 
 .color-item-sample {
@@ -340,10 +370,6 @@ onMounted(() => {
     border: 2px solid var(--main-color);
 }
 
-.color-item-sample:hover {
-    border: 2px solid var(--main-color);
-}
-
 .color-item-sample div {
     width: 40px;
     height: 40px;
@@ -354,14 +380,14 @@ onMounted(() => {
 .language-select-container {
     width: 100%;
     display: flex;
-    justify-content: end;
+    justify-content: start;
 }
 
 .language-select {
     width: 200px;
     height: 100%;
     background-color: var(--background-color);
-    margin-top: 20px;
+    margin-top: 12px;
 }
 
 .language-img {
