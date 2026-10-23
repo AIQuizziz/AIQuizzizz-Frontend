@@ -20,11 +20,7 @@ import { useRouter, onBeforeRouteLeave } from "vue-router";
 import Input from "@/shared/components/Common/Input.vue";
 import TextArea from "@/shared/components/Common/TextArea.vue";
 
-import MultipleChoice from "@/shared/components/Questions/MultipleChoice.vue";
-import Matching from "@/shared/components/Questions/Matching.vue";
-import Ordering from "@/shared/components/Questions/Ordering.vue";
-import ShortText from "@/shared/components/Questions/ShortText.vue";
-import LanguageFlashcard from "@/shared/components/Questions/LanguageFlashcard.vue";
+import QuestionEditorLayout from "@/shared/components/Questions/QuestionEditorLayout.vue";
 
 interface FormState {
     name: string;
@@ -90,13 +86,6 @@ const rules = {
     ],
 };
 
-const componentMap = {
-    MultipleChoice,
-    Matching,
-    Ordering,
-    ShortText,
-    LanguageFlashcard,
-};
 
 //#region tag
 //tag
@@ -204,16 +193,7 @@ const onAddQuestion = async () => {
 
     formState.questions = [...formState.questions, createQuestionTemplate(formState.questions)];
 
-    nextTick(() => {
-        nextTick(() => {
-            requestAnimationFrame(() => {
-                scrollerRef.value?.lastElementChild?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                });
-            });
-        });
-    });
+    editorRef.value?.focusQuestion(formState.questions[formState.questions.length - 1].id);
 };
 
 const onRemoveQuestion = (index: number) => {
@@ -345,16 +325,7 @@ const onModalImport = (selected: RequestQuestion[], setInfo?: ImportedSetInfo | 
         })),
     );
 
-    nextTick(() => {
-        nextTick(() => {
-            requestAnimationFrame(() => {
-                scrollerRef.value?.firstElementChild?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                });
-            });
-        });
-    });
+    editorRef.value?.focusQuestion(formState.questions[0].id);
 
     message.success(`${t("message.imported_question", { number: selected.length })}`);
 };
@@ -395,7 +366,7 @@ function handleBeforeUnload(e: BeforeUnloadEvent) {
 
 //#endregion
 
-const scrollerRef = ref<any>(null);
+const editorRef = ref<InstanceType<typeof QuestionEditorLayout> | null>(null);
 
 // các trang con của thư viện: highlight mục "Quizzes" ở sidebar
 const emit = defineEmits(["updateSidebar"]);
@@ -413,7 +384,7 @@ onUnmounted(() => {
 });
 </script>
 <template>
-    <div class="page-container">
+    <div class="page-container editor-page">
         <div class="title-container">
             <a-row class="w-100 d-flex align-items-center">
                 <a-col :span="1">
@@ -421,168 +392,126 @@ onUnmounted(() => {
                         <i class="bx bx-chevron-left navigator-back-button"></i>
                     </RouterLink>
                 </a-col>
-                <a-col class="main-title" :span="23">
+                <a-col class="main-title" :span="18">
                     <span> {{ $t("create_QS.title") }}</span> <br />
                     <span>
                         {{ $t("create_QS.sub_title") }}
                     </span>
                 </a-col>
+                <a-col :span="5" class="title-actions">
+                    <a-button type="primary" class="main-color-btn" size="large" @click="onFinish">
+                        <i class="bx bx-save"></i>
+                        {{ $t("create_QS.buttons.create") }}
+                    </a-button>
+                </a-col>
             </a-row>
         </div>
         <div class="content">
             <a-form layout="vertical" v-model="formState" :rules="rules" ref="formRef">
-                <div class="content-item quiz-details">
-                    <div class="content-item-title">
-                        <div>
-                            <span>{{ $t("create_QS.quiz.question_detail_title") }}</span>
-                            <span>{{ $t("create_QS.quiz.question_detail_sub_title") }}</span>
-                        </div>
-                    </div>
-                    <Input
-                        class="question-input-item"
-                        v-model="formState.name"
-                        :isRequired="true"
-                        :placeholder="t('create_QS.other.title_placeholder')"
-                        :label="t('create_QS.quiz.title')"
-                        :max-length="100"
-                    />
-                    <div class="qd-row">
-                        <TextArea
-                            class="question-input-item qd-description"
-                            v-model="formState.description"
-                            :placeholder="t('create_QS.other.description_placeholder')"
-                            :max-length="250"
-                            :label="t('create_QS.quiz.description')"
-                        />
-                        <div class="form-item qd-tags">
-                            <label>{{ $t("create_QS.quiz.tag") }}</label>
-                            <div class="tag-container">
-                                <div
-                                    class="tag-item"
-                                    v-for="(tag, index) in formState.tags"
-                                    :key="index"
-                                >
-                                    {{ tag }}
-                                    <i class="bx bx-x" @click="removeTag(index)"></i>
+                <QuestionEditorLayout
+                    ref="editorRef"
+                    v-model:questions="formState.questions"
+                    :allow-flashcard="true"
+                    @add="onAddQuestion"
+                    @remove="onRemoveQuestion"
+                    @change-type="onHandleChangeQuestionType"
+                    @import="onOpenImportModal"
+                    @generate="openGenerateAIModal"
+                >
+                    <template #header>
+                        <div class="content-item quiz-details">
+                            <div class="content-item-title">
+                                <div>
+                                    <span>{{ $t("create_QS.quiz.question_detail_title") }}</span>
+                                    <span>{{ $t("create_QS.quiz.question_detail_sub_title") }}</span>
                                 </div>
                             </div>
-                            <div class="tag-inputter">
-                                <!-- <Input
-                                    v-model="tagContent"
-                                    :placeholder="t('create_QS.other.tag_content_placeholder')"
-                                    :max-length="50"
-                                >
-                                    <template #icon>
-                                        <i class="bx bx-purchase-tag-alt"></i>
-                                    </template>
-                                </Input> -->
-                                <div class="search-bar" ref="searchResultRef">
-                                    <Input
-                                        @input="getSearchTagData"
-                                        v-model="tagContent"
-                                        :placeholder="t('create_QS.other.tag_content_placeholder')"
-                                        :max-length="50"
-                                    >
-                                        <template #icon>
-                                            <i class="bx bx-purchase-tag-alt"></i>
-                                        </template>
-                                    </Input>
-                                    <div
-                                        v-if="tag_search_data.length > 0"
-                                        :class="['search-result-container']"
-                                    >
-                                        <div class="search-result">
-                                            <div
-                                                class="search-result-tag"
-                                                v-for="tag in tag_search_data"
+                            <Input
+                                class="question-input-item"
+                                v-model="formState.name"
+                                :isRequired="true"
+                                :placeholder="t('create_QS.other.title_placeholder')"
+                                :label="t('create_QS.quiz.title')"
+                                :max-length="100"
+                            />
+                            <div class="qd-row">
+                                <TextArea
+                                    class="question-input-item qd-description"
+                                    v-model="formState.description"
+                                    :placeholder="t('create_QS.other.description_placeholder')"
+                                    :max-length="250"
+                                    :label="t('create_QS.quiz.description')"
+                                />
+                                <div class="form-item qd-tags">
+                                    <label>{{ $t("create_QS.quiz.tag") }}</label>
+                                    <div class="tag-container">
+                                        <div
+                                            class="tag-item"
+                                            v-for="(tag, index) in formState.tags"
+                                            :key="index"
+                                        >
+                                            {{ tag }}
+                                            <i class="bx bx-x" @click="removeTag(index)"></i>
+                                        </div>
+                                    </div>
+                                    <div class="tag-inputter">
+                                        <!-- <Input
+                                            v-model="tagContent"
+                                            :placeholder="t('create_QS.other.tag_content_placeholder')"
+                                            :max-length="50"
+                                        >
+                                            <template #icon>
+                                                <i class="bx bx-purchase-tag-alt"></i>
+                                            </template>
+                                        </Input> -->
+                                        <div class="search-bar" ref="searchResultRef">
+                                            <Input
+                                                @input="getSearchTagData"
+                                                v-model="tagContent"
+                                                :placeholder="t('create_QS.other.tag_content_placeholder')"
+                                                :max-length="50"
                                             >
-                                                <div class="result-tag">
-                                                    {{ tag.name }}
-                                                    <div class="result-tag-qs-count">
-                                                        {{ tag.questionSetCount }}
-                                                    </div>
-                                                </div>
-                                                <div class="result-item-action">
-                                                    <a-button
-                                                        type="primary"
-                                                        class="main-color-btn"
-                                                        size="small"
-                                                        @click="appendTagContent(tag.name)"
+                                                <template #icon>
+                                                    <i class="bx bx-purchase-tag-alt"></i>
+                                                </template>
+                                            </Input>
+                                            <div
+                                                v-if="tag_search_data.length > 0"
+                                                :class="['search-result-container']"
+                                            >
+                                                <div class="search-result">
+                                                    <div
+                                                        class="search-result-tag"
+                                                        v-for="tag in tag_search_data"
                                                     >
-                                                        <i class="bx bx-plus"></i>
-                                                    </a-button>
+                                                        <div class="result-tag">
+                                                            {{ tag.name }}
+                                                            <div class="result-tag-qs-count">
+                                                                {{ tag.questionSetCount }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="result-item-action">
+                                                            <a-button
+                                                                type="primary"
+                                                                class="main-color-btn"
+                                                                size="small"
+                                                                @click="appendTagContent(tag.name)"
+                                                            >
+                                                                <i class="bx bx-plus"></i>
+                                                            </a-button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <i class="bx bx-plus tag-inputter-button" @click="addTag"></i>
                                     </div>
                                 </div>
-
-                                <i class="bx bx-plus tag-inputter-button" @click="addTag"></i>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="content-item">
-                    <div class="content-item-title">
-                        <div>
-                            <span>{{ $t("create_QS.quiz.question_question_title") }}</span>
-                            <span>{{ $t("create_QS.quiz.question_question_sub_title") }}</span>
-                        </div>
-                        <div class="content-item-buttons">
-                            <RouterLink
-                                @click="onOpenImportModal"
-                                class="import-button"
-                                :to="{ name: '' }"
-                            >
-                                {{ $t("create_QS.buttons.import") }} <i class="bx bx-download"></i>
-                            </RouterLink>
-                            <RouterLink
-                                @click="openGenerateAIModal"
-                                class="import-button"
-                                :to="{ name: '' }"
-                            >
-                                {{ $t("create_QS.buttons.generated_by_ai") }}
-                                <i class="bx bx-upload"></i>
-                            </RouterLink>
-                            <div class="import-button" @click="onFinish">
-                                {{ $t("create_QS.buttons.create") }}
-                            </div>
-                            <div class="import-button">
-                                {{
-                                    $t("create_QS.quiz.total", {
-                                        number: formState.questions.length
-                                            .toString()
-                                            .padStart(3, "0"),
-                                    })
-                                }}
-                            </div>
-                        </div>
-                    </div>
-                    <div ref="scrollerRef" class="question-list">
-                        <div
-                            v-for="(item, index) in formState.questions"
-                            :key="item.id"
-                            class="question-list-item"
-                            v-memo="[item, index, item.type]"
-                        >
-                            <component
-                                :is="componentMap[item.type]"
-                                :question="item"
-                                :index="index + 1"
-                                :displayScore="true"
-                                :allowFlashcard="true"
-                                :key="item.id"
-                                @deleteQuestion="onRemoveQuestion(index)"
-                                @changeQuestionType="onHandleChangeQuestionType(item)"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="add-question-btn" @click="onAddQuestion">
-                        <i class="bx bx-plus"></i>
-                        {{ $t("create_QS.buttons.add_question") }}
-                    </div>
-                </div>
+                    </template>
+                </QuestionEditorLayout>
             </a-form>
         </div>
     </div>

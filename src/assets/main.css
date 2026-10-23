@@ -2282,7 +2282,8 @@ Custom a-switch
     padding: 0px 8px;
 }
 
-.question-list .question-container {
+.question-list .question-container,
+.editor-list .question-container {
     max-height: none;
     overflow: visible;
 }
@@ -2643,4 +2644,28 @@ ant-select-tree */
     box-shadow: none !important;
     cursor: default !important;
     pointer-events: none;
+}
+
+/* Trang tạo / sửa bộ câu hỏi (QuestionEditorLayout): thẻ thông tin bộ nằm trong cột soạn nên không cần lề của .content-item */
+.editor-main > .content-item.quiz-details {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 18px;
+}
+.title-container .title-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 30px;
+}
+.title-container .title-actions .ant-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* .page-container có overflow-y: scroll nên trở thành "khung cuộn" của mọi phần tử sticky bên trong dù nó không tự cuộn
+   (trang cuộn ở <html>) -> mục lục / thanh công cụ của editor không dính. overflow: clip vẫn cắt tràn ngang mà không tạo khung cuộn. */
+.page-container.editor-page {
+    overflow: clip;
 }
