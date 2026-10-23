@@ -44,7 +44,7 @@ const columns = computed(() => [
             return (Number(pageParams.pageNumber) - 1) * Number(pageParams.pageSize) + index + 1;
         },
         width: 50,
-        align: "center",
+        align: "left",
     },
     {
         title: t("admin.manage_acc.col.fullname"),
@@ -53,7 +53,7 @@ const columns = computed(() => [
         sorter: (a: { fullName: string }, b: { fullName: string }) =>
             a.fullName.localeCompare(b.fullName),
         width: 350,
-        align: "center",
+        align: "left",
     },
     {
         title: t("admin.manage_acc.col.email"),
@@ -61,7 +61,7 @@ const columns = computed(() => [
         key: "email",
         sorter: (a: { email: string }, b: { email: string }) => a.email.localeCompare(b.email),
         width: 450,
-        align: "center",
+        align: "left",
     },
     // {
     //     title: "Token",
@@ -77,7 +77,7 @@ const columns = computed(() => [
         key: "role",
         sorter: (a: { role: string }, b: { role: string }) => a.role.localeCompare(b.role),
         width: 100,
-        align: "center",
+        align: "left",
     },
     { title: "", key: "ban", width: 120, align: "center" },
 ]);
@@ -447,7 +447,7 @@ const getUsersData = async () => {
 .account-name-cell {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 10px;
 }
 
