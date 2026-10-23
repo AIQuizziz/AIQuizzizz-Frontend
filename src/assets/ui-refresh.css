@@ -1,0 +1,400 @@
+/* ==========================================================================
+   ui-refresh.css  -  ngôn ngữ thiết kế chung (rút từ bản vẽ phương án 11)
+   Nạp SAU theme-overrides.css và TRƯỚC responsive.css (xem src/main.ts).
+
+   Nguyên tắc: thẻ trắng nổi trên nền xám nhạt, viền mảnh 1px, ít đổ bóng;
+   một màu nhấn (--main-color); bo góc theo thang bên dưới; nút / ô nhập cao 40px.
+   Chỉ dùng token (--c-*, --content-item-*, --main-color) để theo cả giao diện tối
+   và 6 màu nhấn. Trình soạn câu hỏi có bộ biến riêng --ed-* (main.css, .editor-page).
+   ========================================================================== */
+
+:root {
+    /* thang bo góc */
+    --ui-r-xs: 6px; /* badge, ô tích */
+    --ui-r-sm: 8px; /* ô nhập, select, tab, mục menu */
+    --ui-r-md: 10px; /* nút, hàng chọn, nút icon */
+    --ui-r-lg: 12px; /* popup: dropdown, popover, thông báo */
+    --ui-r-xl: 16px; /* thẻ, hộp thoại */
+    --ui-shadow-pop: 0 4px 14px rgba(24, 24, 27, 0.08); /* thẻ đang chọn, thanh nổi, popup */
+    --ui-shadow-modal: 0 12px 32px rgba(24, 24, 27, 0.16);
+}
+.theme-dark {
+    --ui-shadow-pop: 0 4px 14px rgba(0, 0, 0, 0.45);
+    --ui-shadow-modal: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* ------------------------------ thẻ / khối nội dung ------------------------------ */
+.content-item {
+    border-radius: var(--ui-r-xl);
+    border: 1px solid var(--content-item-border-color);
+    box-shadow: none;
+}
+.modal-content-item {
+    border-radius: var(--ui-r-xl);
+}
+
+/* ------------------------------ nút ------------------------------ */
+.ant-btn {
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--ui-r-md);
+}
+.ant-btn-sm {
+    height: 32px;
+    padding: 0 12px;
+    font-size: 13px;
+    border-radius: var(--ui-r-sm);
+}
+.ant-btn-lg {
+    height: 44px;
+    padding: 0 20px;
+}
+.ant-btn-icon-only {
+    width: 40px;
+    padding: 0;
+}
+.ant-btn-sm.ant-btn-icon-only {
+    width: 32px;
+}
+.ant-btn-circle,
+.ant-btn-round {
+    border-radius: 999px;
+}
+.ant-btn-link,
+.ant-btn-text {
+    font-weight: 600;
+}
+.main-color-btn {
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--ui-r-md);
+}
+.main-color-btn i {
+    font-size: 18px;
+}
+.main-color-btn-ghost {
+    border-radius: var(--ui-r-md);
+}
+.import-button {
+    border-width: 1px;
+    border-radius: var(--ui-r-md);
+    font-size: 14px;
+    font-weight: 600;
+}
+.navigator-back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    font-size: 22px;
+    border-width: 1px;
+    border-radius: var(--ui-r-md);
+    background-color: var(--c-surface-raised);
+}
+
+/* ------------------------------ ô nhập / select / ngày ------------------------------ */
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-input-number,
+.ant-picker,
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border-radius: var(--ui-r-sm) !important;
+}
+.ant-input-lg,
+.ant-input-affix-wrapper-lg {
+    border-radius: var(--ui-r-sm) !important;
+}
+.ant-input:not(textarea):not(.ant-input-sm),
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-sm),
+.ant-picker:not(.ant-picker-small),
+.ant-input-number:not(.ant-input-number-sm) {
+    min-height: 40px;
+}
+.ant-select:not(.ant-select-sm):not(.ant-select-lg):not(.ant-select-multiple) .ant-select-selector {
+    height: 40px;
+}
+.ant-select:not(.ant-select-sm):not(.ant-select-lg):not(.ant-select-multiple) .ant-select-selection-item,
+.ant-select:not(.ant-select-sm):not(.ant-select-lg):not(.ant-select-multiple) .ant-select-selection-placeholder,
+.ant-select:not(.ant-select-sm):not(.ant-select-lg):not(.ant-select-multiple) .ant-select-selection-search-input {
+    line-height: 38px;
+}
+.ant-select:not(.ant-select-sm):not(.ant-select-lg):not(.ant-select-multiple) .ant-select-selection-search-input {
+    height: 38px;
+}
+.ant-input-number-input {
+    height: 38px;
+}
+/* ô nhập bên trong khung có icon / hậu tố: khung đã cao 40, ô bên trong tự co theo khung */
+.ant-input-affix-wrapper > input.ant-input,
+.ant-input-number-input-wrap .ant-input-number-input {
+    min-height: 0;
+    height: auto;
+}
+.ant-input-number-input-wrap .ant-input-number-input {
+    height: 38px;
+}
+.ant-input-textarea-show-count::after {
+    font-size: 12px;
+}
+.ant-form-item-label > label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ------------------------------ tích / chọn / công tắc ------------------------------ */
+.ant-checkbox-inner {
+    border-radius: var(--ui-r-xs);
+}
+.ant-radio-button-wrapper:first-child {
+    border-radius: var(--ui-r-sm) 0 0 var(--ui-r-sm);
+}
+.ant-radio-button-wrapper:last-child {
+    border-radius: 0 var(--ui-r-sm) var(--ui-r-sm) 0;
+}
+.ant-radio-button-wrapper:first-child:last-child {
+    border-radius: var(--ui-r-sm);
+}
+
+/* ------------------------------ popup: hộp thoại, dropdown, popover, tooltip ------------------------------ */
+.ant-modal .ant-modal-content {
+    border-radius: var(--ui-r-xl);
+    box-shadow: var(--ui-shadow-modal);
+    overflow: hidden;
+}
+.ant-modal .ant-modal-header {
+    border-radius: var(--ui-r-xl) var(--ui-r-xl) 0 0;
+}
+.ant-modal-confirm .ant-modal-confirm-btns .ant-btn {
+    min-width: 88px;
+}
+.ant-select-dropdown,
+.ant-picker-dropdown .ant-picker-panel-container,
+.ant-dropdown .ant-dropdown-menu,
+.ant-popover .ant-popover-inner {
+    border-radius: var(--ui-r-lg);
+    box-shadow: var(--ui-shadow-pop);
+}
+.ant-dropdown .ant-dropdown-menu,
+.ant-select-dropdown {
+    padding: 6px;
+}
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item,
+.ant-select-dropdown .ant-select-item {
+    border-radius: var(--ui-r-sm);
+}
+.ant-tooltip .ant-tooltip-inner {
+    border-radius: var(--ui-r-sm);
+    font-size: 12px;
+    font-weight: 500;
+}
+.ant-message .ant-message-notice-content {
+    border-radius: var(--ui-r-lg);
+    box-shadow: var(--ui-shadow-pop);
+}
+.ant-drawer .ant-drawer-content {
+    border-radius: var(--ui-r-xl) 0 0 var(--ui-r-xl);
+}
+
+/* ------------------------------ bảng, phân trang, tab ------------------------------ */
+.ant-table-wrapper .ant-table {
+    border-radius: var(--ui-r-lg);
+}
+.ant-table-wrapper .ant-table-container {
+    border-radius: var(--ui-r-lg);
+    border-start-start-radius: var(--ui-r-lg);
+    border-start-end-radius: var(--ui-r-lg);
+}
+.ant-table-wrapper .ant-table-thead > tr > th:first-child {
+    border-start-start-radius: var(--ui-r-lg) !important;
+}
+.ant-table-wrapper .ant-table-thead > tr > th:last-child {
+    border-start-end-radius: var(--ui-r-lg) !important;
+}
+.ant-pagination .ant-pagination-item,
+.ant-pagination .ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination .ant-pagination-next .ant-pagination-item-link {
+    border-radius: var(--ui-r-sm);
+}
+.ant-tabs .ant-tabs-tab {
+    border-radius: var(--ui-r-sm);
+}
+.ant-progress-bg,
+.ant-progress-inner {
+    border-radius: 999px;
+}
+.ant-skeleton .ant-skeleton-button,
+.ant-skeleton .ant-skeleton-input,
+.ant-skeleton .ant-skeleton-paragraph > li {
+    border-radius: var(--ui-r-sm);
+}
+
+/* ------------------------------ khung trang (sidebar, header) ------------------------------ */
+.sidebar-listItem {
+    border-radius: var(--ui-r-md);
+}
+.sign-out-btn {
+    border-radius: var(--ui-r-sm);
+}
+
+/* ------------------------------ sidebar: nền thẻ + viền phải, mục menu bo 10, hover nhấn nhạt ------------------------------ */
+.sidebar-container {
+    background-color: var(--content-item-background-color);
+    border-right: 1px solid var(--content-item-border-color);
+}
+.sidebar-listItem {
+    margin: 4px 0;
+}
+.sidebar-listItem a {
+    padding: 13px 16px;
+    border-radius: var(--ui-r-md);
+}
+.sidebar-listItem:not(.active):hover {
+    background-color: color-mix(in srgb, var(--main-color) 12%, var(--content-item-background-color));
+}
+.sidebar-listItem:not(.active):hover a,
+.sidebar-listItem:not(.active):hover i,
+.sidebar-listItem:not(.active):hover span {
+    color: var(--c-primary-text) !important;
+}
+.sidebar-listItem.active {
+    font-weight: 600;
+}
+.sidebar-viewButton {
+    box-shadow: var(--ui-shadow-pop);
+}
+
+/* ------------------------------ chi tiết dùng chung ------------------------------ */
+/* vạch ngăn giữa các tiêu đề cột bảng: mờ theo token (mặc định của Ant quá đậm ở giao diện tối) */
+.ant-table-wrapper .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+    background-color: var(--c-border) !important;
+}
+/* đường kẻ có chữ ("Quản lý") trong sidebar người dùng và admin */
+.sidebar-container .ant-divider {
+    border-color: var(--c-border) !important;
+}
+.sidebar-container .ant-divider::before,
+.sidebar-container .ant-divider::after {
+    border-color: var(--c-border) !important;
+}
+/* badge trạng thái dạng viên thuốc: .ui-pill + .is-success | .is-danger | .is-warning | .is-primary (nền nhạt 14%, chữ -text) */
+.ui-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    color: var(--c-text-muted);
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--c-border);
+    border-radius: 999px;
+    white-space: nowrap;
+}
+.ui-pill.is-success {
+    color: var(--c-success-text);
+    background-color: color-mix(in srgb, var(--c-success) 14%, var(--c-surface));
+    border-color: color-mix(in srgb, var(--c-success) 40%, var(--c-surface));
+}
+.ui-pill.is-danger {
+    color: var(--c-danger-text);
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+    border-color: color-mix(in srgb, var(--c-danger) 40%, var(--c-surface));
+}
+.ui-pill.is-warning {
+    color: var(--c-warning-text);
+    background-color: color-mix(in srgb, var(--c-warning) 14%, var(--c-surface));
+    border-color: color-mix(in srgb, var(--c-warning) 40%, var(--c-surface));
+}
+.ui-pill.is-primary {
+    color: var(--c-primary-text);
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border-color: color-mix(in srgb, var(--main-color) 40%, var(--c-surface));
+}
+
+/* ------------------------------ lớp dùng chung của main.css, đưa về thang bo góc / viền mới ------------------------------ */
+.ant-btn,
+.ant-btn-primary,
+.ant-btn-default {
+    box-shadow: none;
+}
+.main-title span:nth-child(1) {
+    font-weight: 700;
+}
+.main-color-btn.link {
+    height: 40px;
+    padding: 0 16px;
+    border-radius: var(--ui-r-md);
+    font-size: 14px !important;
+    font-weight: 600;
+}
+
+/* thanh tab dạng phân đoạn (lớp học, hộp thoại, luyện tập) */
+.navigator-container {
+    border-radius: var(--ui-r-md);
+    background-color: var(--c-surface-subtle);
+}
+.navigator-item {
+    border-radius: var(--ui-r-sm);
+    font-weight: 500;
+}
+.navigator-item:hover:not(.navigator-active) {
+    background-color: color-mix(in srgb, var(--main-color) 12%, var(--c-surface-subtle));
+    color: var(--c-primary-text) !important;
+}
+
+/* hàng chọn được: bộ câu hỏi, thư mục, đáp án */
+.quiz-item {
+    background-color: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--ui-r-md);
+}
+.quiz-item:hover {
+    border-color: var(--main-color);
+    transform: none;
+    box-shadow: none;
+}
+.folder {
+    border-radius: var(--ui-r-md);
+}
+.answer-option {
+    border-width: 1px;
+    border-radius: var(--ui-r-md);
+}
+.answer-option:hover {
+    background-color: color-mix(in srgb, var(--main-color) 10%, var(--c-surface));
+}
+.question-index {
+    border-radius: var(--ui-r-sm);
+}
+.preview-question-item,
+.pair-answer-item,
+.question-list {
+    border-radius: var(--ui-r-md);
+}
+
+/* nút thêm / nhập ở các trang soạn: viền mảnh 1px */
+.add-question-btn {
+    border-width: 1px;
+    border-radius: var(--ui-r-md);
+}
+.add-question-btn:hover {
+    border-width: 1px;
+    background-color: color-mix(in srgb, var(--main-color) 12%, var(--c-surface));
+}
+.import-button:nth-child(2),
+.import-button:nth-child(3) {
+    border-width: 1px;
+}
+
+/* select nhiều lựa chọn */
+.ant-select-multiple .ant-select-selector {
+    min-height: 40px;
+}
+.ant-select-multiple .ant-select-selection-item {
+    border-radius: var(--ui-r-xs);
+}

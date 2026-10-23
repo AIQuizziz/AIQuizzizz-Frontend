@@ -354,7 +354,7 @@ onMounted(async () => {
                             </template>
                             <i
                                 v-if="permission.canEdit"
-                                class="me-3 bx bx-edit"
+                                class="bx bx-edit"
                                 @click="onRedirectToEdit"
                             ></i>
                         </a-tooltip>
@@ -363,7 +363,7 @@ onMounted(async () => {
                                 {{ $t("question_json.export.button") }}
                             </template>
                             <i
-                                :class="['me-3 bx', exportingJson ? 'bx-loader-alt bx-spin' : 'bx-export']"
+                                :class="['bx', exportingJson ? 'bx-loader-alt bx-spin' : 'bx-export']"
                                 @click="onExportJson"
                             ></i>
                         </a-tooltip>
@@ -397,8 +397,7 @@ onMounted(async () => {
                 <div v-if="permission.canEdit || permission.canDelete" class="quiz-credit">
                     <div class="share-btn-container">
                         <a-button
-                            class="me-3 share-btn"
-                            size="large"
+                            class="share-btn"
                             @click="openFolderModal"
                         >
                             <i class="bx bx-folder-plus"></i>
@@ -408,8 +407,7 @@ onMounted(async () => {
                     <div v-if="permission.canDelete" class="share-btn-container">
                         <a-button
                             type="primary"
-                            class="me-3 main-color-btn share-btn"
-                            size="large"
+                            class="main-color-btn share-btn"
                             @click="onOpenShareClassModal"
                         >
                             <i class="bx bx-share-alt"></i>
@@ -420,7 +418,6 @@ onMounted(async () => {
                         <a-button
                             type="primary"
                             class="main-color-btn share-btn"
-                            size="large"
                             @click="onOpenShareModal"
                         >
                             <i class="bx bx-share-alt"></i>
@@ -456,7 +453,7 @@ onMounted(async () => {
             </div>
         </div>
         <div class="content-item">
-            <div class="content-item-title">
+            <div class="content-item-title list-title">
                 <div>
                     <span>
                         {{ $t("detail_QS.other.questions", { number: quiz_questions.length }) }}
@@ -666,13 +663,19 @@ onMounted(async () => {
 
 .content-item {
     margin-left: 30px;
+    padding: 20px 24px;
+}
+
+.content-item + .content-item {
+    margin-top: 16px;
 }
 
 .navigator-back-link {
     margin-left: 30px;
-    color: var(--text-color);
+    color: var(--c-text-muted);
     text-decoration: none;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .navigator-back-link i {
@@ -681,75 +684,135 @@ onMounted(async () => {
     transition: all 0.2s ease-in-out;
 }
 
+.navigator-back-link:hover {
+    color: var(--c-primary-text);
+}
+
 .navigator-back-link:hover i {
     transform: translate(-3px, 1px);
 }
 
-.quiz-header-functions i {
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+.content-item-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 12px;
+    font-size: 24px;
+    line-height: 1.3;
 }
 
-.quiz-header-functions i:nth-child(1):hover {
-    font-size: 26px;
+.content-item-title span:nth-child(2) {
+    margin-top: 4px;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.content-item-title.list-title {
+    margin-bottom: 4px;
+    font-size: 20px;
+}
+
+.quiz-header-functions {
+    flex: none;
+    gap: 8px;
+}
+
+.quiz-header-functions i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    color: var(--c-text-muted);
+    background-color: var(--c-surface-raised);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+    cursor: pointer;
+    transition:
+        color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.quiz-header-functions i:hover {
+    color: var(--c-primary-text);
+    border-color: var(--main-color);
+}
+
+.quiz-header-functions i.text-danger {
+    color: var(--c-danger-text) !important;
+}
+
+.quiz-header-functions i.text-danger:hover {
+    border-color: var(--c-danger);
 }
 
 .quiz-info {
-    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin-bottom: 16px;
 }
 
 .quiz-rating {
     width: fit-content;
-    margin: 10px 0px;
-    padding: 5px 10px;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    color: var(--text-color-grey);
-    transition: all 0.2s ease-in-out;
+    padding: 4px 10px;
+    font-size: 14px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-sm);
+    color: var(--c-text-muted);
+    transition: all 0.15s ease;
     cursor: pointer;
 }
 
 .quiz-rating:hover {
     border-color: var(--main-color);
-    color: var(--text-color);
+    color: var(--c-text);
 }
 
 .quiz-tag-container {
     display: flex;
     flex-wrap: wrap;
+    gap: 8px;
 }
 
 .quiz-tag-item {
-    margin-right: 10px;
-    padding: 5px 10px;
+    padding: 4px 12px;
     font-size: 12px;
-    border: 2px solid var(--border-color);
-    border-radius: 100px;
-    color: var(--text-color-grey);
+    font-weight: 500;
+    line-height: 16px;
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border: 1px solid transparent;
+    border-radius: 999px;
+    color: var(--c-primary-text);
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.15s ease;
 }
 .quiz-tag-item:hover {
     border-color: var(--main-color);
-    color: var(--text-color);
 }
 
 .quiz-credit {
     display: flex;
+    flex-wrap: wrap;
     justify-content: end;
     align-items: center;
-    margin-bottom: 30px;
+    gap: 8px;
+    margin-bottom: 16px;
 }
 
 .credit-user {
     display: flex;
     align-items: center;
+    min-width: 0;
 }
 
 .user-image {
     width: 40px;
     height: 40px;
-    background-color: var(--background-color-contrast);
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
     border-radius: 50%;
     margin-right: 10px;
     object-fit: contain;
@@ -759,43 +822,56 @@ onMounted(async () => {
 .credit-user-info {
     display: flex;
     flex-direction: column;
-    font-size: 14px;
-    color: var(--text-color-grey);
+    font-size: 13px;
+    line-height: 19px;
+    color: var(--c-text-muted);
 }
 
 .action-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--content-item-border-color);
+}
+
+.action-container > .d-flex {
+    gap: 12px;
 }
 
 .action-item {
-    width: 300px;
-    margin: 0px 10px;
-    padding: 10px;
+    width: 240px;
+    margin: 0px;
+    padding: 10px 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid var(--main-color);
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--c-primary-text);
-    transition: all 0.2s ease-in-out;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--c-text);
+    transition: all 0.15s ease;
     cursor: pointer;
 }
 
 .action-item i {
-    font-size: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+    color: var(--c-primary-text);
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border-radius: var(--ui-r-sm);
 }
 
 .action-item:hover {
-    background-color: var(--main-color);
-    color: var(--text-color-contrast);
-}
-
-.content-item-title {
-    display: flex;
-    align-items: center;
+    border-color: var(--main-color);
+    color: var(--c-primary-text);
 }
 
 .content-item-functions {
@@ -804,6 +880,7 @@ onMounted(async () => {
     align-items: center;
     justify-content: end;
     flex-direction: row;
+    margin: 8px 0px;
 }
 
 ::v-deep(.ant-form-item-control-input-content) {
@@ -811,15 +888,142 @@ onMounted(async () => {
 }
 
 .share-btn {
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    gap: 8px;
 }
 
 .share-btn i {
-    margin-right: 10px;
-    font-size: 20px;
-    transform: translateY(2px);
+    font-size: 18px;
 }
+
+.share-btn:not(.ant-btn-primary) {
+    color: var(--c-primary-text);
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.share-btn:not(.ant-btn-primary):hover {
+    color: var(--c-primary-text);
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border-color: transparent;
+}
+
+.preview-question-item {
+    align-items: flex-start;
+    gap: 6px;
+    margin: 8px 0px;
+    padding: 12px 14px;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+    transition: border-color 0.15s ease;
+}
+
+.preview-question-item:hover {
+    border-color: var(--c-border-strong);
+}
+
+.preview-question-item .question-index {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border: 0;
+    border-radius: var(--ui-r-xs);
+    color: var(--c-primary-text);
+}
+
+.question-item-content {
+    flex: 1;
+}
+
+.question-item-toogle-btn {
+    flex: none;
+}
+
+.question-item-toogle-btn i {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    align-items: center;
+    font-size: 20px;
+    color: var(--c-text-muted);
+    background-color: var(--c-surface-raised);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+    transition: all 0.15s ease;
+}
+
+.question-item-toogle-btn i:hover {
+    color: var(--c-primary-text);
+    border-color: var(--main-color);
+}
+
+.question-item-answer {
+    margin-top: 8px;
+    padding: 10px 0px 4px 38px;
+    border-top: 1px dashed var(--content-item-border-color);
+}
+
+.multiple-choice-answer ul {
+    padding-left: 18px;
+}
+
+.pair-answer-item,
+.short-text-answer {
+    background-color: var(--c-surface-raised);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-sm);
+}
+
+.up-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 22px;
+    border-radius: var(--ui-r-md);
+    box-shadow: var(--ui-shadow-pop);
+}
+
+@media (max-width: 767.98px) {
+    .quiz-credit {
+        justify-content: flex-start;
+    }
+
+    .action-container {
+        align-items: stretch;
+    }
+
+    .action-container > .d-flex {
+        gap: 8px;
+    }
+
+    .action-item {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 8px 10px 8px 12px;
+    }
+
+    .action-item i {
+        flex: none;
+        width: 32px;
+        height: 32px;
+    }
+
+    .question-item-answer {
+        padding-left: 0px;
+    }
+}
+
 .modal-rate-container {
     width: 100%;
     display: flex;

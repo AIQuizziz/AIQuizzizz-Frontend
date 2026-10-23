@@ -432,13 +432,16 @@ onMounted(async () => {});
     </a-modal>
 </template>
 <style scoped>
+.modal-title-container .main-title span:nth-child(1) {
+    font-size: 20px;
+    font-weight: 700;
+}
+
 .modal-test-setting {
-    border-radius: 10px;
-    border: 1px solid var(--form-item-border-color);
-    background: var(--content-item-background-color);
-    box-shadow:
-        0 4px 6px -4px rgba(0, 0, 0, 0.1),
-        0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-radius: var(--ui-r-xl);
+    border: 1px solid var(--content-item-border-color);
+    background: var(--c-surface);
+    box-shadow: none;
 
     height: 60%;
     width: 60%;
@@ -447,7 +450,18 @@ onMounted(async () => {});
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 24px;
+}
+
+.modal-test-setting .content-item-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.modal-test-setting .content-item-title span:nth-child(2) {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--c-text-muted);
 }
 
 ::v-deep(.ant-row) {
@@ -475,17 +489,22 @@ onMounted(async () => {});
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
 }
 
 .switch-content {
     flex: 0.8;
 }
 .switch-title {
-    font-weight: 500;
-    color: var(--text-color);
+    font-weight: 600;
+    color: var(--c-text);
 }
 .switch-sub-title {
-    font-size: 14px;
-    color: var(--text-color-grey);
+    font-size: 13px;
+    color: var(--c-text-muted);
 }
 </style>

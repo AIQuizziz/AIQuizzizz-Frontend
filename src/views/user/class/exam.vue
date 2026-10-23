@@ -674,25 +674,47 @@ onMounted(async () => {
     />
 </template>
 <style scoped>
+.content-item {
+    padding: 20px;
+}
+
+.ant-btn {
+    box-shadow: none;
+}
+
+.content-item-title {
+    font-size: 20px;
+}
+
+.navigator-container {
+    border-radius: var(--ui-r-md);
+    background-color: var(--c-surface-subtle);
+}
+
 .navigator-item {
     font-size: 14px !important;
+    font-weight: 500;
+    border-radius: var(--ui-r-xs);
+}
+
+.navigator-item:hover:not(.navigator-active) {
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    color: var(--c-primary-text) !important;
 }
 
 .exam-item {
-    background-color: var(--content-item-children-background-color);
-    margin: 10px 0px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 10px;
+    background-color: var(--c-surface-subtle);
+    margin: 12px 0px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-xl);
+    padding: 14px 16px;
     display: flex;
     align-items: center;
-    transition: all 0.2s ease-in-out;
+    transition: border-color 0.15s ease;
 }
 
 .exam-item:hover {
-    border: 1px solid var(--main-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--main-color);
 }
 
 .exam-item i {
@@ -701,29 +723,46 @@ onMounted(async () => {
 
 .exam-item-icon {
     display: flex;
-    width: 35px;
-    height: 35px;
+    width: 36px;
+    height: 36px;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
     aspect-ratio: 1/1;
     font-size: 16px;
-    border-radius: 50%;
-    background: var(--main-color-theme);
+    border-radius: var(--ui-r-md);
+    background: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
     color: var(--c-primary-text);
     margin-right: 12px;
 }
 
 .exam-item-title {
-    font-size: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
     font-weight: 600;
+}
+
+.exam-item-title .ant-tag {
+    margin: 0;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.exam-item > div:nth-child(2) {
+    flex: 1;
+    min-width: 0;
 }
 
 .exam-item-info {
     font-size: 14px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 4px 20px;
 }
 
 .exam-item-info i {
@@ -736,38 +775,39 @@ onMounted(async () => {
     font-weight: 500;
 }
 .exam-info-detail {
-    border-top: 1px solid var(--border-color);
-    margin-top: 5px;
-    padding-top: 5px;
-}
-
-.exam-item-time {
-    margin: 0px 20px;
+    border-top: 1px solid var(--content-item-border-color);
+    margin-top: 8px;
+    padding-top: 8px;
 }
 
 .exam-item-assigned {
-    color: var(--text-color-grey);
-}
-
-.exam-item-assigned.completion {
-    margin-right: 10px;
+    color: var(--c-text-muted);
 }
 
 .exam-item-actions {
-    flex: 1;
+    flex: none;
+    margin-left: 12px;
     display: flex;
     justify-content: end;
     align-items: center;
 }
 .exam-item-actions i {
-    font-size: 24px;
-    margin: 0px 10px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    margin: 0px 0px 0px 4px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
+    border-radius: var(--ui-r-md);
+    transition: background-color 0.15s ease;
 }
-.main-color-btn {
-    font-size: 16px;
+.exam-item-actions i:hover {
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+}
+.exam-item-actions i.text-danger:hover {
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
 }
 .exam-item-container {
     min-height: 450px;

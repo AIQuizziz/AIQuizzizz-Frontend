@@ -203,9 +203,11 @@ const showModalConfirmation = () => {
     border-radius: 50%;
 }
 
+/* khu vực nguy hiểm: nền đỏ nhạt, viền đỏ mảnh */
 .danger-zone {
-    background-color: #ef44441a;
-    border-radius: 8px;
+    background-color: color-mix(in srgb, var(--c-danger) 8%, var(--c-surface));
+    border: 1px solid color-mix(in srgb, var(--c-danger) 35%, var(--c-surface));
+    border-radius: var(--ui-r-md);
 }
 
 ::v-deep(.ant-form-item-label label) {

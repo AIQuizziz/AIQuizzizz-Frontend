@@ -483,32 +483,99 @@ onMounted(async () => {
     </a-modal>
 </template>
 <style scoped>
+.content-item {
+    padding: 20px;
+}
+
+.ant-btn {
+    box-shadow: none;
+}
+
+.content-item-title {
+    font-size: 20px;
+}
+
+.navigator-container {
+    border-radius: var(--ui-r-md);
+    background-color: var(--c-surface-subtle);
+}
+
 .navigator-item {
     font-size: 14px !important;
+    font-weight: 500;
+    border-radius: var(--ui-r-xs);
+}
+
+.navigator-item:hover:not(.navigator-active) {
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    color: var(--c-primary-text) !important;
+}
+
+.quiz-item-container {
+    height: 540px;
 }
 
 .quiz-item {
-    background-color: var(--content-item-children-background-color);
-    margin: 10px 0px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 10px;
+    background-color: var(--c-surface-subtle);
+    margin: 12px 0px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-xl);
+    padding: 14px 16px;
     display: flex;
     align-items: center;
+    cursor: default;
+}
+.quiz-item:hover {
+    border-color: var(--main-color);
+    transform: none;
+    box-shadow: none;
+}
+
+.quiz-item > div:nth-child(2) {
+    flex: 1;
+    min-width: 0;
 }
 
 .quiz-item-icon {
     display: flex;
-    width: 35px;
-    height: 35px;
+    width: 36px;
+    height: 36px;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
     aspect-ratio: 1/1;
     font-size: 16px;
-    border-radius: 50%;
-    background: var(--main-color-theme);
+    border-radius: var(--ui-r-md);
+    background: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
     color: var(--c-primary-text);
     margin-right: 12px;
+}
+
+.quiz-item-title {
+    font-size: 16px;
+}
+
+.quiz-item-description {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--c-text-muted);
+}
+
+.exam-item-actions {
+    flex: none;
+    margin-left: 12px;
+}
+.exam-item-actions i {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--ui-r-md);
+    transition: background-color 0.15s ease;
+}
+.exam-item-actions i:hover {
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
 }
 </style>

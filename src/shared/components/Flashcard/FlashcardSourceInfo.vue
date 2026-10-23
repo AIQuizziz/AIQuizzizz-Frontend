@@ -69,8 +69,9 @@ const hasInfo = computed(
 .flashcard-source-info {
     margin-top: 12px;
     padding: 10px 12px;
-    border: 1px dashed var(--form-item-border-color);
-    border-radius: 8px;
+    background-color: var(--c-surface-raised);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
     font-size: 13px;
     color: var(--text-color);
 }
@@ -92,7 +93,7 @@ const hasInfo = computed(
 }
 
 .flashcard-source-row a {
-    color: var(--main-color);
+    color: var(--c-primary-text);
     overflow-wrap: anywhere;
 }
 
@@ -108,23 +109,23 @@ const hasInfo = computed(
 
 .flashcard-source-chip {
     padding: 1px 10px;
-    border: 1px solid var(--form-item-border-color);
-    border-radius: 100px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: 999px;
     font-size: 12px;
     color: var(--text-color);
 }
 
 /* chỉ đổi màu viền (chữ giữ màu theme để đủ tương phản ở cả sáng / tối) */
 .flashcard-source-chip.lookup-found {
-    border-color: #2e7d32;
+    border-color: var(--c-success);
 }
 
 .flashcard-source-chip.lookup-not_found,
 .flashcard-source-chip.lookup-skipped {
-    border-color: #b26a00;
+    border-color: var(--c-warning);
 }
 
 .flashcard-source-chip.lookup-error {
-    border-color: #c62828;
+    border-color: var(--c-danger);
 }
 </style>

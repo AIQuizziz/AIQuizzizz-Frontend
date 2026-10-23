@@ -212,6 +212,7 @@ onMounted(async () => {
     width: auto;
     max-width: none;
     min-width: 0;
+    padding: 20px;
 }
 
 .content-item.col-md-9 {
@@ -225,16 +226,21 @@ onMounted(async () => {
 
 .schedule-detail-title {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 700;
     color: var(--text-color);
 }
 .schedule-detail-sub-title {
-    font-size: 14px;
-    color: var(--text-color-grey);
+    font-size: 13px;
+    color: var(--c-text-muted);
 }
 
 ::v-deep(.ant-picker-calendar) {
     background: var(--content-item-background-color);
+}
+
+::v-deep(.ant-picker-calendar-header) {
+    padding: 0 0 12px;
+    background: transparent;
 }
 
 ::v-deep(.ant-picker-body) {
@@ -242,7 +248,11 @@ onMounted(async () => {
 }
 
 ::v-deep(.ant-picker-content th) {
-    color: var(--text-color);
+    color: var(--c-text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 ::v-deep(.ant-picker-cell-inner) {
@@ -251,15 +261,29 @@ onMounted(async () => {
 }
 
 ::v-deep(.ant-picker-cell-inner):hover {
-    background: var(--content-item-border-color) !important;
+    background: var(--c-surface-subtle) !important;
 }
 
 ::v-deep(.ant-picker-cell-in-view .ant-picker-cell-inner) {
     color: var(--text-color) !important;
 }
 
+/* ô ngày: khung viền mảnh bo góc, hôm nay / đang chọn viền nhấn + nền nhấn nhạt */
+::v-deep(.ant-picker-calendar.ant-picker-calendar-full .ant-picker-calendar-date) {
+    margin: 2px;
+    padding: 6px 8px;
+    border: 1px solid var(--content-item-border-color) !important;
+    border-radius: var(--ui-r-md);
+    transition: border-color 0.15s ease-in-out;
+}
+
+::v-deep(.ant-picker-calendar.ant-picker-calendar-full .ant-picker-calendar-date-value) {
+    font-size: 13px;
+    font-weight: 500;
+}
+
 ::v-deep(.ant-picker-calendar-date-today.ant-picker-cell-selected) {
-    background: var(--content-item-children-background-color) !important;
+    background: color-mix(in srgb, var(--main-color) 14%, var(--c-surface)) !important;
     border-color: var(--main-color) !important;
     color: var(--text-color) !important;
 }
@@ -292,11 +316,12 @@ onMounted(async () => {
     width: 5px;
     max-height: 5px;
     background-color: var(--main-color);
-    border-radius: 5px;
+    border-radius: 999px;
 }
 
 ::v-deep(.ant-picker-cell-selected .ant-picker-cell-inner) {
-    background: var(--content-item-children-background-color) !important;
+    background: color-mix(in srgb, var(--main-color) 14%, var(--c-surface)) !important;
+    border-color: var(--main-color) !important;
 }
 
 ::v-deep(.ant-radio-button-wrapper) {
@@ -313,6 +338,10 @@ onMounted(async () => {
 
 ::v-deep(.ant-badge-status-text) {
     color: var(--text-color) !important;
+    font-size: 12px;
+}
+::v-deep(.ant-badge-status-success) {
+    background-color: var(--main-color) !important;
 }
 
 @media (max-width: 575.98px) {
@@ -335,18 +364,20 @@ onMounted(async () => {
     max-height: 700px;
     overflow-y: auto;
     padding: 0px 5px;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 .schedule-item {
     display: flex;
-    padding: 5px 10px;
-    border-bottom: 1px solid var(--content-item-border-color);
-    border-radius: 5px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+    transition: border-color 0.15s ease-in-out;
 }
 
 .schedule-item:hover {
-    background: var(--form-item-background-color);
+    border-color: var(--main-color);
 }
 
 .schedule-item-info {
@@ -356,7 +387,7 @@ onMounted(async () => {
 }
 
 .schedule-item-info-test {
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
@@ -366,10 +397,11 @@ onMounted(async () => {
 }
 
 .schedule-item-info-class {
-    font-size: 14px;
-    color: var(--text-color-grey);
+    font-size: 13px;
+    color: var(--c-text-muted);
 }
 .exam_count {
+    font-weight: 600;
     color: var(--c-primary-text);
 }
 </style>

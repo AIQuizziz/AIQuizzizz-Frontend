@@ -26,18 +26,17 @@ const card = computed(() =>
 .flashcard-answer-card {
     margin-top: 16px;
     padding: 12px 14px;
-    border: 1px solid var(--form-item-border-color);
-    border-left: 4px solid var(--main-color);
-    border-radius: 8px;
-    background-color: var(--content-item-children-background-color);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+    background-color: var(--c-surface-subtle);
 }
 
 .flashcard-answer-card-title {
     margin-bottom: 6px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--text-color-grey);
+    color: var(--c-text-muted);
 }
 </style>

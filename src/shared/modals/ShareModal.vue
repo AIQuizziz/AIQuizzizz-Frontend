@@ -618,6 +618,7 @@ onMounted(() => {
 <style scoped>
 .page-container {
     margin-left: 0px;
+    padding: 6px 10px 10px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -629,14 +630,25 @@ onMounted(() => {
     width: 0px;
 }
 
+.title-container .main-title span:nth-child(1) {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.title-container .main-title span:nth-child(3) {
+    font-size: 14px;
+    font-weight: 400;
+}
+
 ::v-deep(.ant-form-item-label label) {
-    color: var(--text-color);
-    font-weight: 500;
+    color: var(--c-text);
+    font-weight: 600;
 }
 
 .visibility-explain {
-    margin-top: 5px;
-    color: var(--text-color-grey);
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--c-text-muted);
 }
 
 .shareable-link-container {
@@ -655,9 +667,9 @@ onMounted(() => {
     max-height: 40px;
     padding: 5px 10px;
     background-color: var(--form-item-background-color);
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-    border-radius: 5px;
+    border: 1px solid var(--form-item-border-color);
+    color: var(--c-text);
+    border-radius: var(--ui-r-sm);
 }
 
 .search-user {
@@ -676,11 +688,11 @@ onMounted(() => {
     top: 0px;
     z-index: 10;
     width: 100%;
-    margin: 0px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    margin: 4px 0 0;
+    padding: 6px;
+    border-radius: var(--ui-r-lg);
     overflow-y: scroll;
-    box-shadow: 1px 0px 10px 1px var(--border-color);
+    box-shadow: var(--ui-shadow-pop);
     height: 300px;
 }
 
@@ -692,13 +704,14 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--text-color);
-    padding: 10px;
+    color: var(--c-text);
+    padding: 8px 10px;
+    border-radius: var(--ui-r-sm);
     cursor: pointer;
 }
 
 .search-user-item:hover {
-    background-color: var(--form-item-border-color);
+    background-color: var(--c-surface-subtle);
 }
 
 .user-item-access {
@@ -716,14 +729,17 @@ onMounted(() => {
 }
 
 .list-item-title {
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .list-item-container {
     margin-top: 10px;
-    border: 1px solid var(--form-item-border-color);
-    border-radius: 8px;
+    padding: 8px;
+    gap: 8px;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-lg);
     height: 230px;
     max-height: 300px;
     overflow-y: scroll;
@@ -736,7 +752,12 @@ onMounted(() => {
 }
 
 .list-item {
-    padding: 10px;
+    flex-shrink: 0;
+    padding: 8px 10px;
+    background-color: var(--c-surface);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
+    transition: border-color 0.15s;
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -745,11 +766,11 @@ onMounted(() => {
 
 .list-item span {
     margin-left: 10px;
-    color: var(--text-color);
+    color: var(--c-text);
 }
 
 .list-item:hover {
-    background-color: var(--form-item-border-color);
+    border-color: var(--main-color);
 }
 
 .people-access-img {
@@ -767,14 +788,14 @@ onMounted(() => {
 }
 
 .people-access-info span:first-child {
-    color: var(--text-color);
-    font-size: 16px;
-    font-weight: 500;
+    color: var(--c-text);
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .people-access-info span:last-child {
-    color: var(--text-color-grey);
-    font-size: 14px;
+    color: var(--c-text-muted);
+    font-size: 13px;
 }
 
 .people-access-permission {

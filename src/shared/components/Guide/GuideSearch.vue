@@ -149,7 +149,7 @@ onBeforeUnmount(() => {
     height: 40px;
     padding: 0 64px 0 38px;
     border: 1px solid var(--c-border-strong);
-    border-radius: 8px;
+    border-radius: var(--ui-r-sm);
     background-color: var(--c-surface);
     color: var(--c-text);
     font-size: 14px;
@@ -170,7 +170,7 @@ onBeforeUnmount(() => {
     right: 8px;
     padding: 2px 6px;
     border: 1px solid var(--c-border);
-    border-radius: 4px;
+    border-radius: var(--ui-r-xs);
     background: var(--c-surface-raised);
     color: var(--c-text-muted);
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -186,9 +186,9 @@ onBeforeUnmount(() => {
     max-height: min(420px, 70vh);
     overflow-y: auto;
     border: 1px solid var(--c-border);
-    border-radius: 10px;
+    border-radius: var(--ui-r-lg);
     background-color: var(--c-surface-raised);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+    box-shadow: var(--ui-shadow-pop);
 }
 .guide-search-list {
     list-style: none;
@@ -200,11 +200,11 @@ onBeforeUnmount(() => {
     flex-direction: column;
     gap: 2px;
     padding: 8px 10px;
-    border-radius: 6px;
+    border-radius: var(--ui-r-sm);
     cursor: pointer;
 }
 .guide-search-result.highlighted {
-    background-color: color-mix(in srgb, var(--c-primary) 12%, transparent);
+    background-color: color-mix(in srgb, var(--c-primary) 14%, var(--c-surface-raised));
 }
 .guide-search-path {
     color: var(--c-text-muted);

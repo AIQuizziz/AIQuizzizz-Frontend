@@ -135,7 +135,7 @@ const onGoogleRegister = async () => {
                 </button>
             </div>
             <a-divider style="height: 1px; background-color: var(--c-border)">
-                <span style="background-color: var(--background-color); color: var(--c-text-muted); padding: 0px 10px">{{
+                <span style="background-color: var(--content-item-background-color); color: var(--c-text-muted); padding: 0px 10px">{{
                     $t("auth.others.or")
                 }}</span>
             </a-divider>

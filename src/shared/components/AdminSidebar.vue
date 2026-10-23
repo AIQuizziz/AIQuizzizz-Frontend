@@ -134,13 +134,13 @@ const onSignOut = () => {
                 </li> -->
                 <li :class="['sidebar-listItem', { active: activeItem === 'account' }]">
                     <RouterLink :to="{ name: 'Admin_Manager_Account' }">
-                        <i class="bx bx-cog"></i>
+                        <i class="bx bx-user-circle"></i>
                         <span class="sidebar-listItemText">{{ $t("sidebar.admin.account") }}</span>
                     </RouterLink>
                 </li>
                 <li :class="['sidebar-listItem', { active: activeItem === 'subscription' }]">
                     <RouterLink :to="{ name: 'Admin_Manager_Subscription' }">
-                        <i class="bx bx-cog"></i>
+                        <i class="bx bx-credit-card"></i>
                         <span class="sidebar-listItemText">{{
                             $t("sidebar.admin.subscription")
                         }}</span>
@@ -148,7 +148,7 @@ const onSignOut = () => {
                 </li>
                 <li :class="['sidebar-listItem', { active: activeItem === 'system_settings' }]">
                     <RouterLink :to="{ name: 'Admin_System_Settings' }">
-                        <i class="bx bx-cog"></i>
+                        <i class="bx bx-slider-alt"></i>
                         <span class="sidebar-listItemText">{{
                             $t("sidebar.admin.system_settings")
                         }}</span>

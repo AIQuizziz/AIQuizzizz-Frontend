@@ -2667,7 +2667,7 @@ ant-select-tree */
     --ed-border-strong: #b4b4bd;
     --ed-text: #27272a;
     --ed-muted: #52525b;
-    --ed-grip: #a1a1aa;
+    --ed-grip: #71717a; /* biểu tượng kéo thả: >= 3:1 trên mọi nền hàng */
     --ed-primary-soft: color-mix(in srgb, var(--main-color) 14%, #ffffff);
     --ed-danger: #c81e3a;
     --ed-danger-soft: #fde8ec;
@@ -2684,7 +2684,7 @@ ant-select-tree */
     --ed-border-strong: var(--c-border-strong);
     --ed-text: var(--c-text);
     --ed-muted: var(--c-text-muted);
-    --ed-grip: #71717a;
+    --ed-grip: #a1a1aa;
     --ed-primary-soft: color-mix(in srgb, var(--main-color) 26%, var(--c-surface));
     --ed-danger: var(--c-danger-text);
     --ed-danger-soft: color-mix(in srgb, var(--c-danger) 20%, var(--c-surface));

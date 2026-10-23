@@ -145,7 +145,7 @@ const onReloadClick = async () => {
     max-width: 100%;
     max-height: 360px;
     object-fit: contain;
-    border-radius: 6px;
+    border-radius: var(--ui-r-md);
     cursor: zoom-in;
     background-color: var(--form-item-background-color);
 }
@@ -155,7 +155,7 @@ const onReloadClick = async () => {
     width: 640px;
     max-width: 100%;
     max-height: 360px;
-    border-radius: 6px;
+    border-radius: var(--ui-r-md);
     background-color: #000;
 }
 
@@ -177,18 +177,18 @@ const onReloadClick = async () => {
     align-items: center;
     gap: 10px;
     padding: 10px 14px;
-    border-radius: 6px;
-    border: 1px dashed var(--form-item-border-color);
-    background-color: var(--form-item-background-color);
+    border-radius: var(--ui-r-lg);
+    border: 1px dashed var(--c-border-strong);
+    background-color: var(--c-surface-subtle);
 }
 
 .question-media-fallback i.bx-error-circle {
     font-size: 22px;
-    color: #f59e0b;
+    color: var(--c-warning-text);
 }
 
 .question-media-fallback-hint {
     font-size: 12px;
-    opacity: 0.75;
+    color: var(--c-text-muted);
 }
 </style>

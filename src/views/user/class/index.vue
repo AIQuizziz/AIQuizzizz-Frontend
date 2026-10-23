@@ -503,6 +503,18 @@ onMounted(async () => {
     width: auto;
 }
 
+.main-title span:nth-child(1) {
+    font-weight: 700;
+}
+
+.content-item {
+    padding: 20px;
+}
+
+.ant-btn {
+    box-shadow: none;
+}
+
 .title-button-container {
     display: flex;
     margin-right: 36px;
@@ -522,53 +534,53 @@ onMounted(async () => {
 }
 
 .class-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
     padding: 10px 0px;
+}
+.class-container > .w-100 {
+    grid-column: 1 / -1;
 }
 
 .class-item {
-    width: calc(100% / 3 - 50px);
     height: 130px;
-    padding: 10px;
-    background-color: var(--content-item-background-color);
-    border: 1px solid var(--form-item-border-color);
-    border-radius: 8px;
-    margin: 10px;
+    padding: 14px 16px;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-xl);
+    margin: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: border-color 0.15s ease;
 }
 .class-item:hover {
     border-color: var(--main-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 .class-item:hover .class-item-name {
     color: var(--c-primary-text);
-    text-decoration: underline;
 }
 
 .class-item-name {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--text-color);
     text-decoration: none;
-    transition: all 0.2s ease-in-out;
+    transition: color 0.15s ease;
 }
 
 .class-item-topic {
     flex: 1;
     font-size: 14px;
-    color: var(--text-color-grey);
-    transition: all 0.2s ease-in-out;
+    color: var(--c-text-muted);
 }
 
 .class-item-owner {
-    border-top: 1px solid var(--form-item-border-color);
-    font-size: 14px;
+    border-top: 1px solid var(--content-item-border-color);
+    font-size: 13px;
+    color: var(--c-text-muted);
     padding-top: 10px;
     display: flex;
     align-items: center;

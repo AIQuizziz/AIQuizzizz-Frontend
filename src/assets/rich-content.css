@@ -109,7 +109,7 @@
 /* ---- inline code (Markdown + legacy HTML) ---- */
 .rich-content :not(pre) > code {
     padding: 1px 6px;
-    border-radius: 4px;
+    border-radius: 6px;
     background-color: var(--rc-inline-bg);
     color: var(--rc-inline-fg);
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
@@ -124,7 +124,7 @@
     margin: 0.6em 0;
     max-width: 100%;
     border: 1px solid var(--rc-code-border);
-    border-radius: 8px;
+    border-radius: 12px;
     background-color: var(--rc-code-bg);
     color: var(--rc-code-fg);
     overflow: hidden;
@@ -152,7 +152,7 @@
     min-height: 30px;
     padding: 2px 8px;
     border: 1px solid transparent;
-    border-radius: 6px;
+    border-radius: 8px;
     background: transparent;
     color: var(--rc-code-head-fg);
     font-size: 13px;

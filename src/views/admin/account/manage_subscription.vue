@@ -400,18 +400,13 @@ const onDeletePlan = (plan: ManageSubscriptionPlanResp) => {
                             >
                                 <a-tooltip>
                                     <template #title> Edit Plan </template>
-                                    <i
-                                        class="bx bx-edit"
-                                        style="font-size: 20px"
-                                        @click="onEditPlan(plan)"
-                                    ></i>
+                                    <i class="bx bx-edit plan-action" @click="onEditPlan(plan)"></i>
                                 </a-tooltip>
                                 <!-- gói miễn phí (giá 0) cho phép sửa (vd. quyền upload ảnh/video) nhưng không cho xoá -->
                                 <a-tooltip v-if="plan.price !== 0">
                                     <template #title> Delete Plan </template>
                                     <i
-                                        class="bx bx-trash"
-                                        style="color: #ff002e; font-size: 20px"
+                                        class="bx bx-trash plan-action plan-action-delete"
                                         @click="onDeletePlan(plan)"
                                     ></i>
                                 </a-tooltip>
@@ -773,7 +768,7 @@ const onDeletePlan = (plan: ManageSubscriptionPlanResp) => {
     background-color: var(--content-item-background-color);
     border: 1px solid var(--content-item-border-color);
     color: var(--text-color);
-    border-radius: 8px;
+    border-radius: var(--ui-r-xl);
     overflow-y: hidden;
     z-index: 2;
 }
@@ -804,21 +799,22 @@ const onDeletePlan = (plan: ManageSubscriptionPlanResp) => {
     min-width: 0;
     background-color: var(--content-item-background-color);
     border: 1px solid var(--content-item-border-color);
-    border-radius: 8px;
+    border-radius: var(--ui-r-xl);
 }
 .stat-title {
     padding: 20px;
 }
 
 .stat-title > span:nth-child(1) {
-    color: var(--text-color);
-    font-size: 22px;
+    color: var(--c-text-muted);
+    font-size: 14px;
     font-weight: 500;
 }
 .stat-title > span:nth-child(2) {
+    margin-top: 4px;
     color: var(--text-color);
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 24px;
+    font-weight: 700;
 }
 .stat-title span {
     display: block;
@@ -827,7 +823,7 @@ const onDeletePlan = (plan: ManageSubscriptionPlanResp) => {
 .plan-comparison-row {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
+    gap: 16px;
     margin-bottom: 20px;
     padding: 8px;
 }
@@ -841,26 +837,46 @@ const onDeletePlan = (plan: ManageSubscriptionPlanResp) => {
     background-color: var(--content-item-background-color);
     border: 1px solid var(--content-item-border-color);
     color: var(--text-color);
-    border-radius: 8px;
+    border-radius: var(--ui-r-xl);
     overflow-y: hidden;
     z-index: 2;
+    transition: border-color 0.15s ease;
+}
+.plan-compa-content-item:hover {
+    border-color: var(--main-color);
 }
 
 .plan-comparison-card-action {
     display: flex;
     justify-content: flex-end;
-    gap: 5px;
+    gap: 4px;
 }
 
-.plan-comparison-card-action i {
-    transition:
-        opacity 0.2s,
-        color 0.2s;
-    opacity: 1;
+/* nút icon vuông 32px, không viền; hover nền nhạt */
+.plan-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    color: var(--c-text-muted);
+    border-radius: var(--ui-r-sm);
     cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
 }
-.plan-comparison-card-action i:hover {
-    opacity: 0.6;
+.plan-action:hover {
+    background-color: var(--c-surface-subtle);
+    color: var(--c-primary-text);
+}
+.plan-action-delete {
+    color: var(--c-danger-text);
+}
+.plan-action-delete:hover {
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+    color: var(--c-danger-text);
 }
 
 .plan-price-line {
@@ -876,39 +892,40 @@ const onDeletePlan = (plan: ManageSubscriptionPlanResp) => {
     overflow-wrap: anywhere;
 }
 .plan-duration-label {
+    color: var(--c-text-muted);
     overflow-wrap: anywhere;
 }
 
 .vnd-icon {
     font-weight: bold;
-    color: var(--category-3st-color);
+    color: var(--c-primary-text);
     margin-left: 2px;
 }
 
 .feature-switch-row {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 .feature-switch-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
-    background-color: var(--content-item-background-color);
-    border: 2px solid var(--content-item-border-color);
-    border-radius: 8px;
+    padding: 10px 14px;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-md);
 }
 
 .feature-switch-item span {
-    color: var(--category-3st-color);
-    font-size: 17px;
-    font-weight: 600;
+    color: var(--c-text);
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .update_input_name {
-    height: 35px;
-    padding: 5px 10px;
+    height: 40px;
+    padding: 4px 11px;
     width: 100%;
     background-color: var(--c-surface-raised);
     border: 1px solid var(--c-border-strong);

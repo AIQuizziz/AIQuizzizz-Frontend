@@ -27,7 +27,10 @@ import home_vector from "@/assets/home_vector.png";
     background-color: #000;
     height: 100vh;
     width: 50vw;
-    position: relative;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    flex: none;
 }
 
 .pattern {
@@ -52,6 +55,7 @@ import home_vector from "@/assets/home_vector.png";
 
 .authentication-container {
     display: flex;
+    min-height: 100vh;
 }
 
 .authentication-item-text {
@@ -71,61 +75,67 @@ import home_vector from "@/assets/home_vector.png";
     -webkit-text-fill-color: transparent;
 }
 
-.authentication-item:nth-child(2) {
-    width: 50vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 100px;
-}
-
-.authentication-item:nth-child(2) > * {
-    width: 100%;
-    max-width: 440px; /* màn rộng: không kéo ô nhập dài vô tận */
+/* Thẻ form: cột phải là một thẻ trắng bo 16, viền 1px, đặt giữa nửa màn hình còn lại.
+   Selector dài hơn để thắng các !important của responsive.css (width 100vw, padding 24px 48px). */
+.authentication-container > .authentication-item:nth-child(2) {
+    flex: none;
+    align-self: center;
+    width: min(480px, calc(50vw - 48px));
+    margin: 24px auto;
+    padding: 32px;
+    background-color: var(--content-item-background-color);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-xl);
 }
 
 .authentication-item-title {
     margin-bottom: 20px;
 }
 
-.authentication-item-title span {
-    margin-bottom: 10px;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -0.24px;
-}
-.authentication-item-title span:nth-child(1) {
-    font-size: 30px;
-    font-weight: 600;
+.authentication-item-title br {
+    display: none;
 }
 
-.authentication-item-title span:nth-child(2) {
+.authentication-item-title span {
+    display: block;
+    font-style: normal;
+    line-height: 1.4;
+}
+.authentication-item-title span:first-child {
+    margin-bottom: 6px;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.24px;
+    color: var(--c-text);
+}
+
+.authentication-item-title span:last-child {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
+    color: var(--c-text-muted);
 }
 .authentication-item-external-login {
     display: flex;
     justify-content: space-between;
 }
-/* Nút đăng nhập Google: là <button> thật, nền "nổi" của theme (không trong suốt nên không lẫn với nền trang), viền đậm,
-   hover/focus theo màu nhấn. Dùng chung token --c-* của theme sáng/tối. */
+/* Nút đăng nhập Google: là <button> thật, dạng nút viền, hover/focus theo màu nhấn.
+   Dùng chung token --c-* của theme sáng/tối. */
 .external-login {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     min-height: 44px;
-    padding: 8px 20px;
-    margin: 15px 0px;
-    border-radius: 8px;
+    padding: 0 20px;
+    margin: 0 0 16px;
+    border-radius: var(--ui-r-md);
     border: 1px solid var(--c-border-strong);
-    background-color: var(--c-surface-raised);
+    background-color: var(--c-surface);
     color: var(--c-text);
     font-family: inherit;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
     transition:
         background-color 0.2s,
@@ -134,7 +144,7 @@ import home_vector from "@/assets/home_vector.png";
 }
 .external-login:hover {
     border-color: var(--main-color);
-    background-color: var(--c-surface);
+    background-color: var(--c-surface-subtle);
 }
 .external-login:focus-visible {
     outline: none;
@@ -150,15 +160,18 @@ import home_vector from "@/assets/home_vector.png";
 }
 
 .authentication-item-form button {
-    margin: 10px 0px;
+    margin: 4px 0px 0px;
 }
 
 /* Khoảng cách giữa các ô: thông báo lỗi không dính vào nhãn của ô kế tiếp */
 .authentication-item-form .ant-form-item {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 .authentication-item-form .ant-form-item-with-help {
-    margin-bottom: 14px;
+    margin-bottom: 12px;
+}
+.authentication-item-form .ant-form-item:last-child {
+    margin-bottom: 0;
 }
 .authentication-item-form .ant-form-item-explain {
     min-height: 22px;
@@ -167,7 +180,7 @@ import home_vector from "@/assets/home_vector.png";
 
 /* Icon đặt trong ô nhập (slot prefix) thay vì addon: email và mật khẩu cùng cấu trúc nên luôn cùng màu nền / viền */
 .authentication-item-form .ant-input-affix-wrapper {
-    border-radius: 8px;
+    border-radius: var(--ui-r-sm);
     padding-inline: 12px;
 }
 .authentication-item-form .ant-input-prefix {
@@ -183,46 +196,49 @@ import home_vector from "@/assets/home_vector.png";
 
 .authentication-item-form label {
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 13px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     line-height: normal;
-    letter-spacing: -0.16px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .authentication-item-navigator {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #101010;
+    color: var(--c-text-muted);
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    letter-spacing: -0.14px;
-    margin-bottom: 10px;
+    margin-top: 16px;
+}
+.authentication-item-navigator + .authentication-item-navigator {
+    margin-top: 10px;
 }
 
 .authentication-item-navigator a {
     color: var(--c-primary-text);
     padding: 0px 8px;
-    font-weight: 500;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 991.98px) {
+    .authentication-container > .authentication-item:nth-child(2) {
+        width: min(480px, calc(100vw - 32px)) !important;
+        min-height: 0;
+        margin: 16px auto !important;
+        padding: 24px 20px !important;
+    }
 }
 
 @media screen and (max-width: 600px) {
     .authentication-item:nth-child(1) {
         display: none;
     }
-    .authentication-item:nth-child(2) {
-        padding: 20px 30px;
-        width: 100vw;
-    }
     .authentication-item-external-login {
         flex-direction: column;
-    }
-    .external-login {
-        width: 100%;
-        margin-bottom: 5px;
     }
 }
 </style>

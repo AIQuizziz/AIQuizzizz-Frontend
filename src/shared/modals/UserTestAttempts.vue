@@ -126,17 +126,6 @@ const columns: MyColumn[] = [
 
 //#endregion
 
-const getTagColor = (status: string) => {
-    switch (status) {
-        case TEST_STATUS.PASSED: {
-            return "#22C55E";
-        }
-        case TEST_STATUS.FAILED: {
-            return "#cd201f";
-        }
-    }
-};
-
 const onRedirectToReview = (attemptId: string) => {
     router.push({ name: "User_Test_Review", params: { id: attemptId } });
 };
@@ -203,7 +192,12 @@ const onRedirectToReview = (attemptId: string) => {
                                     <div class="text-nowrap">{{ passingScore }}%</div>
                                 </template> -->
                                 <template v-if="column.key === 'status'">
-                                    <a-tag :color="getTagColor(record.status)">
+                                    <a-tag
+                                        :class="{
+                                            'status-passed': record.status === TEST_STATUS.PASSED,
+                                            'status-failed': record.status === TEST_STATUS.FAILED,
+                                        }"
+                                    >
                                         {{ record.status }}
                                     </a-tag>
                                 </template>
@@ -239,7 +233,35 @@ const onRedirectToReview = (attemptId: string) => {
 .text-nowrap {
     white-space: nowrap;
 }
+.modal-title-container .main-title span:nth-child(1) {
+    font-size: 20px;
+    font-weight: 700;
+}
 .content-item {
     width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--c-surface-subtle);
+}
+.content-item .content-item-title {
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: 700;
+}
+.status-passed {
+    color: var(--c-success-text);
+    background-color: color-mix(in srgb, var(--c-success) 16%, var(--c-surface));
+    border-color: var(--c-success);
+}
+.status-failed {
+    color: var(--c-danger-text);
+    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+    border-color: var(--c-danger);
+}
+@media (max-width: 767.98px) {
+    .content-item {
+        padding: 14px;
+    }
 }
 </style>

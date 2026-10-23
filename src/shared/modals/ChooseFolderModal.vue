@@ -252,6 +252,37 @@ const handleOpenFolder = (folder: Folder) => {
 }
 </style>
 <style scoped>
+.modal-title-container .main-title span:nth-child(1) {
+    font-size: 20px;
+    font-weight: 700;
+}
+.content-item {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--c-surface-subtle);
+}
+.content-item .title-container {
+    margin: 0 0 12px;
+}
+.content-item .title-container .main-title span:nth-child(1) {
+    font-size: 18px;
+    font-weight: 700;
+}
+.content-item .title-container .main-title span:nth-child(3) {
+    font-size: 14px;
+    font-weight: 400;
+}
+.folder {
+    border: 1px solid transparent;
+    border-radius: var(--ui-r-md);
+}
+.folder:hover {
+    background-color: var(--c-surface);
+    border-color: var(--main-color);
+}
+
 .title-container {
     width: auto;
 }
@@ -272,5 +303,10 @@ const handleOpenFolder = (folder: Folder) => {
     display: flex;
     justify-content: end;
     align-items: center;
+}
+@media (max-width: 767.98px) {
+    .content-item {
+        padding: 14px;
+    }
 }
 </style>

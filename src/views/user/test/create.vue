@@ -534,21 +534,64 @@ onMounted(async () => {
     />
 </template>
 <style scoped>
+.content-item {
+    padding: 20px;
+}
+
+.content-item-title {
+    font-size: 20px;
+}
+
+.ant-btn {
+    box-shadow: none;
+}
+
 .content-item-buttons {
     flex-direction: row;
     padding-right: 10px;
 }
 
+.import-button {
+    height: 40px;
+    padding: 0 16px;
+    justify-content: center;
+    border-width: 1px;
+    border-color: var(--main-color);
+}
+
+.import-button:nth-child(2),
+.import-button:nth-child(3) {
+    border-width: 1px;
+}
+
 .import-button:first-child:hover {
-    background: transparent;
-    border: 2px solid var(--main-color);
-    color: var(--text-color);
+    background: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border-color: var(--main-color);
+    color: var(--c-primary-text);
 }
 
 .import-button:nth-child(2) {
-    background: transparent;
-    border: 2px solid var(--main-color);
+    background: var(--c-surface-subtle);
+    border-color: var(--content-item-border-color);
     color: var(--text-color);
     cursor: default;
+}
+
+.question-list {
+    padding: 4px 12px;
+    border-radius: var(--ui-r-lg);
+}
+
+.add-question-btn {
+    margin-top: 12px;
+    height: 44px;
+    border: 1px dashed var(--main-color);
+    border-radius: var(--ui-r-md);
+    color: var(--c-primary-text);
+}
+
+.add-question-btn:hover {
+    background-color: color-mix(in srgb, var(--main-color) 14%, var(--c-surface));
+    border: 1px dashed var(--main-color);
 }
 </style>

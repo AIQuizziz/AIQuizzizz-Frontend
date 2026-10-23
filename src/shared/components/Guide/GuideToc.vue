@@ -95,7 +95,7 @@ const isActive = (group: string, page: string) => props.activeGroup === group &&
     min-height: 36px;
     padding: 6px 10px;
     border: 0;
-    border-radius: 6px;
+    border-radius: var(--ui-r-md);
     background: transparent;
     color: var(--c-text);
     font-size: 14px;
@@ -122,13 +122,12 @@ const isActive = (group: string, page: string) => props.activeGroup === group &&
 .guide-toc-group-btn:hover,
 .guide-toc-leaf:hover,
 .guide-toc-item:hover {
-    background-color: color-mix(in srgb, var(--c-text) 6%, transparent);
+    background-color: var(--c-surface-subtle);
     color: var(--c-text);
 }
 .guide-toc-leaf.active,
 .guide-toc-item.active {
-    background-color: color-mix(in srgb, var(--c-primary) 14%, transparent);
-    box-shadow: inset 2px 0 0 var(--c-primary);
+    background-color: color-mix(in srgb, var(--c-primary) 14%, var(--c-surface));
     color: var(--c-primary-text);
     font-weight: 500;
 }

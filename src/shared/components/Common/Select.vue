@@ -37,33 +37,31 @@ modelValue.value = options.value[0];
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 5px;
-    overflow: hidden;
     margin-bottom: 0px;
-    color: var(--text-color-white);
+    color: var(--c-text);
     width: 100%;
 }
 
 .input {
     border: none;
-    color: var(--text-color-white);
+    color: var(--c-text);
 }
 
 /* */
 
 ::v-deep(.input input) {
-    color: var(--text-color-white);
+    color: var(--c-text);
     background: var(--input-item-background-color);
 }
 
 ::v-deep(.ant-form-item-label > label) {
-    color: var(--text-color-white); /* or any custom color */
-    font-weight: 500;
-    font-size: 14px;
+    color: var(--c-text);
+    font-weight: 600;
+    font-size: 13px;
 }
 
 ::v-deep(.input i) {
-    color: var(--text-color-grey);
+    color: var(--c-text-muted);
     transform: translateY(1px);
     margin-right: 8px;
 }

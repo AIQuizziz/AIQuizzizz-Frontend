@@ -120,15 +120,39 @@ const onCopy = async () => {
     </a-modal>
 </template>
 
+<style>
+.question-json-prompt-modal .ant-modal-content {
+    padding: 20px 24px 24px;
+}
+.question-json-prompt-modal .ant-modal-header {
+    margin-bottom: 8px;
+    padding: 0;
+    border-bottom: none;
+    background: transparent;
+}
+.question-json-prompt-modal .ant-modal-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+.question-json-prompt-modal .ant-modal-body {
+    padding: 0;
+}
+</style>
 <style scoped>
 .prompt-intro {
-    color: var(--text-color-grey);
-    margin-bottom: 12px;
+    color: var(--c-text-muted);
+    margin-bottom: 16px;
 }
 .prompt-layout {
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-    gap: 20px;
+    gap: 16px;
+}
+.prompt-form {
+    padding: 20px;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-xl);
 }
 .prompt-form-row {
     display: grid;
@@ -147,14 +171,19 @@ const onCopy = async () => {
     display: flex;
     flex-direction: column;
     min-width: 0;
+    padding: 20px;
+    background-color: var(--c-surface-subtle);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-xl);
 }
 .prompt-preview-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--text-color);
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--c-text);
 }
 .prompt-preview-text {
     flex: 1;
@@ -167,19 +196,23 @@ const onCopy = async () => {
     white-space: pre-wrap;
     word-break: break-word;
     color: var(--text-color);
-    background-color: var(--content-item-background-color);
-    border: 1px solid var(--form-item-border-color);
-    border-radius: 6px;
+    background-color: var(--c-surface);
+    border: 1px solid var(--content-item-border-color);
+    border-radius: var(--ui-r-lg);
 }
 .prompt-steps {
     margin: 10px 0 0;
     padding-left: 18px;
     font-size: 13px;
-    color: var(--text-color-grey);
+    color: var(--c-text-muted);
 }
 @media (max-width: 767.98px) {
     .prompt-layout {
         grid-template-columns: 1fr;
+    }
+    .prompt-form,
+    .prompt-preview {
+        padding: 14px;
     }
     .prompt-preview-text {
         max-height: 260px;
