@@ -800,7 +800,8 @@
             "search_placeholder": "Search class member...",
             "items": "members",
             "day_singular": " day",
-            "day_plural": " days"
+            "day_plural": " days",
+            "no_expiry": "No expiry"
         },
         "danger_zone": {
             "title": "Danger Zone",

@@ -74,13 +74,17 @@ const columns: MyColumn[] = [
     },
 ];
 
-const optionDays = [1, 3, 5, 7, 30];
+// 0 = vô thời hạn (gửi expiredTime = null)
+const NO_EXPIRY = 0;
+const optionDays = [1, 3, 5, 7, 30, NO_EXPIRY];
 
 const code_limit_time = computed(() =>
     optionDays.map((key) => ({
         label:
-            key +
-            (key === 1 ? t("class_member.other.day_singular") : t("class_member.other.day_plural")),
+            key === NO_EXPIRY
+                ? t("class_member.other.no_expiry")
+                : key +
+                  (key === 1 ? t("class_member.other.day_singular") : t("class_member.other.day_plural")),
         value: key,
     })),
 );
@@ -257,7 +261,10 @@ const getInvitationCode = async () => {
 };
 
 const onResetInvitation = async () => {
-    const result = await ApiClass.CreateNewInvitation(invitationFormState);
+    const result = await ApiClass.CreateNewInvitation({
+        ...invitationFormState,
+        expiredTime: invitationFormState.expiredTime === NO_EXPIRY ? null : invitationFormState.expiredTime,
+    });
     if (result.data.success) {
         message.success(t("message.created_new_invitation"));
         onOpenInvitationModal();
