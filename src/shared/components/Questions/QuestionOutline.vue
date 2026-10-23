@@ -108,99 +108,101 @@ const typeLabel = (question: RequestQuestion) => t(`create_QS.type.${question.ty
 .question-outline {
     display: flex;
     flex-direction: column;
+    gap: 8px;
+    height: 100%;
     min-height: 0;
-    padding: 14px 12px 12px;
-    background-color: var(--c-surface);
-    border: 1px solid var(--c-border);
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 16px;
+    background-color: var(--ed-card);
+    border: 1px solid var(--ed-border);
+    border-radius: 16px;
 }
 .outline-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    margin-bottom: 10px;
-    padding: 0 4px;
+    min-height: 23px;
 }
 .outline-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--c-text);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    color: var(--ed-text);
 }
 .outline-error-badge {
-    padding: 2px 8px;
+    padding: 3px 8px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--c-danger-text);
-    background: transparent;
-    border: 1px solid var(--c-danger);
-    border-radius: 999px;
+    line-height: 17px;
+    color: var(--ed-danger);
+    background-color: var(--ed-danger-soft);
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
 }
 .outline-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    flex: 1;
     min-height: 0;
     overflow-y: auto;
     padding: 2px;
+    margin: -2px;
 }
 .outline-row {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 9px 10px;
+    padding: 10px;
     cursor: pointer;
-    background-color: var(--c-surface-raised);
-    border: 1px solid var(--c-border);
-    border-radius: 8px;
+    background-color: var(--ed-card);
+    border: 1px solid var(--ed-border);
+    border-radius: 10px;
     transition:
         border-color 0.15s ease,
         background-color 0.15s ease;
 }
 .outline-row:hover {
-    border-color: var(--c-border-strong);
+    border-color: var(--ed-border-strong);
 }
 .outline-row:focus-visible {
     outline: 2px solid var(--c-focus-ring);
     outline-offset: 1px;
 }
 .outline-row.active {
-    background-color: color-mix(in srgb, var(--main-color) 12%, var(--c-surface-raised));
-    border-color: var(--main-color);
+    background-color: var(--ed-primary-soft);
+    border-color: var(--ed-primary);
 }
 .outline-row.invalid {
-    border-color: var(--c-danger);
+    border-color: var(--ed-danger);
 }
 .outline-number {
     flex: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 26px;
+    width: 26px;
     height: 26px;
-    padding: 0 6px;
     font-size: 13px;
     font-weight: 600;
-    color: var(--c-text);
-    background-color: var(--c-surface);
-    border-radius: 6px;
+    color: var(--ed-text);
+    background-color: var(--ed-surface);
+    border-radius: 8px;
 }
 .outline-row.active .outline-number {
     color: #fff;
-    background-color: var(--main-color);
+    background-color: var(--ed-primary);
 }
 .outline-row.invalid .outline-number {
-    color: var(--c-danger-text);
-    background-color: color-mix(in srgb, var(--c-danger) 14%, var(--c-surface));
+    color: var(--ed-danger);
+    background-color: var(--ed-danger-soft);
 }
 .outline-text {
     flex: 1;
     min-width: 0;
     display: flex;
     flex-direction: column;
+    gap: 2px;
 }
 .outline-question,
 .outline-meta {
@@ -209,49 +211,53 @@ const typeLabel = (question: RequestQuestion) => t(`create_QS.type.${question.ty
     text-overflow: ellipsis;
 }
 .outline-question {
-    font-size: 14px;
-    color: var(--c-text);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 18px;
+    color: var(--ed-text);
 }
 .outline-question.empty {
     font-style: italic;
-    color: var(--c-text-muted);
+    font-weight: 400;
+    color: var(--ed-muted);
 }
 .outline-meta {
     font-size: 12px;
-    color: var(--c-text-muted);
+    line-height: 17px;
+    color: var(--ed-muted);
 }
 .outline-row.invalid .outline-meta {
-    color: var(--c-danger-text);
+    color: var(--ed-danger);
 }
 .outline-grip,
 .outline-alert {
     flex: none;
-    font-size: 18px;
+    font-size: 16px;
 }
 .outline-grip {
-    color: var(--c-text-muted);
+    color: var(--ed-grip);
     cursor: grab;
 }
 .outline-alert {
-    color: var(--c-danger-text);
+    color: var(--ed-danger);
 }
 .outline-add {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 10px;
-    padding: 8px;
+    gap: 8px;
+    margin-top: 4px;
+    padding: 10px 16px;
     font-size: 14px;
     font-weight: 600;
-    color: var(--c-primary-text);
+    line-height: 20px;
+    color: var(--ed-primary-text);
     background: transparent;
-    border: 1px dashed var(--c-border-strong);
-    border-radius: 8px;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
 }
 .outline-add:hover {
-    border-color: var(--main-color);
+    background-color: var(--ed-primary-soft);
 }
 .outline-add i {
     font-size: 18px;
