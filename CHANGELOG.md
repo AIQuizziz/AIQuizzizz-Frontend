@@ -6,6 +6,13 @@ Mọi thay đổi đáng chú ý của dự án được ghi lại trong file n�
 
 ## [Unreleased] - 2026-10-02
 
+### Added — Nhập / xuất câu hỏi dạng JSON + prompt mẫu cho AI
+- **Modal nhập câu hỏi** có nút chọn nguồn **Excel / JSON**. JSON: dán vào ô nhập, chọn hoặc kéo thả tệp `.json`, bấm **Kiểm tra JSON** -> server đọc + kiểm tra (`POST QuestionSet/ImportJson`), xem trước theo thứ tự trong file ("Câu n trong JSON"), câu lỗi viền đỏ kèm lý do, cảnh báo màu cam; câu hợp lệ được chọn sẵn. Dán được nguyên câu trả lời của AI (có lời dẫn, khối ```` ```json ````).
+- **Prompt mẫu** (`QuestionJsonPromptModal`): chủ đề (điền sẵn tên bộ đang soạn), số câu, độ khó, ngôn ngữ câu hỏi, dạng câu hỏi, yêu cầu thêm -> prompt (vi / en theo ngôn ngữ giao diện) kèm khung JSON chỉ gồm các dạng đã chọn và quy tắc kiểm tra; nút sao chép. **Tải JSON mẫu** đủ 4 dạng.
+- **Trang tạo bộ**: JSON có `questionSet` thì điền tên / mô tả / thẻ vào ô còn trống (cắt theo giới hạn form, tối đa 5 thẻ).
+- **Trang chi tiết bộ**: nút **Xuất JSON** (người có quyền sửa) tải `ten-bo-cau-hoi.json` (bỏ dấu, bỏ trường null).
+- `services/QuestionJsonService.ts` + vitest (8 ca); i18n vn / en (`question_json.*`, `ERROR_CODE.QUESTION_JSON_*`); trang hướng dẫn "Nhập / xuất câu hỏi (Excel, JSON)".
+
 ### Fixed — Avatar tràn khi thu gọn sidebar
 - Sidebar thu gọn (cột 85px, nội dung 53px) vẫn để avatar 60px nên tràn sang phải; màn hình thấp thì khung hồ sơ (flex item) bị ép còn ~66px và avatar tràn xuống dưới mép màn hình. Nay khung hồ sơ không co (`flex-shrink: 0`), menu tự cuộn khi thiếu chỗ (`.sidebar-list`: `flex: 1`, `min-height: 0`, `overflow-y: auto`); khi thu gọn avatar còn 44px ở giữa, phần tên ẩn hẳn (đăng xuất đã có trong menu), có chuyển động khi đổi kích thước.
 
