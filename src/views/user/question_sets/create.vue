@@ -13,6 +13,7 @@ import { ref, reactive, onMounted, onUnmounted, nextTick, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { message, Modal } from "ant-design-vue";
 import { hasPendingUploads, toQuestionPayload } from "@/services/QuestionMediaService";
+import { fillEmptySetInfo, type ImportedSetInfo } from "@/services/QuestionJsonService";
 
 import { useRouter, onBeforeRouteLeave } from "vue-router";
 
@@ -325,8 +326,10 @@ const openGenerateAIModal = () => {
 };
 
 //use for both modal import event
-const onModalImport = (selected: RequestQuestion[]) => {
+const onModalImport = (selected: RequestQuestion[], setInfo?: ImportedSetInfo | null) => {
     if (selected.length === 0) return;
+    // nhập JSON: điền sẵn tên / mô tả / thẻ của bộ nếu người dùng chưa nhập
+    fillEmptySetInfo(formState, setInfo);
     // bỏ câu hỏi mặc định còn trống (chưa nhập gì) trước khi thêm câu hỏi import
     formState.questions = formState.questions.filter(
         (q) => !(String(q.id).startsWith("new_") && isQuestionBlank(q)),

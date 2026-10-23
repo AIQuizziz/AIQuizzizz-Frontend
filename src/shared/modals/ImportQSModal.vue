@@ -11,8 +11,15 @@ import { useI18n } from "vue-i18n";
 import type { RequestQuestion } from "@/models/request/question";
 import QUESTION_TYPE from "@/constants/questionTypes";
 import UPLOADED_QUESTION_STATUS from "@/constants/uploadedQuestionStatus";
-import { get } from "jquery";
 import RichContent from "@/shared/components/Common/RichContent.vue";
+import QuestionJsonPromptModal from "@/shared/modals/QuestionJsonPromptModal.vue";
+import {
+    QUESTION_JSON_MAX_LENGTH,
+    downloadJsonFile,
+    exampleQuestionJson,
+    isJsonFile,
+    type ImportedSetInfo,
+} from "@/services/QuestionJsonService";
 
 const { t } = useI18n();
 
@@ -21,15 +28,27 @@ interface Props {
     numberOfQuestion: number;
 }
 
+// câu hỏi xem trước: nhập JSON có thêm số thứ tự trong file + lỗi / cảnh báo từng câu
+type PreviewQuestion = RequestQuestion & { index?: number; errors?: string[]; warnings?: string[] };
+
 const props = defineProps<Props>();
 
-const emit = defineEmits<(e: "import", selected: RequestQuestion[]) => void>();
+const emit = defineEmits<
+    (e: "import", selected: RequestQuestion[], setInfo?: ImportedSetInfo | null) => void
+>();
 
 const modal_import_open = ref(false);
-const question_data = ref<RequestQuestion[]>([]);
+const question_data = ref<PreviewQuestion[]>([]);
 
-const uploadedQuestions = ref<RequestQuestion[]>([]);
-const uploadedInvalidQuestions = ref<RequestQuestion[]>([]);
+const uploadedQuestions = ref<PreviewQuestion[]>([]);
+const uploadedInvalidQuestions = ref<PreviewQuestion[]>([]);
+
+// nguồn nhập: tệp Excel theo mẫu hoặc JSON (dán / chọn tệp)
+const source = ref<"excel" | "json">("excel");
+const sourceOptions = computed(() => [
+    { label: "Excel", value: "excel" },
+    { label: "JSON", value: "json" },
+]);
 
 //#region download link
 const download_link = ref("");
@@ -159,14 +178,104 @@ const handleDrop = (event: DragEvent) => {
     }
 };
 
-const onRemoveUploadedFile = (index: number) => {
-    files.value?.splice(index, 1);
-
+const resetPreview = () => {
     importModalState.checkedList = [];
     question_data.value = [];
     uploadedInvalidQuestions.value = [];
     uploadedQuestions.value = [];
+    jsonSetInfo.value = null;
+    selected_option.value = UPLOADED_QUESTION_STATUS.ALL;
 };
+
+const onRemoveUploadedFile = (index: number) => {
+    files.value?.splice(index, 1);
+    resetPreview();
+};
+
+const onChangeSource = () => {
+    files.value = [];
+    resetPreview();
+};
+//#endregion
+
+//#region json
+const jsonText = ref("");
+const jsonFileInput = ref<HTMLInputElement | null>(null);
+const checkingJson = ref(false);
+const jsonSetInfo = ref<ImportedSetInfo | null>(null);
+const promptModalRef = ref<InstanceType<typeof QuestionJsonPromptModal> | null>(null);
+
+const readJsonFile = async (file?: File | null) => {
+    if (!file) return;
+    if (!isJsonFile(file)) {
+        message.error(t("message.file_support_only", { fileTypes: "JSON" }));
+        return;
+    }
+    if (file.size > QUESTION_JSON_MAX_LENGTH * 2) {
+        message.error(t("ERROR_CODE.QUESTION_JSON_TOO_LARGE"));
+        return;
+    }
+    jsonText.value = await file.text();
+    await onCheckJson();
+};
+
+const handleJsonFileChange = async (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0];
+    target.value = "";
+    await readJsonFile(file);
+};
+
+const handleJsonDrop = async (event: DragEvent) => {
+    isDragging.value = false;
+    await readJsonFile(event.dataTransfer?.files[0]);
+};
+
+const onCheckJson = async () => {
+    const json = jsonText.value.trim();
+    if (!json) {
+        message.warning(t("question_json.import.empty"));
+        return;
+    }
+    if (json.length > QUESTION_JSON_MAX_LENGTH) {
+        message.error(t("ERROR_CODE.QUESTION_JSON_TOO_LARGE"));
+        return;
+    }
+
+    resetPreview();
+    checkingJson.value = true;
+    try {
+        const result = await ApiQuestionSet.ImportJson(json);
+        if (!result?.data?.success) return;
+        const data = result.data.data;
+        question_data.value = [...data.validQuestions, ...data.invalidQuestions].sort(
+            (a: PreviewQuestion, b: PreviewQuestion) => (a.index ?? 0) - (b.index ?? 0),
+        );
+        uploadedQuestions.value = question_data.value;
+        uploadedInvalidQuestions.value = question_data.value.filter((x) => x.errors?.length);
+        jsonSetInfo.value = data.questionSet ?? null;
+        // chọn sẵn mọi câu hợp lệ
+        importModalState.checkedList = question_data.value.filter((x) => !x.errors?.length);
+
+        if (data.invalidQuestions.length > 0)
+            message.warning(
+                t("question_json.import.checked_with_errors", {
+                    valid: data.validQuestions.length,
+                    invalid: data.invalidQuestions.length,
+                }),
+            );
+        else message.success(t("question_json.import.checked", { number: data.validQuestions.length }));
+    } catch (error) {
+        // JSON sai cú pháp / rỗng / quá nhiều câu: toast lỗi đã hiển thị ở interceptor
+        console.log("ERROR: import json", error);
+    } finally {
+        checkingJson.value = false;
+    }
+};
+
+const onDownloadJsonExample = () => downloadJsonFile("aiquizzizz-mau.json", exampleQuestionJson());
+
+const onOpenPromptModal = () => promptModalRef.value?.openModal();
 //#endregion
 
 //#region filter select
@@ -262,7 +371,7 @@ const handleModalImport = () => {
             ) as RequestQuestion[];
 
             //emit event & params to main
-            emit("import", selectedQuestions);
+            emit("import", selectedQuestions, source.value === "json" ? jsonSetInfo.value : null);
             closeImportModal();
         },
     });
@@ -301,13 +410,75 @@ onMounted(() => {});
             </div>
             <div class="modal-content-item">
                 <div class="content-item-section upload-section">
-                    <div class="section-title">
+                    <a-radio-group
+                        v-model:value="source"
+                        button-style="solid"
+                        class="import-source-switch"
+                        @change="onChangeSource"
+                    >
+                        <a-radio-button v-for="option in sourceOptions" :value="option.value">
+                            {{ option.label }}
+                        </a-radio-button>
+                    </a-radio-group>
+                    <div v-if="source === 'excel'" class="section-title">
                         <span>{{ $t("import_qs_modal.upload_section") }}</span>
                         <a-button class="main-color-btn" type="primary" @click="onDownloadTemplate">
                             {{ $t("import_qs_modal.buttons.download") }}
                         </a-button>
                     </div>
-                    <div class="section-content">
+                    <template v-else>
+                        <div class="section-title">
+                            <span>{{ $t("question_json.import.title") }}</span>
+                        </div>
+                        <div class="json-actions">
+                            <a-button type="primary" class="main-color-btn" @click="onOpenPromptModal">
+                                <i class="bx bx-bot me-1"></i>
+                                {{ $t("question_json.import.open_prompt") }}
+                            </a-button>
+                            <a-button @click="onDownloadJsonExample">
+                                <i class="bx bx-download me-1"></i>
+                                {{ $t("question_json.import.download_example") }}
+                            </a-button>
+                        </div>
+                        <input
+                            @change="handleJsonFileChange"
+                            class="d-none"
+                            type="file"
+                            ref="jsonFileInput"
+                            accept=".json,.txt,application/json,text/plain"
+                        />
+                        <div
+                            :class="['json-input-area', isDragging ? 'is-dragging' : '']"
+                            @dragenter="handleDragEnter"
+                            @dragover.prevent="isDragging = true"
+                            @dragleave="isDragging = false"
+                            @drop.prevent="handleJsonDrop"
+                        >
+                            <a-textarea
+                                v-model:value="jsonText"
+                                class="json-textarea"
+                                spellcheck="false"
+                                :rows="14"
+                                :placeholder="$t('question_json.import.placeholder')"
+                            />
+                        </div>
+                        <div class="json-hint">{{ $t("question_json.import.hint") }}</div>
+                        <div class="json-actions">
+                            <a-button @click="jsonFileInput?.click()">
+                                <i class="bx bx-file me-1"></i>
+                                {{ $t("question_json.import.choose_file") }}
+                            </a-button>
+                            <a-button
+                                type="primary"
+                                class="main-color-btn"
+                                :loading="checkingJson"
+                                @click="onCheckJson"
+                            >
+                                {{ $t("question_json.import.check") }}
+                            </a-button>
+                        </div>
+                    </template>
+                    <div v-if="source === 'excel'" class="section-content">
                         <input
                             @change="handleFileChange"
                             class="d-none"
@@ -344,7 +515,7 @@ onMounted(() => {});
                             </div>
                         </div>
                     </div>
-                    <div class="file-container">
+                    <div v-if="source === 'excel'" class="file-container">
                         <div class="file-item" v-for="(file, index) in files">
                             <span>{{ file.name }}</span>
                             <i
@@ -404,6 +575,9 @@ onMounted(() => {});
                                 >
                                     <a-checkbox :value="question"></a-checkbox>
                                     <div class="question-item-content">
+                                        <div v-if="question.index" class="question-item-index">
+                                            {{ $t("question_json.import.question_index", { index: question.index }) }}
+                                        </div>
                                         <RichContent
                                             class="question-html"
                                             :content="question.questionHTML || question.questionText"
@@ -507,6 +681,17 @@ onMounted(() => {});
                                                 </div>
                                             </template>
                                         </div>
+                                        <ul
+                                            v-if="question.errors?.length || question.warnings?.length"
+                                            class="question-item-issues"
+                                        >
+                                            <li v-for="error in question.errors" class="issue-error">
+                                                <i class="bx bx-error-circle"></i> {{ error }}
+                                            </li>
+                                            <li v-for="warning in question.warnings" class="issue-warning">
+                                                <i class="bx bx-info-circle"></i> {{ warning }}
+                                            </li>
+                                        </ul>
                                     </div>
                                     <div class="question-item-toogle-btn">
                                         <i
@@ -545,9 +730,73 @@ onMounted(() => {});
             </div>
         </template>
     </a-modal>
+    <QuestionJsonPromptModal ref="promptModalRef" :topic="props.title" />
 </template>
 <style>
 .preview-question-item.invalid {
     border-color: red;
+}
+.import-source-switch {
+    display: flex;
+    margin-bottom: 14px;
+}
+.import-source-switch .ant-radio-button-wrapper {
+    flex: 1;
+    text-align: center;
+    font-weight: 500;
+}
+.import-source-switch .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled),
+.import-source-switch .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+    color: var(--text-color-contrast);
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+.import-source-switch .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+    background-color: var(--main-color);
+}
+.import-source-switch .ant-radio-button-wrapper:not(.ant-radio-button-wrapper-checked):hover {
+    color: var(--main-color);
+}
+.json-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+.json-input-area {
+    border-radius: 6px;
+}
+.json-textarea.ant-input {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    resize: vertical;
+}
+.json-hint {
+    margin: 6px 0 10px;
+    font-size: 12px;
+    color: var(--text-color-grey);
+}
+.question-item-index {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-color-grey);
+}
+.question-item-issues {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    font-size: 13px;
+}
+.question-item-issues li {
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+}
+.question-item-issues .issue-error {
+    color: #dc2626;
+}
+.question-item-issues .issue-warning {
+    color: #b45309;
 }
 </style>

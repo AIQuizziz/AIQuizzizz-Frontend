@@ -56,5 +56,5 @@ Khi đổi loại, nội dung câu hỏi được giữ lại. Nếu loại mớ
 
 - [Tạo bộ câu hỏi](/guide/question-sets/create)
 - [Rich text & Markdown](/guide/question-sets/markdown)
-- [Nhập câu hỏi từ tệp](/guide/question-sets/import)
+- [Nhập / xuất câu hỏi](/guide/question-sets/import)
 - [Chế độ Học](/guide/learning/learn-mode)

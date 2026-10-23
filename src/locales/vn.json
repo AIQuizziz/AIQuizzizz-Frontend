@@ -1070,6 +1070,58 @@
             "content": "Bạn có chắc chắn muốn nhập {number} câu hỏi không?"
         }
     },
+    "question_json": {
+        "types": {
+            "MultipleChoice": "Trắc nghiệm",
+            "Matching": "Ghép đôi",
+            "Ordering": "Sắp xếp",
+            "ShortText": "Trả lời ngắn"
+        },
+        "import": {
+            "title": "Dán hoặc chọn tệp JSON",
+            "open_prompt": "Prompt mẫu để AI tạo JSON",
+            "download_example": "Tải JSON mẫu",
+            "placeholder": "Dán JSON vào đây (có thể dán nguyên câu trả lời của ChatGPT / Gemini / Claude, kể cả khối ```json)…",
+            "hint": "Hoặc kéo thả tệp .json vào ô trên. Tối đa 500 câu mỗi lần. Ảnh / video không nhập qua JSON.",
+            "choose_file": "Chọn tệp .json",
+            "check": "Kiểm tra JSON",
+            "empty": "Vui lòng dán JSON hoặc chọn tệp .json",
+            "checked": "Đọc được {number} câu hỏi hợp lệ",
+            "checked_with_errors": "{valid} câu hợp lệ, {invalid} câu lỗi (xem lý do bên dưới từng câu)",
+            "question_index": "Câu {index} trong JSON"
+        },
+        "export": {
+            "button": "Xuất JSON",
+            "success": "Đã tải tệp JSON"
+        },
+        "prompt": {
+            "title": "Prompt mẫu để AI tạo câu hỏi dạng JSON",
+            "intro": "Điền yêu cầu, sao chép prompt rồi dán vào ChatGPT, Gemini, Claude… AI sẽ trả về JSON đúng định dạng để nhập vào hệ thống.",
+            "topic": "Chủ đề",
+            "topic_placeholder": "VD: Lịch sử Việt Nam 1945–1975, Python cơ bản, IELTS Vocabulary…",
+            "count": "Số câu hỏi",
+            "difficulty": "Độ khó",
+            "difficulty_options": {
+                "mixed": "Trộn",
+                "easy": "Dễ",
+                "medium": "Trung bình",
+                "hard": "Khó"
+            },
+            "question_language": "Ngôn ngữ câu hỏi",
+            "default_language": "Tiếng Việt",
+            "types": "Dạng câu hỏi",
+            "notes": "Yêu cầu thêm (tuỳ chọn)",
+            "notes_placeholder": "VD: dựa trên tài liệu tôi gửi kèm, mỗi câu có giải thích, tránh câu hỏi mẹo…",
+            "preview": "Prompt",
+            "copy": "Sao chép prompt",
+            "copied": "Đã sao chép prompt",
+            "copy_failed": "Không sao chép được, hãy bôi đen và sao chép thủ công",
+            "select_type": "Chọn ít nhất một dạng câu hỏi",
+            "step_1": "Dán prompt vào AI (có thể đính kèm tài liệu để AI soạn theo).",
+            "step_2": "Sao chép toàn bộ câu trả lời của AI.",
+            "step_3": "Quay lại đây, dán vào ô JSON rồi bấm \"Kiểm tra JSON\"."
+        }
+    },
     "generate_qs_modal": {
         "title": "Tạo câu hỏi",
         "sub_title": "Sử dụng AI để phân tích tài liệu và tạo câu hỏi cho bạn",
@@ -1380,7 +1432,10 @@
         "SOURCE_QUESTION_NOT_FOUND": "Câu gốc đã bị xoá hoặc bạn không còn quyền xem bộ câu hỏi chứa nó.",
         "AVATAR_VIOLATED": "Ảnh đại diện vi phạm tiêu chuẩn cộng đồng (khoả thân / khiêu dâm / bạo lực) nên đã bị từ chối và tính 1 vi phạm. Đủ 3 vi phạm trong 90 ngày tài khoản sẽ bị khoá tự động.",
         "AVATAR_MODERATION_FAILED": "Chưa kiểm duyệt được ảnh lúc này, vui lòng thử lại sau.",
-        "AVATAR_NOT_FOUND": "Không tìm thấy ảnh đại diện"
+        "AVATAR_NOT_FOUND": "Không tìm thấy ảnh đại diện",
+        "QUESTION_JSON_EMPTY": "Không tìm thấy câu hỏi nào trong JSON",
+        "QUESTION_JSON_INVALID": "JSON không hợp lệ",
+        "QUESTION_JSON_TOO_LARGE": "JSON quá lớn: tối đa 500 câu hỏi mỗi lần nhập"
     },
     "message": {
         "added_successfully": "Thêm thành công!",

@@ -25,6 +25,8 @@ const END_POINTS = {
     GET_SHARED_CLASSES: "QuestionSet/{questionSetId}/Classes",
     DOWNLOAD_FILE_IMPORT: "QuestionSet/DownloadFileImport",
     GET_QUIZ_TYPES: "QuestionSet/{questionSetId}/Types",
+    EXPORT_JSON: "QuestionSet/{questionSetId}/ExportJson",
+    IMPORT_JSON: "QuestionSet/ImportJson",
 };
 
 class ApiQuestionSet {
@@ -146,6 +148,17 @@ class ApiQuestionSet {
 
     DownloadFileImport = async () => {
         return await Api.get(`${END_POINTS.DOWNLOAD_FILE_IMPORT}`);
+    };
+
+    // JSON câu hỏi của bộ (định dạng "aiquizzizz/questions")
+    ExportJson = async (questionSetId: string) => {
+        const url = END_POINTS.EXPORT_JSON.replace("{questionSetId}", questionSetId);
+        return await Api.get(url);
+    };
+
+    // đọc + kiểm tra JSON câu hỏi (không lưu): trả câu hợp lệ / không hợp lệ kèm lý do
+    ImportJson = async (json: string) => {
+        return await Api.post(END_POINTS.IMPORT_JSON, { json });
     };
 
     GetQuizTypes = async (questionSetId: string) => {

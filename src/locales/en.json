@@ -1070,6 +1070,58 @@
             "content": "Are you sure you want to import {number} questions?"
         }
     },
+    "question_json": {
+        "types": {
+            "MultipleChoice": "Multiple choice",
+            "Matching": "Matching",
+            "Ordering": "Ordering",
+            "ShortText": "Short answer"
+        },
+        "import": {
+            "title": "Paste or choose a JSON file",
+            "open_prompt": "AI prompt template",
+            "download_example": "Download sample JSON",
+            "placeholder": "Paste JSON here (you can paste the whole ChatGPT / Gemini / Claude reply, including the ```json block)…",
+            "hint": "Or drop a .json file onto the box above. Up to 500 questions at a time. Images / videos are not imported via JSON.",
+            "choose_file": "Choose .json file",
+            "check": "Check JSON",
+            "empty": "Please paste JSON or choose a .json file",
+            "checked": "Read {number} valid questions",
+            "checked_with_errors": "{valid} valid, {invalid} with errors (see the reason under each question)",
+            "question_index": "Question {index} in JSON"
+        },
+        "export": {
+            "button": "Export JSON",
+            "success": "JSON file downloaded"
+        },
+        "prompt": {
+            "title": "Prompt template for AI-generated JSON questions",
+            "intro": "Fill in your request, copy the prompt and paste it into ChatGPT, Gemini, Claude… The AI replies with JSON in the format this system imports.",
+            "topic": "Topic",
+            "topic_placeholder": "e.g. World War II, Python basics, IELTS vocabulary…",
+            "count": "Number of questions",
+            "difficulty": "Difficulty",
+            "difficulty_options": {
+                "mixed": "Mixed",
+                "easy": "Easy",
+                "medium": "Medium",
+                "hard": "Hard"
+            },
+            "question_language": "Question language",
+            "default_language": "English",
+            "types": "Question types",
+            "notes": "Extra requirements (optional)",
+            "notes_placeholder": "e.g. based on the attached document, add an explanation to every question, no trick questions…",
+            "preview": "Prompt",
+            "copy": "Copy prompt",
+            "copied": "Prompt copied",
+            "copy_failed": "Could not copy, please select the text and copy it manually",
+            "select_type": "Select at least one question type",
+            "step_1": "Paste the prompt into the AI (you can attach a document for it to work from).",
+            "step_2": "Copy the AI's whole reply.",
+            "step_3": "Come back, paste it into the JSON box and click \"Check JSON\"."
+        }
+    },
     "generate_qs_modal": {
         "title": "Generate Questions With AI",
         "sub_title": "Use AI to analyze your document and generate questions.",
@@ -1380,7 +1432,10 @@
         "SOURCE_QUESTION_NOT_FOUND": "The source question was deleted or you can no longer view its question set.",
         "AVATAR_VIOLATED": "This profile photo violates the community guidelines (nudity / sexual content / violence), so it was rejected and counted as 1 violation. 3 violations within 90 days will automatically ban your account.",
         "AVATAR_MODERATION_FAILED": "The photo could not be checked right now, please try again later.",
-        "AVATAR_NOT_FOUND": "Profile photo not found"
+        "AVATAR_NOT_FOUND": "Profile photo not found",
+        "QUESTION_JSON_EMPTY": "No questions found in the JSON",
+        "QUESTION_JSON_INVALID": "Invalid JSON",
+        "QUESTION_JSON_TOO_LARGE": "JSON too large: up to 500 questions per import"
     },
     "message": {
         "added_successfully": "Add successfully!",
