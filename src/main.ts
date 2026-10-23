@@ -28,6 +28,7 @@ import "boxicons/css/boxicons.min.css";
  * (xem docs/THEME-AND-RESPONSIVE.md)
  * **/
 import "./assets/theme-overrides.css";
+import "./assets/ui-refresh.css";
 import "./assets/responsive.css";
 
 /**
