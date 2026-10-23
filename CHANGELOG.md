@@ -6,6 +6,9 @@ Mọi thay đổi đáng chú ý của dự án được ghi lại trong file n�
 
 ## [Unreleased] - 2026-10-02
 
+### Added — Mã mời vào lớp vô thời hạn
+- Ô "Thời gian giới hạn" trong hộp thoại mời thành viên (`views/user/class/student.vue`) có thêm **Vô thời hạn** (gửi `expiredTime: null`, cần backend có `ClassInvitation.NoExpiry`).
+
 ### Fixed — Vào trang chi tiết bộ câu hỏi bị nhảy xuống giữa trang
 - Router không có `scrollBehavior` nên sang trang mới vẫn giữ vị trí cuộn của trang cũ (vd thư viện cuộn 1px); khi danh sách câu hỏi render dần, scroll anchoring của Chrome kéo trang tới giữa (`scrollY` 17331 / cao 35562). Nay sang trang mới về đầu trang; back / forward về vị trí cũ; chỉ đổi query giữ nguyên; có hash để trang hướng dẫn tự cuộn.
 

@@ -800,7 +800,8 @@
             "search_placeholder": "Tìm kiếm thành viên lớp...",
             "items": "thành viên",
             "day_singular": " ngày",
-            "day_plural": " ngày"
+            "day_plural": " ngày",
+            "no_expiry": "Vô thời hạn"
         },
         "danger_zone": {
             "title": "Vùng nguy hiểm",
