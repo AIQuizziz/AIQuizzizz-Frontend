@@ -6,6 +6,15 @@ Mọi thay đổi đáng chú ý của dự án được ghi lại trong file n�
 
 ## [Unreleased] - 2026-10-02
 
+### Changed — Trang tạo / sửa bộ câu hỏi: bố cục "phương án 11" (một cột + mục lục câu hỏi bên trái)
+- **Mục lục câu hỏi** cố định bên trái (`QuestionOutline`): số thứ tự, nội dung một dòng, loại · điểm; câu đang soạn tô tím, câu lỗi viền đỏ kèm lý do + huy hiệu "N lỗi" (bấm để nhảy tới câu lỗi đầu tiên); kéo thả để đổi thứ tự; nút thêm câu. Câu còn trống hoàn toàn chưa tính là lỗi.
+- **Cột soạn ở giữa** (`QuestionEditorLayout`): thẻ thông tin bộ + danh sách câu hỏi, mỗi lúc chỉ mở **một** câu, các câu khác thu gọn (`QuestionSummaryCard`: nội dung, loại, điểm, đáp án đúng hoặc lỗi) -> trang nhẹ hơn nhiều với bộ vài trăm câu (755 phần tử DOM với 25 câu). Bấm câu trong mục lục / thẻ thu gọn: mở câu đó và cuộn tới.
+- **Thanh công cụ nổi** bên phải: thêm câu (Ctrl + Enter), nhập, tạo bằng AI. Nút **Tạo / Cập nhật** chuyển lên thanh tiêu đề.
+- Màn hình < 1100px: mục lục xếp trên cột soạn, thanh công cụ thành nút nổi góc dưới bên phải.
+- Dùng chung cho cả `create.vue` và `update.vue`; thêm câu / nhập câu mở và cuộn tới câu mới. `.page-container.editor-page` dùng `overflow: clip` vì `overflow-y: scroll` biến nó thành khung cuộn của phần tử sticky dù trang cuộn ở `<html>`.
+- Chưa làm (có trong bản vẽ): chế độ "Xem trước" và hai nút ảnh / nhân bản trên thanh công cụ.
+- `services/QuestionOutlineService.ts` + vitest (5 ca), i18n `question_editor.*`.
+
 ### Added — Mã mời vào lớp vô thời hạn
 - Ô "Thời gian giới hạn" trong hộp thoại mời thành viên (`views/user/class/student.vue`) có thêm **Vô thời hạn** (gửi `expiredTime: null`, cần backend có `ClassInvitation.NoExpiry`).
 

@@ -373,6 +373,23 @@
             "tag_content_placeholder": "Enter tag content"
         }
     },
+    "question_editor": {
+        "outline": {
+            "title": "Questions ({number})",
+            "errors": "{number} errors",
+            "go_to_error": "Jump to the first question with an error",
+            "empty": "(No content yet)",
+            "points": "{number} pts",
+            "drag": "Drag to reorder"
+        },
+        "summary": {
+            "open": "Open question {number} to edit"
+        },
+        "toolbar": {
+            "add": "Add question (Ctrl + Enter)",
+            "label": "Question editing tools"
+        }
+    },
     "update_QS": {
         "title": "Update question set: {name}",
         "buttons": {

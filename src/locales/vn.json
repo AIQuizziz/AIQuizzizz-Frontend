@@ -373,6 +373,23 @@
             "tag_content_placeholder": "Nhập nội dung thẻ"
         }
     },
+    "question_editor": {
+        "outline": {
+            "title": "Câu hỏi ({number})",
+            "errors": "{number} lỗi",
+            "go_to_error": "Nhảy tới câu lỗi đầu tiên",
+            "empty": "(Chưa có nội dung)",
+            "points": "{number} điểm",
+            "drag": "Kéo để đổi thứ tự"
+        },
+        "summary": {
+            "open": "Mở câu {number} để soạn"
+        },
+        "toolbar": {
+            "add": "Thêm câu hỏi (Ctrl + Enter)",
+            "label": "Công cụ soạn câu hỏi"
+        }
+    },
     "update_QS": {
         "title": "Chỉnh sửa bộ câu hỏi: {name}",
         "buttons": {
