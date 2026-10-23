@@ -6,6 +6,9 @@ Mọi thay đổi đáng chú ý của dự án được ghi lại trong file n�
 
 ## [Unreleased] - 2026-10-02
 
+### Fixed — Vào trang chi tiết bộ câu hỏi bị nhảy xuống giữa trang
+- Router không có `scrollBehavior` nên sang trang mới vẫn giữ vị trí cuộn của trang cũ (vd thư viện cuộn 1px); khi danh sách câu hỏi render dần, scroll anchoring của Chrome kéo trang tới giữa (`scrollY` 17331 / cao 35562). Nay sang trang mới về đầu trang; back / forward về vị trí cũ; chỉ đổi query giữ nguyên; có hash để trang hướng dẫn tự cuộn.
+
 ### Added — Nhập / xuất câu hỏi dạng JSON + prompt mẫu cho AI
 - **Modal nhập câu hỏi** có nút chọn nguồn **Excel / JSON**. JSON: dán vào ô nhập, chọn hoặc kéo thả tệp `.json`, bấm **Kiểm tra JSON** -> server đọc + kiểm tra (`POST QuestionSet/ImportJson`), xem trước theo thứ tự trong file ("Câu n trong JSON"), câu lỗi viền đỏ kèm lý do, cảnh báo màu cam; câu hợp lệ được chọn sẵn. Dán được nguyên câu trả lời của AI (có lời dẫn, khối ```` ```json ````).
 - **Prompt mẫu** (`QuestionJsonPromptModal`): chủ đề (điền sẵn tên bộ đang soạn), số câu, độ khó, ngôn ngữ câu hỏi, dạng câu hỏi, yêu cầu thêm -> prompt (vi / en theo ngôn ngữ giao diện) kèm khung JSON chỉ gồm các dạng đã chọn và quy tắc kiểm tra; nút sao chép. **Tải JSON mẫu** đủ 4 dạng.

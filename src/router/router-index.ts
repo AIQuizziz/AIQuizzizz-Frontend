@@ -109,6 +109,16 @@ const routes = [...adminRoutes, ...userRoutes, ...indexRoutes];
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes,
+    // Sang trang mới luôn về đầu trang. Trước đây giữ nguyên vị trí cuộn của trang cũ (dù chỉ 1px) nên khi nội dung
+    // trang mới render dần, scroll anchoring của Chrome kéo trang theo (vd chi tiết bộ câu hỏi nhảy xuống giữa trang).
+    // Back / forward: về vị trí cũ; chỉ đổi query trên cùng trang (lọc, tìm kiếm): giữ nguyên;
+    // có hash: trang hướng dẫn tự cuộn tới mục sau khi tải xong nội dung.
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) return savedPosition;
+        if (to.hash) return false;
+        if (to.path === from.path) return false;
+        return { top: 0 };
+    },
 });
 
 const isAdminOrModerator = () => {
