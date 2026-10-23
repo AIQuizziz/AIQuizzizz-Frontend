@@ -33,7 +33,7 @@ Giới hạn chung cho mỗi câu:
 - Điểm: từ 0 đến 999.
 - Mỗi bộ câu hỏi: từ 1 đến 500 câu. Ô **Tổng cộng** (*Total*) hiển thị số câu hiện có.
 
-Bạn cũng có thể nhập nhiều câu cùng lúc từ tệp Excel bằng nút **Nhập** (*Import*). Xem [Nhập câu hỏi từ tệp](/guide/question-sets/import).
+Bạn cũng có thể nhập nhiều câu cùng lúc từ tệp Excel hoặc JSON (kể cả JSON do AI tạo) bằng nút **Nhập** (*Import*). Xem [Nhập / xuất câu hỏi](/guide/question-sets/import).
 
 ## Lưu bộ câu hỏi
 
@@ -59,4 +59,4 @@ Bạn cũng có thể nhập nhiều câu cùng lúc từ tệp Excel bằng nú
 - [Các loại câu hỏi](/guide/question-sets/question-types)
 - [Rich text & Markdown](/guide/question-sets/markdown)
 - [Ảnh / video trong câu hỏi](/guide/question-sets/media)
-- [Nhập câu hỏi từ tệp](/guide/question-sets/import)
+- [Nhập / xuất câu hỏi](/guide/question-sets/import)

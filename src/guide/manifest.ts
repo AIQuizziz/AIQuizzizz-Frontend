@@ -43,7 +43,7 @@ export const GUIDE: GuideGroup[] = [
             { slug: "question-types", title: "Các loại câu hỏi" },
             { slug: "markdown", title: "Rich text & Markdown" },
             { slug: "media", title: "Ảnh / video trong câu hỏi" },
-            { slug: "import", title: "Nhập câu hỏi từ tệp" },
+            { slug: "import", title: "Nhập / xuất câu hỏi (Excel, JSON)" },
             { slug: "sharing", title: "Chia sẻ & quyền xem" },
             { slug: "search", title: "Tìm bộ câu hỏi công khai" },
         ],

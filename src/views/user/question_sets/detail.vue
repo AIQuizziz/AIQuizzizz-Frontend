@@ -14,6 +14,7 @@ import Input from "@/shared/components/Common/Input.vue";
 import { message, Modal } from "ant-design-vue";
 import TransferQuestionData from "@/services/TransferQuestionData";
 import { mergeQuestionMedia } from "@/services/QuestionMediaService";
+import { downloadJsonFile, questionJsonFileName } from "@/services/QuestionJsonService";
 import QuestionMediaView from "@/shared/components/Media/QuestionMediaView.vue";
 import RichContent from "@/shared/components/Common/RichContent.vue";
 import FlashcardBack from "@/shared/components/Flashcard/FlashcardBack.vue";
@@ -244,6 +245,26 @@ const getPermission = async () => {
 };
 //#endregion
 
+//#region export json
+const exportingJson = ref(false);
+const onExportJson = async () => {
+    if (exportingJson.value) return;
+    exportingJson.value = true;
+    try {
+        const result = await ApiQuestionSet.ExportJson(quiz.value.id);
+        if (result.data.success) {
+            downloadJsonFile(questionJsonFileName(quiz.value.name), result.data.data);
+            message.success(t("question_json.export.success"));
+        }
+    } catch (error) {
+        // không có quyền / gói không cho phép: toast lỗi đã hiển thị ở interceptor
+        console.log("ERROR: export json", error);
+    } finally {
+        exportingJson.value = false;
+    }
+};
+//#endregion
+
 const onDelete = () => {
     Modal.confirm({
         title: t("detail_QS.modal.delete_title"),
@@ -335,6 +356,15 @@ onMounted(async () => {
                                 v-if="permission.canEdit"
                                 class="me-3 bx bx-edit"
                                 @click="onRedirectToEdit"
+                            ></i>
+                        </a-tooltip>
+                        <a-tooltip v-if="permission.canEdit">
+                            <template #title>
+                                {{ $t("question_json.export.button") }}
+                            </template>
+                            <i
+                                :class="['me-3 bx', exportingJson ? 'bx-loader-alt bx-spin' : 'bx-export']"
+                                @click="onExportJson"
                             ></i>
                         </a-tooltip>
                         <a-tooltip>
